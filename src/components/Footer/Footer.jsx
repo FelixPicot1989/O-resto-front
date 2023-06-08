@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.scss';
 
+// Reste à dynamiser les informations des paragraphes et de rajouter des LinkTo grâce à react-router-dom
 function Footer() {
   return (
     <div className="Footer">

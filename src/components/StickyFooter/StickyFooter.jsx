@@ -3,6 +3,7 @@ import './StickyFooter.scss';
 
 import { FaRegCalendarAlt, FaPhoneAlt } from 'react-icons/fa';
 
+// Il faudra rajouter des LinkTo et faire en sorte que les icônes et le texte soit cliquable
 function StickyFooter() {
   return (
     <div className="StickyFooter">

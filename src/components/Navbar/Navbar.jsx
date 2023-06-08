@@ -4,9 +4,12 @@ import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
 
+// Il reste à mettre des LinkTo dans la nav au lieu des <li> (Attention au CSS !!)
 function Navbar() {
+  // Variable dans le state pour détecter si le user ouvre le menu burger ou le menu déroulant de "La carte"
   const [nav, setNav] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
+  // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleClick = () => {
     setNav(!nav);
   };

@@ -8,10 +8,10 @@ $background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 1%;
+  padding: 1% 0;
   color: black;
   background-color: $background-color;
-  z-index: 1;
+  z-index: 2;
 
   .logo-oresto {
     margin-left: 2%;
@@ -153,8 +153,9 @@ $background-color: #fff;
 
   &-mobile {
     position: fixed;
-    top: 20%;
+    top: 0;
     left: 0;
+    padding-top: 25%;
     width: 100%;
     height: 100vh;
     background-color: $background-color;
