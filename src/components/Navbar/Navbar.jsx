@@ -17,7 +17,7 @@ function Navbar() {
   return (
     <nav className="Navbar">
       <img src={logoOresto} alt="logo-oresto" className="logo-oresto" />
-      <h1 className={!nav ? 'title-hidden' : 'title'}>O'Resto</h1>
+      <h1 className={!nav ? 'title-hidden' : 'title'}>O&apos;Resto</h1>
       {/* Desktop menu */}
       <div className="Navbar-desktop">
         <ul className="Navbar-list">

@@ -1,0 +1,65 @@
+.Footer {
+  border-top: 1px solid rgba(148, 148, 148, 0.493);
+  background: rgba(148, 148, 148, 0.493);
+  .infos-pratiques {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > * {
+        margin: 0;
+      }
+
+      h3 {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    .adresse {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > * {
+        margin: 0;
+      }
+
+      h3 {
+        margin-bottom: 0.5rem;
+        margin-top: 2rem;
+      }
+    }
+
+    .horaires {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > * {
+        margin: 0;
+      }
+
+      h3 {
+        margin-bottom: 0.5rem;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  .legales {
+    margin-top: 2rem;
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      li {
+        list-style-type: none;
+      }
+    }
+  }
+}
