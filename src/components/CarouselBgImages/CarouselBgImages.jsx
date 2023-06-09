@@ -11,7 +11,7 @@ import img3 from '../../assets/restaurant3.jpg';
 // Pour le moment les images sont importés en statique
 function CarouselBgImages() {
   return (
-    <div>
+    <div className="CarouselBgImages">
       {/* Le titre au milieu de la page que l'on remplacera avec une props quand on pourra avoir les données en dynamiques */}
       <h1 className="page-title">O&apos;resto</h1>
       {/* Le composant du carousel de la librairie react-responsive-carousel, on mapera pour créer les div */}

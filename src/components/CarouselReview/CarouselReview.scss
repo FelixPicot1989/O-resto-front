@@ -1,0 +1,58 @@
+.CarouselReview {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    align-self: center;
+    margin: 1rem 0;
+    font-size: 2rem;
+  }
+  .Card-review {
+    height: 250px;
+    width: 300px;
+    margin: 10px auto;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 1rem;
+
+    @media (min-width: 768px) {
+      width: 500px;
+    }
+
+    .user-name {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .rate {
+      margin-top: 10px;
+    }
+
+    .comment {
+      font-size: 14px;
+      text-align: justify;
+      margin: 10px 0 5px;
+    }
+
+    .date {
+      font-size: 12px;
+      color: #999;
+      text-align: start;
+    }
+  }
+}
+
+.control-next.control-arrow::before {
+  border-left: 8px solid rgb(214, 154, 52) !important;
+}
+
+.control-prev.control-arrow::before {
+  border-right: 8px solid rgb(214, 154, 52) !important;
+}
+
+.control-arrow:hover {
+  background-color: transparent !important;
+}
