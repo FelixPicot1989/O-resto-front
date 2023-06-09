@@ -1,17 +1,16 @@
 import './App.css';
+import HomePage from './HomePage/HomePage';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import StickyFooter from './components/StickyFooter/StickyFooter';
-import CarouselBgImages from './components/CarouselBgImages/CarouselBgImages';
-import CarouselAvis from './components/CarouselReview/CarouselReview';
 
 function App() {
   return (
     <>
       <Navbar />
-      {/* Carousel censé être dans la page */}
-      <CarouselBgImages />
-      <CarouselAvis />
+      {/* Page changera en fonction de l'URL */}
+      {/* PageName : */}
+      <HomePage />
       <Footer />
       <StickyFooter />
     </>

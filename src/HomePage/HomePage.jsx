@@ -1,9 +1,12 @@
 import React from 'react';
 import './HomePage.scss';
+import CarouselBgImages from '../components/CarouselBgImages/CarouselBgImages';
+import CarouselReview from '../components/CarouselReview/CarouselReview';
 
 function HomePage() {
   return (
     <div className="HomePage">
+      <CarouselBgImages />
       <div className="Oresto-story">
         <h2>Histoire du restaurant</h2>
         <p>
@@ -16,6 +19,7 @@ function HomePage() {
           eligendi atque, ab beatae natus! Facere vero ad animi reprehenderit laboriosam.
         </p>
       </div>
+      <CarouselReview />
     </div>
   );
 }
