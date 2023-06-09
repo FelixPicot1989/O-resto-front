@@ -41,6 +41,11 @@ $background-color: #fff;
     display: none;
   }
 
+  .active {
+    // border-bottom: 2px solid #d69a34;
+    text-decoration: underline #d69a34;
+  }
+
   &-desktop {
     display: none;
 
@@ -176,6 +181,7 @@ $background-color: #fff;
       margin: 1.5rem 0;
       font-size: 2rem;
       text-align: center;
+      display: block;
     }
 
     .dropdown {

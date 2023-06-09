@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight, FaChevronDown } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
@@ -10,11 +11,15 @@ function Navbar() {
   const [nav, setNav] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
-  const handleClick = () => {
+  const handleToggleNav = () => {
     setNav(!nav);
   };
   const handleDropDown = () => {
     setOpenDropDown(!openDropDown);
+  };
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0 });
   };
 
   return (
@@ -24,9 +29,13 @@ function Navbar() {
       {/* Desktop menu */}
       <div className="Navbar-desktop">
         <ul className="Navbar-list">
-          <li className="Navbar-list-item">Accueil</li>
+          <NavLink to="/" className="Navbar-list-item">
+            Accueil
+          </NavLink>
           <div className="dropdown">
-            <li className="Navbar-list-item">La carte</li>
+            <NavLink to="/carte" className="Navbar-list-item">
+              La carte
+            </NavLink>
             <div onClick={handleDropDown} className="chevron">
               {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
             </div>
@@ -38,31 +47,52 @@ function Navbar() {
               <li>Boissons</li>
             </ul>
           </div>
-          <li className="Navbar-list-item">Réserver/Contact</li>
-          <li className="Navbar-list-item">Donner votre avis</li>
+          <NavLink to="/reservations-contact" className="Navbar-list-item">
+            Réserver/Contact
+          </NavLink>
+          <NavLink className="Navbar-list-item" to="/avis">
+            Donner votre avis
+          </NavLink>
         </ul>
         <div className="login-social-desktop">
-          <button className="btn-login" type="button">
-            Connexion
-          </button>
+          <NavLink to="/login">
+            <button className="btn-login" type="button">
+              Connexion
+            </button>
+          </NavLink>
           <div className="social-desktop">
-            <FaFacebook />
-            <FaInstagram />
-            <FaTripadvisor />
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <FaFacebook />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <FaTripadvisor />
+            </a>
           </div>
         </div>
       </div>
       {/* Bouton burger */}
-      <div onClick={handleClick} className="Navbar-burger">
+      <div onClick={handleToggleNav} className="Navbar-burger">
         {!nav ? <FaBars /> : <FaTimes />}
       </div>
       {/* Mobile menu */}
       <div className={!nav ? 'Navbar-mobile-hidden' : 'Navbar-mobile'}>
         <ul>
-          <li className="Navbar-mobile-item">Accueil</li>
+          <NavLink
+            to="/"
+            onClick={() => {
+              handleToggleNav();
+              handleScrollToTop();
+            }}
+            className="Navbar-mobile-item"
+          >
+            Accueil
+          </NavLink>
           <li className="Navbar-mobile-item dropdown">
             <div>
-              La carte
+              <NavLink to="/carte">La carte</NavLink>
               <div onClick={handleDropDown} className="chevron">
                 {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
               </div>
@@ -75,17 +105,36 @@ function Navbar() {
               <li>Boissons</li>
             </ul>
           </li>
-          <li className="Navbar-mobile-item">Réserver/Contact</li>
-          <li className="Navbar-mobile-item">Donner votre avis</li>
+          <NavLink to="/reservations-contact" className="Navbar-mobile-item">
+            Réserver/Contact
+          </NavLink>
+          <NavLink
+            onClick={() => {
+              handleToggleNav();
+              handleScrollToTop();
+            }}
+            to="/avis"
+            className="Navbar-mobile-item"
+          >
+            Donner votre avis
+          </NavLink>
         </ul>
         <div className="login-social-mobile">
-          <button className="btn-login" type="button">
-            Connexion
-          </button>
+          <NavLink to="/login">
+            <button className="btn-login" type="button">
+              Connexion
+            </button>
+          </NavLink>
           <div className="social-media">
-            <FaFacebook />
-            <FaInstagram />
-            <FaTripadvisor />
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <FaFacebook />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <FaTripadvisor />
+            </a>
           </div>
         </div>
       </div>

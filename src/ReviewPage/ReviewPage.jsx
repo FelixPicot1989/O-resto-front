@@ -16,7 +16,8 @@ function ReviewPage() {
 
   return (
     <div className="ReviewPage">
-      <CarouselBgImages />
+      {/* Props : title (titre de la page) + images (tableau d'image recupéré) */}
+      <CarouselBgImages title="Avis" />
       <CarouselReview />
       <div className="ReviewForm">
         <form

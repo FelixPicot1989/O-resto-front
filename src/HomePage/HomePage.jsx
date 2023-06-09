@@ -6,7 +6,7 @@ import CarouselReview from '../components/CarouselReview/CarouselReview';
 function HomePage() {
   return (
     <div className="HomePage">
-      <CarouselBgImages />
+      <CarouselBgImages title="O'resto" />
       <div className="Oresto-story">
         <h2>Histoire du restaurant</h2>
         <p>
