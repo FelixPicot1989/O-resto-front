@@ -1,6 +1,8 @@
 import { Rating, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import './ReviewPage.scss';
+import CarouselBgImages from '../components/CarouselBgImages/CarouselBgImages';
+import CarouselReview from '../components/CarouselReview/CarouselReview';
 
 // LoginMessage et le bouton pour envoyer à afficher en fonction de si la personne est connecté ou non
 // Il faudrait rajouter un loading ?
@@ -14,6 +16,8 @@ function ReviewPage() {
 
   return (
     <div className="ReviewPage">
+      <CarouselBgImages />
+      <CarouselReview />
       <div className="ReviewForm">
         <form
           onSubmit={(e) => {
