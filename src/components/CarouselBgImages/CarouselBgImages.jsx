@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './CarouselBgImages.scss';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -23,5 +25,9 @@ function CarouselBgImages({ title }) {
     </div>
   );
 }
+
+CarouselBgImages.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default CarouselBgImages;
