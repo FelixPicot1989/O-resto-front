@@ -1,0 +1,59 @@
+.ReviewForm {
+  width: 80%;
+  margin: 3% auto;
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .comment-review-label {
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+
+      span {
+        align-self: center;
+        margin-bottom: 1rem;
+      }
+
+      textarea {
+        resize: none;
+        width: 100%;
+        height: 150px;
+        padding: 0.5rem;
+        margin: 0 auto;
+
+        @media (min-width: 768px) {
+          width: 570px;
+        }
+
+        @media (min-width: 1024px) {
+          width: 650px;
+        }
+      }
+    }
+
+    .rate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1rem 0;
+    }
+
+    .LoginMessage {
+      text-align: center;
+      width: 50%;
+      margin: 1rem auto;
+      //display: none;
+    }
+
+    legend {
+      margin-top: 2.5%;
+    }
+
+    span {
+      margin: 0 0 4%;
+    }
+  }
+}

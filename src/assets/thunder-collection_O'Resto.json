@@ -1,0 +1,101 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "O'Resto",
+    "dateExported": "2023-06-09T14:34:36.830Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "4e601fc5-ebe8-4a88-86e4-f564c584060d",
+            "name": "Restaurant",
+            "containerId": "",
+            "created": "2023-06-08T12:36:23.455Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "494fdda9-b4cf-4b6a-a597-03a243989174",
+            "name": "Images",
+            "containerId": "",
+            "created": "2023-06-08T12:36:42.111Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "f7a4ea86-a109-45de-9cfa-a9e0ade1bf7d",
+            "name": "Drink",
+            "containerId": "",
+            "created": "2023-06-08T12:36:50.925Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "c44a604c-3087-4057-9899-dd757ef112ac",
+            "name": "Eat",
+            "containerId": "",
+            "created": "2023-06-08T12:37:00.338Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "8df152ff-cdb5-49f2-af28-4b31d897811f",
+            "name": "Menu",
+            "containerId": "",
+            "created": "2023-06-08T12:37:05.881Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "0e6f1d3c-1ff9-42b2-8137-4246e859132a",
+            "name": "User",
+            "containerId": "",
+            "created": "2023-06-08T12:37:11.897Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "e669d445-f495-4af3-bed1-060091ccc5fb",
+            "name": "Category",
+            "containerId": "",
+            "created": "2023-06-08T12:37:17.447Z",
+            "sortNum": 70000
+        },
+        {
+            "_id": "7b77c65b-2382-401b-8743-ec6a8290a86d",
+            "name": "Review",
+            "containerId": "",
+            "created": "2023-06-08T12:37:44.710Z",
+            "sortNum": 80000
+        },
+        {
+            "_id": "34db567f-07b3-47bc-956e-16ac04e47338",
+            "name": "Reservation",
+            "containerId": "",
+            "created": "2023-06-08T12:38:11.360Z",
+            "sortNum": 90000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "20d6a359-635c-4124-862e-498fe2084713",
+            "colId": "c0e58622-1f4c-4929-bc37-5df86b99d76f",
+            "containerId": "4e601fc5-ebe8-4a88-86e4-f564c584060d",
+            "name": "localhost:8000/api/restaurants",
+            "url": "http://stephanie-guilbault.vpnuser.lan:8000/api/restaurants",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-08T12:48:16.251Z",
+            "modified": "2023-06-09T07:27:55.332Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "bc8511c0-0f3a-44b9-9359-273609c429b9",
+            "colId": "c0e58622-1f4c-4929-bc37-5df86b99d76f",
+            "containerId": "4e601fc5-ebe8-4a88-86e4-f564c584060d",
+            "name": "http://stephanie-guilbault.vpnuser.lan:8000/api/restaurants/2",
+            "url": "http://stephanie-guilbault.vpnuser.lan:8000/api/restaurants/2",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-09T07:34:02.891Z",
+            "modified": "2023-06-09T07:34:02.891Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
