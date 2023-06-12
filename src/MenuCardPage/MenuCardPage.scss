@@ -1,0 +1,29 @@
+.MenuCardPage {
+  .categories {
+    display: flex;
+    flex-direction: column;
+
+    .menu-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .others-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -0.5rem;
+        border-bottom: 1px solid black;
+        width: 50%;
+      }
+    }
+  }
+}

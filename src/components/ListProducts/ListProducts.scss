@@ -1,0 +1,28 @@
+.ListProducts {
+  display: flex;
+  justify-content: center;
+  .product-list {
+    width: 500px;
+  }
+
+  .product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    padding-bottom: 10px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ccc;
+    }
+
+    &-left {
+      display: flex;
+      flex-direction: column;
+
+      .products-name {
+        margin: 10px 0;
+      }
+    }
+  }
+}
