@@ -92,7 +92,15 @@ function Navbar() {
           </NavLink>
           <li className="Navbar-mobile-item dropdown">
             <div>
-              <NavLink to="/carte">La carte</NavLink>
+              <NavLink
+                onClick={() => {
+                  handleToggleNav();
+                  handleScrollToTop();
+                }}
+                to="/carte"
+              >
+                La carte
+              </NavLink>
               <div onClick={handleDropDown} className="chevron">
                 {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
               </div>
@@ -105,7 +113,14 @@ function Navbar() {
               <li>Boissons</li>
             </ul>
           </li>
-          <NavLink to="/reservations-contact" className="Navbar-mobile-item">
+          <NavLink
+            onClick={() => {
+              handleToggleNav();
+              handleScrollToTop();
+            }}
+            to="/reservations-contact"
+            className="Navbar-mobile-item"
+          >
             Réserver/Contact
           </NavLink>
           <NavLink

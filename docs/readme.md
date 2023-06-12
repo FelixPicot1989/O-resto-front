@@ -96,7 +96,15 @@ module.exports = {
 scss/sass : npm add -D sass
 react-icons : npm install react-icons --save
 react-responsive-carousel : npm i react-responsive-carousel
+react-router-dom : npm install react-router-dom
+muireact : npm install @mui/material @emotion/react @emotion/styled
+emailjs : npm i @emailjs/browser
+is-valid-domain : npm i is-valid-domain
 ```
+
+## External tool for our projet
+
+Booking Tool : https://resos.com/ (Utilisation de la doc officielle pour intégrer le widget sur notre site)
 
 ## Launch Vite server
 
