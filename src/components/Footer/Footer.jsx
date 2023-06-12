@@ -19,6 +19,7 @@ function Footer() {
           <h3>Horaires</h3>
           <p>12h - 14h</p>
           <p>19h - 22h</p>
+          <p>info</p>
         </div>
       </div>
       <div className="legales">
