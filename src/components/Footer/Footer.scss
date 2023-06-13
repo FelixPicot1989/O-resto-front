@@ -1,7 +1,12 @@
+@use '../../styles/vars.scss';
+
 // Mobile (en dessous de 768px)
 .Footer {
   border-top: 1px solid rgba(148, 148, 148, 0.493);
-  background: rgba(148, 148, 148, 0.493);
+  background: vars.$grey-color;
+  color: vars.$white-color;
+  font-family: vars.$texte-police;
+  overflow-y: visible;
 
   .infos-pratiques {
     display: flex;
@@ -28,6 +33,7 @@
 
   .legales {
     margin-top: 2rem;
+    font-size: 0.8rem;
 
     ul {
       display: flex;

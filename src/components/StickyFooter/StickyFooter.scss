@@ -1,12 +1,17 @@
 @use '../../styles/vars.scss';
 
 .StickyFooter {
-  background: vars.$grey-color;
+  background: vars.$black-color-transp;
   position: sticky;
   bottom: 0;
   width: 100%;
   height: 45px;
   color: vars.$gold;
+  font-family: vars.$texte-police;
+
+  @media (min-width: 1020px) {
+    font-size: 1.5rem;
+  }
 
   .stickyFooter-items {
     height: 100%;
