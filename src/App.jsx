@@ -15,9 +15,11 @@ import StickyFooter from './components/StickyFooter/StickyFooter';
 export const imagesBgContext = createContext();
 
 function App() {
-  const baseUrl = 'http://192.168.92.86:8000';
+  const baseUrl = 'http://felix-picot.vpnuser.lan:8000';
+  const token =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2Njc4NzQsImV4cCI6MTY4NjczMjY3NCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.fCqDZQ5VuGSx7Wx0UNL4VzfdJumI8lbjqLknqZxsHDsqveq--BW95MhEWdth5wgG23hceNXUYrbWaF_-bAUIcReMxw3OxkivTRitXPW0uYEOdYVQHDrZPpFLmqilkNSzJssQ8EhiC7SMlhv5w1rpiwuLfvjI4wiwo3PDClqQqNDxS5Jd-QECfLA11g4W7aOc8sHUI7_SLx6vTU80riivh2NgCR24I1qsLlNZlqWn98Cv-wvIxMd8mZIwr8MdWPkHylE_fb2YkJK_oTs4ExIKmaZX2faqg08mEnCcZt45XU9ja81nFTOiWwvUqP0MgaAtFct4cubH8dATDBA7ZYTjlA';
   const [histoire, setHistoire] = useState('');
-  const [imagesBgCarousel, setImagesBgCarousel] = useState(['bonjour']);
+  const [imagesBgCarousel, setImagesBgCarousel] = useState([]);
   // Valeur par défaut initialisé pour éviter une erreur de PropTypes
   const [infos, setInfos] = useState({
     phone: '',
@@ -26,10 +28,15 @@ function App() {
     openingEvening: '',
     info: '',
   });
+
   useEffect(() => {
     const fetchInfos = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/api/restaurants/2`);
+        const response = await axios.get(`${baseUrl}/api/restaurants/2`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setHistoire(response.data.history);
         setInfos(response.data);
         setImagesBgCarousel(response.data.images);
