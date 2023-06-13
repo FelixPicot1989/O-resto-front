@@ -1,9 +1,12 @@
+@use '../../styles/vars.scss';
+
 .StickyFooter {
-  background: rgba(0, 0, 0, 0.438);
+  background: vars.$grey-color;
   position: sticky;
   bottom: 0;
   width: 100%;
   height: 45px;
+  color: vars.$gold;
 
   .stickyFooter-items {
     height: 100%;

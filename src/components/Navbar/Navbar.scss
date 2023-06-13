@@ -1,6 +1,8 @@
 $pink: #e83e8c;
 $background-color: #fff;
 
+@use '../../styles/vars.scss';
+
 .Navbar {
   position: fixed;
   width: 100%;
@@ -9,8 +11,8 @@ $background-color: #fff;
   align-items: center;
   justify-content: space-between;
   padding: 1% 0;
-  color: black;
-  background-color: $background-color;
+  color: vars.$gold;
+  background-color: transparent;
   z-index: 2;
 
   .logo-oresto {
@@ -124,6 +126,7 @@ $background-color: #fff;
       gap: 1rem;
       right: 0;
       padding-right: 2.5%;
+      color: vars.$white-color;
 
       @media (min-width: 768px) and (max-width: 950px) {
         flex-direction: column-reverse;
