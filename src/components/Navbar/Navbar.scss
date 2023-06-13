@@ -1,17 +1,20 @@
 $pink: #e83e8c;
 $background-color: #fff;
 
+@use '../../styles/vars.scss';
+
 .Navbar {
   position: fixed;
   width: 100%;
-  height: 70px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1% 0;
-  color: black;
-  background-color: $background-color;
+  color: vars.$gold;
+  background-color: vars.$black-color-transp;
   z-index: 2;
+  font-family: vars.$texte-police;
 
   .logo-oresto {
     margin-left: 2%;
@@ -26,11 +29,12 @@ $background-color: #fff;
   }
 
   .title {
-    color: black;
+    color: vars.$white-color;
     z-index: 10;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin-left: -20px;
+    font-family: vars.$titre-police;
 
     @media (min-width: 768px) {
       display: none;
@@ -39,11 +43,6 @@ $background-color: #fff;
 
   .title-hidden {
     display: none;
-  }
-
-  .active {
-    // border-bottom: 2px solid #d69a34;
-    text-decoration: underline #d69a34;
   }
 
   &-desktop {
@@ -63,6 +62,23 @@ $background-color: #fff;
         font-size: 1.3rem;
         margin: 0 16px;
         cursor: pointer;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -8px;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background-color: vars.$gold;
+          transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+          transform: translateX(-50%);
+        }
+
+        &:hover::after {
+          width: 80%;
+        }
       }
 
       .dropdown {
@@ -75,6 +91,8 @@ $background-color: #fff;
           cursor: pointer;
           margin-left: -8px;
           margin-right: 8px;
+          display: flex;
+          align-items: center;
         }
 
         .dropdown-list-hidden {
@@ -86,11 +104,11 @@ $background-color: #fff;
           top: 35px;
           right: -6px;
           width: 90px;
-          background-color: #fff;
+          background-color: rgba(0, 0, 0, 0.9);
           display: flex;
           flex-direction: column;
           border-radius: 10px;
-          border: 1px solid #e1e1e1;
+          border: 1px solid white;
           box-shadow: 0 40px 40px rgb(0 0 0 / 6%);
 
           &::before {
@@ -107,13 +125,41 @@ $background-color: #fff;
           }
 
           li:hover {
-            background-color: #f5f5f5;
+            // background-color: #f5f5f5cc;
+            background-color: vars.$gold;
+            color: vars.$black-color;
+            z-index: 1;
+          }
+
+          li:first-child:hover {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          }
+
+          li:last-child:hover {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
           }
 
           li {
             padding: 8px;
           }
         }
+      }
+    }
+
+    .active {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        width: 80%;
+        height: 2px;
+        background-color: vars.$gold;
+        z-index: 50;
       }
     }
 
@@ -124,15 +170,31 @@ $background-color: #fff;
       gap: 1rem;
       right: 0;
       padding-right: 2.5%;
+      color: vars.$white-color;
 
-      @media (min-width: 768px) and (max-width: 950px) {
+      @media (min-width: 768px) and (max-width: 1020px) {
         flex-direction: column-reverse;
       }
 
       .btn-login {
         border-radius: 5px;
         font-size: 0.9rem;
-        padding: 1.5% 3%;
+
+        padding: 6px 12px;
+        background-color: vars.$gold;
+        color: vars.$black-color;
+        font-size: 1rem;
+        font-weight: bold;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        font-family: vars.$texte-police;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+        &:hover {
+          background-color: vars.$black-color;
+          color: vars.$gold;
+        }
       }
 
       .social-desktop {
@@ -147,7 +209,7 @@ $background-color: #fff;
 
   &-burger {
     z-index: 10;
-    color: black;
+    color: vars.$gold;
     font-size: 1.5rem;
     margin-right: 2%;
 
@@ -163,7 +225,7 @@ $background-color: #fff;
     padding-top: 25%;
     width: 100%;
     height: 100vh;
-    background-color: $background-color;
+    background-color: vars.$grey-color;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -193,6 +255,9 @@ $background-color: #fff;
       .chevron {
         display: inline-block;
         font-size: 25px;
+        padding-left: 5px;
+        height: 100%;
+        vertical-align: middle;
       }
 
       .dropdown-list-hidden {
@@ -200,11 +265,16 @@ $background-color: #fff;
       }
 
       .dropdown-list {
-        width: 150px;
+        width: 110px;
         background-color: #fff;
         border-radius: 10px;
         border: 1px solid #e1e1e1;
         box-shadow: 0 40px 40px rgb(0 0 0 / 6%);
+        margin-top: 10px;
+        position: relative;
+        text-align: left;
+        font-size: 1.3rem;
+        margin-left: 40px;
 
         &::before {
           content: '';
@@ -212,8 +282,8 @@ $background-color: #fff;
           border-top: 1px solid #e1e1e1;
           border-right: 1px solid #e1e1e1;
           position: absolute;
-          top: 26px;
-          right: 57px;
+          top: -6px;
+          right: 13px;
           width: 12px;
           height: 12px;
           rotate: -45deg;
@@ -221,6 +291,16 @@ $background-color: #fff;
 
         li:hover {
           background-color: #f5f5f5;
+        }
+
+        li:first-child:hover {
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+
+        li:last-child:hover {
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
         }
 
         li {
@@ -238,8 +318,15 @@ $background-color: #fff;
 
       .btn-login {
         border-radius: 5px;
-        font-size: 1.1rem;
-        padding: 1.5% 3%;
+        font-size: 1.3rem;
+        padding: 12px 24px;
+        background-color: vars.$gold;
+        color: vars.$black-color;
+        font-weight: bold;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        font-family: vars.$texte-police;
       }
 
       .social-media {
@@ -248,6 +335,7 @@ $background-color: #fff;
         justify-content: space-around;
         margin-top: 5%;
         font-size: 1.5rem;
+        color: vars.$white-color;
       }
     }
   }
