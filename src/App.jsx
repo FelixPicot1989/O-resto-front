@@ -18,8 +18,14 @@ function App() {
   const baseUrl = 'http://192.168.89.127:8000';
   const [histoire, setHistoire] = useState('');
   const [imagesBgCarousel, setImagesBgCarousel] = useState([]);
-  const [infos, setInfos] = useState({});
-
+  // Valeur par défaut initialisé pour éviter une erreur de PropTypes
+  const [infos, setInfos] = useState({
+    phone: '',
+    address: '',
+    openingLunch: '',
+    openingEvening: '',
+    info: '',
+  });
   useEffect(() => {
     const fetchInfos = async () => {
       try {

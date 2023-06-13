@@ -9,7 +9,7 @@ function ImageContextProvider({ imagesBgCarousel, children }) {
 }
 
 ImageContextProvider.propTypes = {
-  imagesBgCarousel: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  imagesBgCarousel: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   children: PropTypes.node.isRequired,
 };
 
