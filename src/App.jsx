@@ -15,9 +15,9 @@ import StickyFooter from './components/StickyFooter/StickyFooter';
 export const imagesBgContext = createContext();
 
 function App() {
-  const baseUrl = 'http://192.168.89.127:8000';
+  const baseUrl = 'http://192.168.92.86:8000';
   const [histoire, setHistoire] = useState('');
-  const [imagesBgCarousel, setImagesBgCarousel] = useState([]);
+  const [imagesBgCarousel, setImagesBgCarousel] = useState(['bonjour']);
   // Valeur par défaut initialisé pour éviter une erreur de PropTypes
   const [infos, setInfos] = useState({
     phone: '',
