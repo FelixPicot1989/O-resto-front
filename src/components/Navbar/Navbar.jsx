@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
+import LoginForm from './LoginForm/LoginForm';
 
 // Il reste à mettre des LinkTo dans la nav au lieu des <li> (Attention au CSS !!)
 function Navbar() {
@@ -21,6 +22,12 @@ function Navbar() {
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0 });
   };
+
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
+  function toggleLoginForm() {
+    setShowLoginForm(!showLoginForm);
+  }
 
   return (
     <nav className="Navbar">
@@ -55,11 +62,11 @@ function Navbar() {
           </NavLink>
         </ul>
         <div className="login-social-desktop">
-          <NavLink to="/login">
-            <button className="btn-login" type="button">
+          <div>
+            <button onClick={toggleLoginForm} className="btn-login" type="button">
               Connexion
             </button>
-          </NavLink>
+          </div>
           <div className="social-desktop">
             <a href="#" target="_blank" rel="noopener noreferrer">
               <FaFacebook />
@@ -135,11 +142,11 @@ function Navbar() {
           </NavLink>
         </ul>
         <div className="login-social-mobile">
-          <NavLink to="/login">
-            <button className="btn-login" type="button">
+          <div>
+            <button onClick={toggleLoginForm} className="btn-login" type="button">
               Connexion
             </button>
-          </NavLink>
+          </div>
           <div className="social-media">
             <a href="#" target="_blank" rel="noopener noreferrer">
               <FaFacebook />
@@ -153,6 +160,7 @@ function Navbar() {
           </div>
         </div>
       </div>
+      <LoginForm showLoginForm={showLoginForm} toggleLoginForm={() => toggleLoginForm()} />
     </nav>
   );
 }
