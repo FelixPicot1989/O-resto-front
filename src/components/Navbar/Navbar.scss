@@ -157,7 +157,7 @@
         width: 80%;
         height: 2px;
         background-color: vars.$gold;
-        z-index: 50;
+        z-index: 10;
       }
     }
 
@@ -220,7 +220,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    padding-top: 25%;
+    padding-top: 23%;
     width: 100%;
     height: 100vh;
     background-color: vars.$grey-color;

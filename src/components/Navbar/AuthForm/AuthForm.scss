@@ -1,3 +1,5 @@
+@use '../../../styles/vars.scss';
+
 .LoginForm-close {
   display: none;
 }
@@ -12,7 +14,7 @@
   width: 100%;
   background: #11131ecb;
   z-index: 20;
-  padding: 0 10px;
+  padding: 0 15px;
 
   .container-close {
     display: none;
@@ -33,9 +35,10 @@
       top: 15px;
       font-size: 18px;
       cursor: pointer;
+      color: vars.$grey-color;
 
       &:hover {
-        color: #3498db;
+        color: vars.$gold;
       }
     }
 
@@ -72,12 +75,33 @@
           }
         }
 
-        .show-password {
+        .show-password-first {
           position: absolute;
-          top: 70%;
+          top: 76%;
           right: 14px;
           width: 16px;
           height: 16px;
+        }
+
+        .show-password-second {
+          position: absolute;
+          top: 40%;
+          right: 14px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .confirmPassword {
+        margin-top: -15px;
+      }
+
+      .check-password {
+        margin-top: -30px;
+        font-size: 0.8rem;
+        font-family: Arial, Helvetica, sans-serif;
+        span {
+          color: vars.$grey-color;
         }
       }
 
@@ -91,17 +115,25 @@
         button {
           height: 100%;
           width: 100%;
-          background: none;
+          border-radius: 5px;
+          font-size: 0.9rem;
+          padding: 6px 12px;
+          background-color: vars.$black-color;
+          color: vars.$gold;
+          font-size: 1rem;
+          font-weight: bold;
+          text-decoration: none;
           border: none;
-          color: #fff;
-          background: #11131e;
-          font-size: 18px;
-          font-weight: 500;
-          text-transform: uppercase;
-          letter-spacing: 1px;
+          border-radius: 4px;
+          font-family: vars.$texte-police;
+          transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
           cursor: pointer;
-          border-radius: 8px;
-          overflow: hidden;
+          text-transform: uppercase;
+
+          &:hover {
+            background-color: vars.$gold;
+            color: vars.$black-color;
+          }
         }
 
         .loader {

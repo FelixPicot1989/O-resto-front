@@ -74,19 +74,20 @@ function MenuCardPage() {
   return (
     <div className="MenuCardPage">
       <CarouselBgImages title="La carte" />
-      <div className="categories">
-        <div className="menu-btn">
-          <NavLink onClick={() => setCategory('menu')}>Menus</NavLink>
+      <section className="MenuCard">
+        <div className="categories">
+          <div className="menu-btn">
+            <NavLink onClick={() => setCategory('menu')}>Menus</NavLink>
+          </div>
+          <div className="others-btn">
+            <NavLink onClick={() => setCategory('entrees')}>Entrées</NavLink>
+            <NavLink onClick={() => setCategory('plats')}>Plats</NavLink>
+            <NavLink onClick={() => setCategory('desserts')}>Desserts</NavLink>
+            <NavLink onClick={() => setCategory('boissons')}>Boissons</NavLink>
+          </div>
         </div>
-        <div className="others-btn">
-          <NavLink onClick={() => setCategory('entrees')}>Entrées</NavLink>
-          <NavLink onClick={() => setCategory('plats')}>Plats</NavLink>
-          <NavLink onClick={() => setCategory('desserts')}>Desserts</NavLink>
-          <NavLink onClick={() => setCategory('boissons')}>Boissons</NavLink>
-        </div>
-      </div>
-
-      <ListProducts products={products[category]} />
+        <ListProducts products={products[category]} />
+      </section>
     </div>
   );
 }
