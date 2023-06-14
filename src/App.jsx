@@ -15,9 +15,9 @@ import StickyFooter from './components/StickyFooter/StickyFooter';
 export const imagesBgContext = createContext();
 
 function App() {
-  const baseUrl = 'http://felix-picot.vpnuser.lan:8000';
+  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
   const token =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2Njc4NzQsImV4cCI6MTY4NjczMjY3NCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.fCqDZQ5VuGSx7Wx0UNL4VzfdJumI8lbjqLknqZxsHDsqveq--BW95MhEWdth5wgG23hceNXUYrbWaF_-bAUIcReMxw3OxkivTRitXPW0uYEOdYVQHDrZPpFLmqilkNSzJssQ8EhiC7SMlhv5w1rpiwuLfvjI4wiwo3PDClqQqNDxS5Jd-QECfLA11g4W7aOc8sHUI7_SLx6vTU80riivh2NgCR24I1qsLlNZlqWn98Cv-wvIxMd8mZIwr8MdWPkHylE_fb2YkJK_oTs4ExIKmaZX2faqg08mEnCcZt45XU9ja81nFTOiWwvUqP0MgaAtFct4cubH8dATDBA7ZYTjlA';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY3MzI5ODEsImV4cCI6MTY4Njc5Nzc4MSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.HlE9L1TyDGhVIs4iTTZtYGONX5ZBkZ87_G2QBWeg0A4043UZ14cfdeu4VYhBvkyo6mYwfoiypyVKyCqYbQXHZwiTLxrv-WY-7hNTfSpI4T2g0g5QKTvn85rZbYyeKsbOw7fhXnjUt0OthaUtJtlFnJDsvetBO4EOTng5SXgNaSdMAlg9po4tBK_lE8qOn6WcshsYgtIf2X-5ivdVAYMkP8msI2AEM6AJUemxzlEg4kJAQkVzZiSspVx-nQUGU2eY8C7hXBR9DGdNY5dTHNV2HuJnGSL7fE1VN1FYKOAgIrFR-CNGIWzabrCFi3lQczKdwWhKDdn6jfvLA4PJ6dWNsw';
   const [histoire, setHistoire] = useState('');
   const [imagesBgCarousel, setImagesBgCarousel] = useState([]);
   // Valeur par défaut initialisé pour éviter une erreur de PropTypes
