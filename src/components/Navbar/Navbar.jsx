@@ -30,7 +30,9 @@ function Navbar() {
 
   return (
     <nav className="Navbar">
-      <img src={logoOresto} alt="logo-oresto" className="logo-oresto" />
+      <NavLink className="logo-oresto" to="/" onClick={handleScrollToTop}>
+        <img src={logoOresto} alt="logo-oresto" className="logo-oresto" />
+      </NavLink>
       <h1 className={!nav ? 'title-hidden' : 'title'}>O&apos;Resto</h1>
       {/* Desktop menu */}
       <div className="Navbar-desktop">
