@@ -4,13 +4,14 @@ import { NavLink } from 'react-router-dom';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
-import LoginForm from './LoginForm/LoginForm';
+import AuthForm from './AuthForm/AuthForm';
 
 // Il reste à mettre des LinkTo dans la nav au lieu des <li> (Attention au CSS !!)
 function Navbar() {
   // Variable dans le state pour détecter si le user ouvre le menu burger ou le menu déroulant de "La carte"
   const [nav, setNav] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleToggleNav = () => {
     setNav(!nav);
@@ -22,8 +23,6 @@ function Navbar() {
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0 });
   };
-
-  const [showLoginForm, setShowLoginForm] = useState(false);
 
   function toggleLoginForm() {
     setShowLoginForm(!showLoginForm);
@@ -160,7 +159,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <LoginForm showLoginForm={showLoginForm} toggleLoginForm={() => toggleLoginForm()} />
+      <AuthForm showLoginForm={showLoginForm} toggleLoginForm={() => toggleLoginForm()} />
     </nav>
   );
 }
