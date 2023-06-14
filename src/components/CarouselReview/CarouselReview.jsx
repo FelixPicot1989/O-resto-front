@@ -31,6 +31,7 @@ function CarouselReview() {
   const value = 3;
   return (
     <div className="CarouselReview">
+      <h2 className="title">Avis</h2>
       <div className="wrapper" ref={wrapperRef}>
         <i id="left" className="fa-solid fa-angle-left" onClick={handleLeftClick} />
         <ul className="carousel" ref={carouselRef}>

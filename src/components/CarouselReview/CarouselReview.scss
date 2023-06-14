@@ -1,10 +1,21 @@
+@use '../../styles/vars.scss';
+
 .CarouselReview {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: aqua;
+  background-color: #fff;
   padding: 20px 0;
+
+  .title {
+    font-size: 3rem;
+    font-family: vars.$titre-police;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: vars.$gold;
+  }
 
   .wrapper {
     max-width: 1100px;
@@ -21,6 +32,7 @@
       text-align: center;
       line-height: 50px;
       background: #fff;
+      color: vars.$gold;
       border-radius: 50%;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
       transform: translateY(-50%);
@@ -84,13 +96,13 @@
         scroll-snap-align: start;
         height: 342px;
         list-style: none;
-        background: #fff;
         cursor: pointer;
         flex-direction: column;
         gap: 0.8em;
         padding: 0 2rem;
-        border-radius: 8px;
-        background-color: bisque;
+        border: 2px solid vars.$gold;
+        border-radius: 1rem;
+        background-color: rgb(255, 255, 255);
 
         .comment {
           text-align: center;
@@ -99,6 +111,11 @@
         .user-name {
           font-weight: 500;
           font-size: 1.56rem;
+          font-family: vars.$texte-police;
+        }
+
+        .date {
+          color: rgb(140, 139, 139);
         }
       }
     }
