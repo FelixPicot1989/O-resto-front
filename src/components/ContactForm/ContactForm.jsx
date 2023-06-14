@@ -9,25 +9,50 @@ function ContactForm() {
   const publicKey = import.meta.env.VITE_YOUR_PUBLIC_KEY;
   const form = useRef();
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
   const resetForm = () => {
-    form.current.reset();
+    setEmail('');
+    setName('');
+    setMessage('');
   };
 
   const handleEmailChange = (evt) => {
     setEmail(evt.target.value);
   };
 
+  const handleMessageChange = (evt) => {
+    setMessage(evt.target.value);
+  };
+
+  const handleNameChange = (evt) => {
+    setName(evt.target.value);
+  };
+
   const sendEmail = (evt) => {
     evt.preventDefault();
     setLoading(true);
 
+    if (!email.trim() || !name.trim() || !message.trim()) {
+      setError('Veuillez remplir tous les champs');
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      setLoading(false);
+      return;
+    }
+
     const emailParts = email.split('@');
     if (emailParts.length !== 2) {
       setError("L'email n'est pas valide");
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      setLoading(false);
       return;
     }
 
@@ -62,19 +87,29 @@ function ContactForm() {
             <h2 className="Contact-title">Nous contacter</h2>
           </div>
           <form method="POST" ref={form} onSubmit={sendEmail} className="Contact-form">
-            <input className="Contact-input-name" type="text" placeholder="Quel est votre prénom ?" name="user_name" />
+            <input
+              className="Contact-input-name"
+              type="text"
+              placeholder="Quel est votre prénom ?"
+              name="user_name"
+              value={name}
+              onChange={handleNameChange}
+            />
             <input
               className="Contact-input-email"
               type="email"
               placeholder="Quel est votre email ?"
               name="user_email"
+              value={email}
               onChange={handleEmailChange}
             />
             <textarea
               className="Contact-input-message"
               name="message"
               rows="10"
-              placeholder="Quel est votre message ?"
+              placeholder="Quel est votre demande ?"
+              value={message}
+              onChange={handleMessageChange}
             />
             <button type="submit" className="Contact-submit">
               {loading ? 'Envoie en cours...' : 'Envoyer'}
