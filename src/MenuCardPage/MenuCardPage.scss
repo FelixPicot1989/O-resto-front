@@ -1,6 +1,8 @@
 .MenuCardPage {
   .MenuCard {
+    margin: 0 auto;
     padding: 0 1rem;
+    width: 500px;
     .categories {
       display: flex;
       flex-direction: column;
