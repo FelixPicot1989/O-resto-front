@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight, FaChevronDown } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
@@ -16,9 +16,6 @@ function Navbar() {
   const handleToggleNav = () => {
     setNav(!nav);
   };
-  const handleDropDown = () => {
-    setOpenDropDown(!openDropDown);
-  };
 
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0 });
@@ -27,6 +24,12 @@ function Navbar() {
   function toggleLoginForm() {
     setShowLoginForm(!showLoginForm);
   }
+
+  const location = useLocation();
+  // met à `false` l'état `openDropDown` quand l'URL change
+  useEffect(() => {
+    setOpenDropDown(false);
+  }, [location]);
 
   return (
     <nav className="Navbar">
@@ -44,16 +47,18 @@ function Navbar() {
             <NavLink to="/carte" className="Navbar-list-item">
               La carte
             </NavLink>
-            <div onClick={handleDropDown} className="chevron">
+            <div onClick={() => setOpenDropDown(!openDropDown)} className="chevron">
               {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
+              {openDropDown && (
+                <ul className="dropdown-list">
+                  <li>Menu</li>
+                  <li>Entrées</li>
+                  <li>Plats</li>
+                  <li>Desserts</li>
+                  <li>Boissons</li>
+                </ul>
+              )}
             </div>
-            <ul className={!openDropDown ? 'dropdown-list-hidden' : 'dropdown-list'}>
-              <li>Menu</li>
-              <li>Entrées</li>
-              <li>Plats</li>
-              <li>Desserts</li>
-              <li>Boissons</li>
-            </ul>
           </div>
           <NavLink to="/reservations-contact" className="Navbar-list-item">
             Réserver/Contact
@@ -82,7 +87,13 @@ function Navbar() {
         </div>
       </div>
       {/* Bouton burger */}
-      <div onClick={handleToggleNav} className="Navbar-burger">
+      <div
+        onClick={() => {
+          handleToggleNav();
+          setOpenDropDown(false);
+        }}
+        className="Navbar-burger"
+      >
         {!nav ? <FaBars /> : <FaTimes />}
       </div>
       {/* Mobile menu */}
@@ -100,26 +111,30 @@ function Navbar() {
           </NavLink>
           <li className="Navbar-mobile-item dropdown">
             <div>
-              <NavLink
-                onClick={() => {
-                  handleToggleNav();
-                  handleScrollToTop();
-                }}
-                to="/carte"
-              >
-                La carte
-              </NavLink>
-              <div onClick={handleDropDown} className="chevron">
-                {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
+              <div>
+                <NavLink
+                  onClick={() => {
+                    handleToggleNav();
+                    handleScrollToTop();
+                  }}
+                  to="/carte"
+                >
+                  La carte
+                </NavLink>
+                <div onClick={() => setOpenDropDown(!openDropDown)} className="chevron">
+                  {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
+                </div>
               </div>
+              {openDropDown && (
+                <ul className="dropdown-list">
+                  <li>Menu</li>
+                  <li>Entrées</li>
+                  <li>Plats</li>
+                  <li>Desserts</li>
+                  <li>Boissons</li>
+                </ul>
+              )}
             </div>
-            <ul className={!openDropDown ? 'dropdown-list-hidden' : 'dropdown-list'}>
-              <li>Menu</li>
-              <li>Entrées</li>
-              <li>Plats</li>
-              <li>Desserts</li>
-              <li>Boissons</li>
-            </ul>
           </li>
           <NavLink
             onClick={() => {
