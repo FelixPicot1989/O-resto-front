@@ -10,7 +10,7 @@ function Footer({ infos }) {
       <div className="infos-pratiques">
         <div className="contact">
           <h3>Nous contacter</h3>
-          <p>{infos.phone}</p>
+          <a href={`tel:${infos.phone}`}>{infos.phone}</a>
         </div>
         <div className="adresse">
           <h3>Adresse</h3>

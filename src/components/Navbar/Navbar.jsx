@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight, FaChevronDown } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
@@ -41,18 +41,18 @@ function Navbar() {
             Accueil
           </NavLink>
           <div className="dropdown">
-            <NavLink to="/carte" className="Navbar-list-item">
+            <NavLink to="/carte/menus" className="Navbar-list-item">
               La carte
             </NavLink>
             <div onClick={handleDropDown} className="chevron">
               {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
             </div>
             <ul className={!openDropDown ? 'dropdown-list-hidden' : 'dropdown-list'}>
-              <li>Menu</li>
-              <li>Entrées</li>
-              <li>Plats</li>
-              <li>Desserts</li>
-              <li>Boissons</li>
+              <Link to="/carte/menus">Menu</Link>
+              <Link to="/carte/entrées">Entrées</Link>
+              <Link to="/carte/plats">Plats</Link>
+              <Link to="/carte/desserts">Desserts</Link>
+              <Link to="/carte/boissons">Boissons</Link>
             </ul>
           </div>
           <NavLink to="/reservations-contact" className="Navbar-list-item">

@@ -1,0 +1,20 @@
+.ListDrinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+
+  .category {
+    &-title {
+      text-align: center;
+      padding-bottom: 1rem;
+    }
+  }
+
+  .drinks-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+}

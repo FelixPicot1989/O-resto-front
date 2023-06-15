@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './ListProducts.scss';
 
 function ListProducts({ products }) {
+  //console.log(products);
+
   return (
     <div className="ListProducts">
       <ul className="product-list">
@@ -25,8 +27,8 @@ ListProducts.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
+      description: PropTypes.string,
+      price: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

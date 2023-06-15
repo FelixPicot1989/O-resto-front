@@ -1,11 +1,28 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './CarouselReview.scss';
 import { Rating } from '@mui/material';
+import axios from 'axios';
 
 function CarouselReview() {
   const wrapperRef = useRef(null);
   const carouselRef = useRef(null);
   const firstCardRef = useRef();
+  const [reviews, setReviews] = useState([]);
+
+  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/api/reviews`);
+        const { data } = response;
+        console.log(data);
+        setReviews(data);
+      } catch (error) {
+        console.log('Erreur API', error);
+      }
+    };
+    fetchReviews();
+  }, []);
 
   // fonction pour gérer le clic gauche
   const handleLeftClick = () => {
@@ -35,6 +52,16 @@ function CarouselReview() {
       <div className="wrapper" ref={wrapperRef}>
         <i id="left" className="fa-solid fa-angle-left" onClick={handleLeftClick} />
         <ul className="carousel" ref={carouselRef}>
+          {reviews.map((el) => {
+            return (
+              <li key={el.id} className="card" ref={firstCardRef}>
+                <h3 className="user-name">John Doe</h3>
+                <p className="comment">{el.comment}</p>
+                <span className="date">9 juin 2023</span>
+                <Rating className="rate" name="read-only" value={el.rating} readOnly precision={0.5} />
+              </li>
+            );
+          })}
           <li className="card" ref={firstCardRef}>
             <h3 className="user-name">John Doe</h3>
             <p className="comment">

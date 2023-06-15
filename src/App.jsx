@@ -17,7 +17,7 @@ export const imagesBgContext = createContext();
 function App() {
   const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
   const token =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY3MzI5ODEsImV4cCI6MTY4Njc5Nzc4MSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.HlE9L1TyDGhVIs4iTTZtYGONX5ZBkZ87_G2QBWeg0A4043UZ14cfdeu4VYhBvkyo6mYwfoiypyVKyCqYbQXHZwiTLxrv-WY-7hNTfSpI4T2g0g5QKTvn85rZbYyeKsbOw7fhXnjUt0OthaUtJtlFnJDsvetBO4EOTng5SXgNaSdMAlg9po4tBK_lE8qOn6WcshsYgtIf2X-5ivdVAYMkP8msI2AEM6AJUemxzlEg4kJAQkVzZiSspVx-nQUGU2eY8C7hXBR9DGdNY5dTHNV2HuJnGSL7fE1VN1FYKOAgIrFR-CNGIWzabrCFi3lQczKdwWhKDdn6jfvLA4PJ6dWNsw';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTg5NDQsImV4cCI6MTY4Njg4Mzc0NCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.oRCbsBBG_9s1xlEbf_qlqaZao02AX-uVLsOa25iv8DQYZ_Jwdh7zJWB4cJ9Akker68i5jWmjAaUQIEWPWLuKQWpdIOl1z_gQO5XNi-Btx67yCTj1ikQtTW26CC_MjGZmtDkTkR-N9xMHWLxgsEE5Pq9ONhksGlqb3a-5x0P_p5VxSgQ0YigP14ewmhxBgC9Sfc1ZfZTdlrPDmqKJIv9NKEAlp_nMSrujrvFKOM3wTleVLf2XY8UESU_h7NTeS7OaNba6O2NvimwMr64-L4Rh7g64CR6j9KCRK5BRIpIrkZ6sNWiG6T2V56dDbWrbEzCPRCKxBDvDDNiiwG5mnyN7zA';
   const [histoire, setHistoire] = useState('');
   const [imagesBgCarousel, setImagesBgCarousel] = useState([]);
   // Valeur par défaut initialisé pour éviter une erreur de PropTypes
@@ -32,11 +32,7 @@ function App() {
   useEffect(() => {
     const fetchInfos = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/api/restaurants/2`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(`${baseUrl}/api/restaurants/2`);
         setHistoire(response.data.history);
         setInfos(response.data);
         setImagesBgCarousel(response.data.images);
@@ -55,11 +51,11 @@ function App() {
           <Route path="/" element={<HomePage history={histoire} />} />
           <Route path="/avis" element={<ReviewPage />} />
           <Route path="/reservations-contact" element={<ContactPage />} />
-          <Route path="/carte" element={<MenuCardPage />} />
+          <Route path="/carte/:category?" element={<MenuCardPage />} />
         </Routes>
       </ImageContextProvider>
       <Footer infos={infos} />
-      <StickyFooter />
+      <StickyFooter infos={infos} />
     </>
   );
 }
