@@ -1,0 +1,49 @@
+@use '../../styles/vars.scss';
+
+.ListDrinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+
+  .category {
+    width: 100%;
+    margin: 1rem 0;
+    &-name {
+      text-align: center;
+      padding-bottom: 1rem;
+      font-size: 1.5rem;
+      font-family: vars.$titre-police;
+      font-weight: bold;
+      text-decoration: underline;
+
+      &::first-letter {
+        font-size: 1.6rem;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .drinks {
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin: 0.4rem 0;
+    }
+
+    &-name {
+      font-size: 1.1rem;
+    }
+
+    &-description {
+      font-size: 0.9rem;
+      color: vars.$grey-color;
+    }
+
+    &-price {
+      margin-left: 0.5rem;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight, FaChevronDown } from 'react-icons/fa';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, Link } from 'react-router-dom';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
@@ -45,18 +45,18 @@ function Navbar() {
               Accueil
             </NavLink>
             <div className="dropdown">
-              <NavLink to="/carte" className="Navbar-list-item">
+              <NavLink to="/carte/menus" className="Navbar-list-item">
                 La carte
               </NavLink>
               <div onClick={() => setOpenDropDown(!openDropDown)} className="chevron">
                 {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
                 {openDropDown && (
                   <ul className="dropdown-list">
-                    <li>Menu</li>
-                    <li>Entrées</li>
-                    <li>Plats</li>
-                    <li>Desserts</li>
-                    <li>Boissons</li>
+                    <Link to="/carte/menus">Menu</Link>
+                    <Link to="/carte/entrées">Entrées</Link>
+                    <Link to="/carte/plats">Plats</Link>
+                    <Link to="/carte/desserts">Desserts</Link>
+                    <Link to="/carte/boissons">Boissons</Link>
                   </ul>
                 )}
               </div>
@@ -128,11 +128,11 @@ function Navbar() {
                 </div>
                 {openDropDown && (
                   <ul className="dropdown-list">
-                    <li>Menu</li>
-                    <li>Entrées</li>
-                    <li>Plats</li>
-                    <li>Desserts</li>
-                    <li>Boissons</li>
+                    <Link to="/carte/menus">Menu</Link>
+                    <Link to="/carte/entrées">Entrées</Link>
+                    <Link to="/carte/plats">Plats</Link>
+                    <Link to="/carte/desserts">Desserts</Link>
+                    <Link to="/carte/boissons">Boissons</Link>
                   </ul>
                 )}
               </div>
