@@ -92,35 +92,36 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
           firstName,
           lastName,
         });
+        console.log(response.data);
+        if (response.status === 200) {
+          setSuccess(`Vous êtes bien ${isSignUp ? 'inscrit' : 'connecté'}`);
+          toggleLoginForm();
+          resetForm();
+        } else {
+          setError("Une erreur s'est produite");
+        }
       } else {
         response = await axios.post('/api/login', {
           email,
           password,
         });
       }
-
-      setLoading(false);
-      toggleLoginForm();
-      setSuccess(`Vous êtes bien ${isSignUp ? 'inscrit' : 'connecté'}`);
-      setTimeout(() => {
-        setSuccess(false);
-      }, 3000);
-      console.log(response.data);
     } catch (err) {
-      setLoading(false);
       setError("Une erreur s'est produite");
-      setTimeout(() => {
-        setError(false);
-      }, 3000);
       console.error(err);
     }
 
-    resetForm();
+    setLoading(false);
+    // On set à null success et error à la fin du submit
+    setTimeout(() => {
+      setSuccess(null);
+      setError(null);
+    }, 3000);
   };
 
   return (
     <>
-      <div className={` ${showLoginForm ? 'LoginForm' : 'LoginForm-close'}`}>
+      <div className={` ${showLoginForm ? 'AuthForm' : 'AuthForm-close'}`}>
         <div className="container">
           <label
             htmlFor="show"

@@ -1,13 +1,16 @@
-@use '../../../styles/vars.scss';
+@use '../../styles/vars.scss';
 
-.LoginForm-close {
+.AuthForm-close {
   display: none;
 }
 
-.LoginForm {
+.AuthForm {
+  color: vars.$gold;
+  font-family: vars.$texte-police;
   display: flex;
   position: fixed;
   top: 0;
+  left: 0;
   align-items: center;
   justify-content: center;
   height: 100vh;

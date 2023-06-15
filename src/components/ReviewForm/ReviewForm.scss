@@ -1,6 +1,19 @@
+@use '../../styles/vars.scss';
+
 .ReviewForm {
   width: 80%;
   margin: 3% auto;
+  font-family: vars.$texte-police;
+
+  .title {
+    font-size: vars.$titre-size;
+    font-family: vars.$titre-police;
+    font-weight: vars.$titre-weight;
+    color: vars.$gold;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -14,7 +27,7 @@
 
       span {
         align-self: center;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
       }
 
       textarea {
@@ -39,21 +52,45 @@
       flex-direction: column;
       align-items: center;
       margin: 1rem 0;
+
+      legend {
+        font-family: vars.$texte-police;
+      }
     }
 
-    .LoginMessage {
+    .btn-login {
+      border-radius: 5px;
+      font-size: 0.9rem;
+      width: 100px;
+      padding: 6px 12px;
+      background-color: vars.$gold;
+      color: vars.$black-color;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      border-radius: 4px;
+      // font-family: vars.$texte-police;
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+      &:hover {
+        background-color: vars.$black-color;
+        color: vars.$gold;
+      }
+    }
+
+    .login-message {
       text-align: center;
       width: 50%;
-      margin: 1rem auto;
-      //display: none;
-    }
 
-    legend {
-      margin-top: 2.5%;
-    }
+      em {
+        text-decoration: underline;
+        color: vars.$gold;
 
-    span {
-      margin: 0 0 4%;
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 }

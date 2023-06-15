@@ -63,20 +63,18 @@ function ContactForm() {
       emailjs.sendForm(serviceId, templateId, form.current, publicKey).then(
         () => {
           setSuccess('Message bien envoyé');
-          setTimeout(() => {
-            setSuccess(false);
-          }, 3000);
-          setLoading(false);
           resetForm();
         },
         () => {
           setError("Une erreur c'est produite");
-          setTimeout(() => {
-            setError(false);
-          }, 3000);
         }
       );
     }
+    setLoading(false);
+    setTimeout(() => {
+      setSuccess(null);
+      setError(null);
+    }, 3000);
   };
 
   return (
