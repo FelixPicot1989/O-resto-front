@@ -1,0 +1,30 @@
+@use '../../styles/vars.scss';
+
+.ListProducts {
+  display: flex;
+  justify-content: center;
+  .product-list {
+    width: 100%;
+  }
+
+  .product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    padding-bottom: 10px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid vars.$light-grey;
+    }
+
+    &-left {
+      display: flex;
+      flex-direction: column;
+
+      .products-name {
+        margin: 10px 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,335 @@
+@use '../../styles/vars.scss';
+
+.Navbar {
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1% 0;
+  color: vars.$gold;
+  background-color: vars.$black-color-transp;
+  z-index: 2;
+  font-family: vars.$texte-police;
+
+  .logo-oresto {
+    margin-left: 2%;
+    width: 60px;
+    z-index: 10;
+    cursor: pointer;
+
+    @media (min-width: 768px) {
+      position: fixed;
+      margin-left: 1%;
+      top: 0.8%;
+    }
+  }
+
+  .title {
+    color: vars.$white-color;
+    z-index: 10;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-left: -20px;
+    font-family: vars.$titre-police;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  .title-hidden {
+    display: none;
+  }
+
+  &-desktop {
+    display: none;
+
+    @media (min-width: 768px) {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .Navbar-list {
+      display: flex;
+
+      &-item {
+        font-size: 1.3rem;
+        margin: 0 16px;
+        cursor: pointer;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -8px;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background-color: vars.$gold;
+          transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+          transform: translateX(-50%);
+        }
+
+        &:hover::after {
+          width: 80%;
+        }
+      }
+
+      .dropdown {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        .chevron {
+          cursor: pointer;
+          margin-left: -8px;
+          margin-right: 8px;
+          display: flex;
+          align-items: center;
+        }
+
+        .dropdown-list {
+          position: absolute;
+          top: 35px;
+          right: -6px;
+          width: 90px;
+          background-color: rgba(0, 0, 0, 0.9);
+          display: flex;
+          flex-direction: column;
+          border-radius: 10px;
+          border: 1px solid white;
+          box-shadow: 0 40px 40px rgb(0 0 0 / 6%);
+
+          &::before {
+            content: '';
+            background: inherit;
+            border-top: 1px solid #e1e1e1;
+            border-right: 1px solid #e1e1e1;
+            position: absolute;
+            top: -7px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            rotate: -45deg;
+          }
+
+          a {
+            display: block;
+          }
+
+          a:hover {
+            background-color: vars.$gold;
+            color: vars.$black-color;
+            z-index: 1;
+          }
+
+          a:first-child:hover {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          }
+
+          a:last-child:hover {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+          }
+
+          a {
+            padding: 8px;
+          }
+        }
+      }
+    }
+
+    .active {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        width: 80%;
+        height: 2px;
+        background-color: vars.$gold;
+        z-index: 10;
+      }
+    }
+
+    .login-social-desktop {
+      display: flex;
+      position: fixed;
+      justify-content: space-between;
+      gap: 1rem;
+      right: 0;
+      padding-right: 2.5%;
+      color: vars.$white-color;
+
+      @media (min-width: 768px) and (max-width: 1020px) {
+        flex-direction: column-reverse;
+      }
+
+      .btn-login {
+        padding: 6px 12px;
+        background-color: vars.$gold;
+        color: vars.$black-color;
+        font-size: 1rem;
+        font-weight: bold;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        font-family: vars.$texte-police;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+        &:hover {
+          background-color: vars.$black-color;
+          color: vars.$gold;
+        }
+      }
+
+      .social-desktop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &-burger {
+    z-index: 10;
+    color: vars.$gold;
+    font-size: 1.5rem;
+    margin-right: 2%;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &-mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 23%;
+    width: 100%;
+    height: 100vh;
+    background-color: vars.$grey-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 9;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+
+    &-hidden {
+      display: none;
+    }
+
+    &-item {
+      margin: 1.5rem 0;
+      font-size: 2rem;
+      text-align: center;
+      display: block;
+    }
+
+    .dropdown {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+
+      .chevron {
+        display: inline-block;
+        font-size: 25px;
+        padding-left: 5px;
+        height: 100%;
+        vertical-align: middle;
+      }
+
+      .dropdown-list {
+        width: 110px;
+        background-color: #fff;
+        border-radius: 10px;
+        border: 1px solid #e1e1e1;
+        box-shadow: 0 40px 40px rgb(0 0 0 / 6%);
+        margin-top: 10px;
+        position: relative;
+        text-align: left;
+        font-size: 1.3rem;
+        margin-left: 29px;
+
+        &::before {
+          content: '';
+          background: inherit;
+          border-top: 1px solid #e1e1e1;
+          border-right: 1px solid #e1e1e1;
+          position: absolute;
+          top: -6px;
+          right: 13px;
+          width: 12px;
+          height: 12px;
+          rotate: -45deg;
+        }
+
+        a {
+          display: block;
+        }
+
+        a:hover {
+          background-color: #f5f5f5;
+        }
+
+        a:first-child:hover {
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+
+        a:last-child:hover {
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+
+        a {
+          padding: 8px;
+        }
+      }
+    }
+
+    .login-social-mobile {
+      width: 80%;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      padding-bottom: 2.5%;
+
+      .btn-login {
+        font-size: 1.3rem;
+        padding: 12px 24px;
+        background-color: vars.$gold;
+        color: vars.$black-color;
+        font-weight: bold;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        font-family: vars.$texte-police;
+      }
+
+      .social-media {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 5%;
+        font-size: 1.5rem;
+        color: vars.$white-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+@use '../styles/vars.scss';
+
+.MenuCardPage {
+  .MenuCard {
+    margin: 3rem auto;
+    padding: 0 1rem;
+    width: 500px;
+    .categories {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: vars.$gold;
+      font-size: 2rem;
+      font-family: vars.$titre-police;
+
+      .active {
+        //! penser a mettre la petite icon de fouet
+        // color: red;
+        position: relative;
+
+        &::after {
+          content: url('../assets/whisk.png');
+          position: absolute;
+          z-index: -1;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .menu-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .others-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -0.5rem;
+          border-bottom: 1px solid vars.$light-grey;
+          width: 80%;
+        }
+      }
+    }
+  }
+  .categories {
+    display: flex;
+    flex-direction: column;
+
+    .menu-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .others-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -0.5rem;
+        border-bottom: 1px solid black;
+        width: 50%;
+      }
+    }
+  }
+}

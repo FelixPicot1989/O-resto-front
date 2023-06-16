@@ -1,0 +1,26 @@
+@use '../../styles/vars.scss';
+.CarouselBgImages {
+  position: relative;
+}
+
+.page-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: vars.$gold;
+  z-index: 1;
+  font-size: 5rem;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    font-size: 10rem;
+  }
+}
+
+.carou-img {
+  height: 100dvh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,25 @@
+@use '../../styles/vars.scss';
+
+.BookingTool {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3% 0 6%;
+
+  h2 {
+    margin: 1rem 0;
+    font-size: 3rem;
+    font-family: vars.$titre-police;
+    color: vars.$gold;
+    font-weight: bold;
+  }
+
+  iframe {
+    border: none;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    min-height: 550px;
+  }
+}

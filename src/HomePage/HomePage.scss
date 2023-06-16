@@ -1,0 +1,22 @@
+@use '../styles/vars.scss';
+.HomePage {
+  .Oresto-story {
+    width: 80%;
+    margin: 3% auto 6%;
+    text-align: center;
+
+    h2 {
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: vars.$titre-police;
+      color: vars.$gold;
+      margin-bottom: 2rem;
+    }
+
+    p {
+      line-height: 1.3rem;
+      font-size: 1.2rem;
+      font-family: vars.$texte-police;
+    }
+  }
+}
