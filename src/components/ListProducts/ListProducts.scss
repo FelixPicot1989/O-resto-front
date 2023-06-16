@@ -1,3 +1,5 @@
+@use '../../styles/vars.scss';
+
 .ListProducts {
   display: flex;
   justify-content: center;
@@ -13,7 +15,7 @@
     padding-bottom: 10px;
 
     &:not(:last-child) {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid vars.$light-grey;
     }
 
     &-left {
