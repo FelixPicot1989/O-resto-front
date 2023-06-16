@@ -15,7 +15,6 @@ function CarouselReview() {
       try {
         const response = await axios.get(`${baseUrl}/api/reviews`);
         const { data } = response;
-        console.log(data);
         setReviews(data);
       } catch (error) {
         console.log('Erreur API', error);
@@ -23,6 +22,12 @@ function CarouselReview() {
     };
     fetchReviews();
   }, []);
+
+  const formatDate = (dateToFormat) => {
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const date = new Date(dateToFormat);
+    return date.toLocaleDateString('fr-FR', options);
+  };
 
   // fonction pour gérer le clic gauche
   const handleLeftClick = () => {
@@ -44,8 +49,6 @@ function CarouselReview() {
     }
   };
 
-  // value sera supprimer
-  const value = 3;
   return (
     <div className="CarouselReview">
       <h2 className="title">Avis</h2>
@@ -55,77 +58,13 @@ function CarouselReview() {
           {reviews.map((el) => {
             return (
               <li key={el.id} className="card" ref={firstCardRef}>
-                <h3 className="user-name">John Doe</h3>
                 <p className="comment">{el.comment}</p>
-                <span className="date">9 juin 2023</span>
+                <span className="date">{formatDate(el.createdAt)}</span>
                 <Rating className="rate" name="read-only" value={el.rating} readOnly precision={0.5} />
+                <h3 className="user-name">{el.user && `${el.user.firstname} ${el.user.lastname}`}</h3>
               </li>
             );
           })}
-          <li className="card" ref={firstCardRef}>
-            <h3 className="user-name">John Doe</h3>
-            <p className="comment">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod lacus nec neque commodo lacinia.
-            </p>
-            <span className="date">9 juin 2023</span>
-            <Rating className="rate" name="read-only" value={value} readOnly />
-          </li>
-          <li className="card">
-            <h3 className="user-name">John Doe</h3>
-            <p className="comment">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod lacus nec neque commodo lacinia.
-            </p>
-            <span className="date">9 juin 2023</span>
-            <Rating className="rate" name="read-only" value={value} readOnly />
-          </li>
-          <li className="card">
-            <h3 className="user-name">John Doe</h3>
-            <p className="comment">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod lacus nec neque commodo lacinia.
-            </p>
-            <span className="date">9 juin 2023</span>
-            <Rating className="rate" name="read-only" value={value} readOnly />
-          </li>
-          <li className="card">
-            <h3 className="user-name">John Doe</h3>
-            <p className="comment">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod lacus nec neque commodo lacinia.
-            </p>
-            <span className="date">9 juin 2023</span>
-            <Rating className="rate" name="read-only" value={value} readOnly />
-          </li>
-          <li className="card">
-            <h3 className="user-name">John Doe</h3>
-            <p className="comment">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod lacus nec neque commodo lacinia.
-            </p>
-            <span className="date">9 juin 2023</span>
-            <Rating className="rate" name="read-only" value={value} readOnly />
-          </li>
-          <li className="card">
-            <h3 className="user-name">John Doe</h3>
-            <p className="comment">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod lacus nec neque commodo lacinia.
-            </p>
-            <span className="date">9 juin 2023</span>
-            <Rating className="rate" name="read-only" value={value} readOnly />
-          </li>
-          <li className="card">
-            <h3 className="user-name">John Doe</h3>
-            <p className="comment">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod lacus nec neque commodo lacinia.
-            </p>
-            <span className="date">9 juin 2023</span>
-            <Rating className="rate" name="read-only" value={value} readOnly />
-          </li>
-          <li className="card">
-            <h3 className="user-name">John Doe</h3>
-            <p className="comment">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod lacus nec neque commodo lacinia.
-            </p>
-            <span className="date">9 juin 2023</span>
-            <Rating className="rate" name="read-only" value={value} readOnly />
-          </li>
         </ul>
         <i id="right" className="fa-solid fa-angle-right" onClick={handleRightClick} />
       </div>
