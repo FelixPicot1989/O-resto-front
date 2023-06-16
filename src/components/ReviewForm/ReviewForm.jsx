@@ -93,6 +93,8 @@ function ReviewForm() {
                 e.preventDefault();
                 setRatingValue(newValue);
               }}
+              precision={0.5}
+              disabled={!userLogged}
             />
           </div>
           {userLogged ? (
