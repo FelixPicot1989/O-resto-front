@@ -7,20 +7,25 @@ function ListMenus({ menus }) {
   return (
     <div className="ListMenus">
       <ul className="menu-list">
-        {menus.map(({ id, name, eats, price }) => (
-          // ajout d'une accolade fermante ici
-          <li key={id} className="menu-item">
-            <div className="menu-item-left">
-              <h3 className="menus-name">{name}</h3>
-              {eats.map((plat) => {
-                return (
-                  <p key={plat.id} className="menus-description">
-                    {plat.name}
-                  </p>
-                );
-              })}
+        {menus.map(({ menuName, menuId, menuPrice, eatsByCategory }) => (
+          <li className="menu-item" key={menuId}>
+            <div className="menu-header">
+              <h3 className="menu-title">{menuName}</h3>
+              <span className="menu-price">{menuPrice} €</span>
             </div>
-            <p className="menus-price">{price} €</p>
+            {/* Object.entries renvoie un tableau de tableaux avec la clé et la valeur de l'objet eatsByCategory */}
+            {Object.entries(eatsByCategory).map(([category, eats]) => (
+              <div className="category-list" key={category}>
+                <h4 className="category-name">{category}</h4>
+                <ul className="eats-list">
+                  {eats.map(({ eatName, eatId }) => (
+                    <li className="eats-item" key={eatId}>
+                      {eatName}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </li>
         ))}
       </ul>

@@ -82,11 +82,45 @@ function MenuCardPage() {
     }
   };
 
+  // Cette fonction prend le tableau des menus comme paramètre et renvoie un nouveau tableau de menus triés par catégorie
+  const sortMenus = (data) => {
+    // map pour créer un nouveau tableau de menus triés
+    return data.map((menu) => {
+      // Boucle pour créé un nouveau tableau qui trie les aliments en fonction de leur catégories
+      // a l'intérieur de chaque menu, on reduce pour grouper les aliments du menu par catégorie (entrées, plats, desserts) en créant un nouvel objet eatsByCategory.
+      const eatsByCategory = menu.eats.reduce((groupedEats, eat) => {
+        // copie de l'objet groupedEats pour éviter de modifier directement l'objet original
+        const updatedGroupedEats = { ...groupedEats };
+        // Boucle sur toutes les catégories pour chaque aliment
+        eat.category.forEach((cat) => {
+          // Si la catégorie n'existe pas dans l'objet "updatedGroupedEats", on la crée avec un tableau vide
+          if (!updatedGroupedEats[cat.name]) {
+            updatedGroupedEats[cat.name] = [];
+          }
+          // On ajoute l'aliment sous forme d'objet à la catégorie correspondante
+          updatedGroupedEats[cat.name].push({
+            eatId: eat.id,
+            eatName: eat.name,
+          });
+        });
+        // On renvoie l'objet updatedGroupedEats mis à jour et on recommence pour toutes les entrées de menu.eats
+        return updatedGroupedEats;
+      }, {});
+      // On renvoie un objet qui contient le nom du menu, son Id et les aliments triés par catégorie
+      return {
+        menuName: menu.name,
+        menuId: menu.id,
+        menuPrice: menu.price,
+        eatsByCategory,
+      };
+    });
+  };
+
   const fetchMenus = async () => {
     try {
       const response = await axios.get(`${baseUrl}/api/menus`);
-      const { data } = response;
-      setMenus(data);
+      const sortedMenus = sortMenus(response.data);
+      setMenus(sortedMenus);
     } catch (error) {
       console.log('Erreur API', error);
     }
