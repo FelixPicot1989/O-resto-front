@@ -11,7 +11,7 @@ function ListMenus({ menus }) {
           <li className="menu-item" key={menuId}>
             <div className="menu-header">
               <h3 className="menu-title">{menuName}</h3>
-              <span className="menu-price">{menuPrice} €</span>
+              <span className="menu-price">{menuPrice}&nbsp;€</span>
             </div>
             {/* Object.entries renvoie un tableau de tableaux avec la clé et la valeur de l'objet eatsByCategory */}
             {Object.entries(eatsByCategory).map(([category, eats]) => (

@@ -26,7 +26,7 @@ function MenuCardPage() {
       try {
         const response = await axios.get(`${baseUrl}/api/categories`);
         const { data } = response;
-        data.map((el) => {
+        data.forEach((el) => {
           if (el.name === 'entrées') {
             setEntrees(el.id);
           }
@@ -49,6 +49,7 @@ function MenuCardPage() {
   const fetchCategory = async (param) => {
     try {
       const response = await axios.get(`${baseUrl}/api/categories/${param}`);
+      console.log('fetch category/id', response.data);
       const { data } = response;
       setProducts(data.eats);
     } catch (error) {
@@ -155,7 +156,7 @@ function MenuCardPage() {
             <NavLink to="/carte/boissons">Boissons</NavLink>
           </div>
         </div>
-        {category !== 'menus' && <ListProducts products={products} />}
+        {category !== 'menus' && category !== 'boissons' && <ListProducts products={products} />}
         {category === 'menus' && <ListMenus menus={menus} />}
         {category === 'boissons' && <ListDrinks drinks={drinks} />}
       </section>

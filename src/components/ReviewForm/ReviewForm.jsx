@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Rating, Typography } from '@mui/material';
 import axios from 'axios';
 
 import './ReviewForm.scss';
 import AuthForm from '../AuthForm/AuthForm';
+import ToastNotif from '../ToastNotif/ToastNotif';
 
 function ReviewForm() {
   // Les variables pour stocker l'avis et la note
@@ -16,6 +17,29 @@ function ReviewForm() {
   const [error, setError] = useState(null);
   //! code temporaire à gerer avec le localStorage
   const [userLogged, setUserLogged] = useState(false);
+  const [token, setToken] = useState('');
+
+  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+
+  // Permet de vérifier si la clé 'token' existe dans localStorage, si oui cela veut dire que l'utilisateur est connecté
+  const checkUserLoggedIn = () => {
+    if (localStorage.getItem('token')) {
+      setUserLogged(true);
+      setToken(localStorage.getItem('token'));
+    } else {
+      setUserLogged(false);
+    }
+  };
+
+  useEffect(() => {
+    checkUserLoggedIn();
+
+    window.addEventListener('storage', checkUserLoggedIn);
+
+    return () => {
+      window.removeEventListener('storage', checkUserLoggedIn);
+    };
+  }, []);
 
   function toggleLoginForm() {
     setShowLoginForm(!showLoginForm);
@@ -27,7 +51,7 @@ function ReviewForm() {
 
     const trimmedReviewComment = reviewComment.trim();
 
-    if (!trimmedReviewComment) {
+    if (!reviewComment) {
       setError("Le commentaire de l'avis est vide");
       setLoading(false);
       return;
@@ -40,15 +64,21 @@ function ReviewForm() {
     }
 
     try {
-      const response = await axios.post('/api/signup', {
-        //! penser à recuperer le user name quand le user est connecté
-        firstname,
-        lastName,
-        comment: trimmedReviewComment,
-        rating: ratingValue,
-      });
+      const response = await axios.post(
+        `${baseUrl}/api/reviews`,
+        {
+          comment: reviewComment,
+          rating: ratingValue,
+          createdAt: 'now',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setSuccess('Votre avis a bien été envoyé. Merci pour votre retour.');
         setReviewComment('');
         setRatingValue(null);
@@ -56,6 +86,7 @@ function ReviewForm() {
         setError("Une erreur est survenue lors de l'envoi de l'avis.");
       }
     } catch (err) {
+      setError("Une erreur s'est produite");
       console.error(err);
     }
     setLoading(false);
@@ -108,10 +139,20 @@ function ReviewForm() {
             </p>
           )}
         </form>
-        {success && <div>{success}</div>}
-        {error && <div>{error}</div>}
       </div>
       <AuthForm showLoginForm={showLoginForm} toggleLoginForm={() => toggleLoginForm()} />
+      <ToastNotif
+        success={success}
+        toggleToast={() => {
+          setSuccess(null);
+        }}
+      />
+      <ToastNotif
+        error={error}
+        toggleToast={() => {
+          setError(null);
+        }}
+      />
     </>
   );
 }
