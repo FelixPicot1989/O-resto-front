@@ -55,6 +55,7 @@ function App() {
       } else {
         setUserLogged(false);
       }
+      Plat;
     }
   }, []);
 
