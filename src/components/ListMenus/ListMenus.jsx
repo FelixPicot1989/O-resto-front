@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './ListMenus.scss';
 
 function ListMenus({ menus }) {
-  console.log('menus :', menus);
+  // console.log('menus :', menus);
   return (
     <div className="ListMenus">
       <ul className="menu-list">
@@ -35,11 +35,19 @@ function ListMenus({ menus }) {
 ListMenus.propTypes = {
   menus: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      eats: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number.isRequired, name: PropTypes.string.isRequired })),
-      price: PropTypes.string.isRequired,
+      menuId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      menuName: PropTypes.string.isRequired,
+      menuPrice: PropTypes.string.isRequired,
+      eatsByCategory: PropTypes.objectOf(
+        PropTypes.arrayOf(
+          PropTypes.shape({
+            eatId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            eatName: PropTypes.string.isRequired,
+          })
+        )
+      ).isRequired,
     })
   ).isRequired,
 };
+
 export default ListMenus;

@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import './ListDrinks.scss';
 
 function ListDrinks({ drinks }) {
-  console.log(drinks);
+  // console.log('drinks', drinks);
   return (
     <div className="ListDrinks">
       {/* Object.keys(drinks) renvoie un tableau de toutes les clés de l'objet drinks. */}
-      {Object.keys(drinks).map((category) => (
-        <div className="category">
+      {Object.keys(drinks).map((category, index) => (
+        <div className="category" key={index}>
           <h2 className="category-name">{category}</h2>
           <ul className="drinks-list" key={category}>
             {drinks[category].map((drink) => (
@@ -31,8 +31,8 @@ ListDrinks.propTypes = {
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
+        description: PropTypes.string,
+        price: PropTypes.string.isRequired,
       })
     )
   ).isRequired,

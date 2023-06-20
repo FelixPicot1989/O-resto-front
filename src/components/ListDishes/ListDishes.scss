@@ -1,6 +1,6 @@
 @use '../../styles/vars.scss';
 
-.ListDrinks {
+.ListDishes {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,7 @@
     }
   }
 
-  .drinks {
+  .dishes {
     &-item {
       display: flex;
       justify-content: space-between;
