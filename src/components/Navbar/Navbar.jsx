@@ -7,6 +7,7 @@ import { isUserLogged } from '../Recoil/Recoil';
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
 import AuthForm from '../AuthForm/AuthForm';
+import ToastNotif from '../ToastNotif/ToastNotif';
 
 // Il reste à mettre des LinkTo dans la nav au lieu des <li> (Attention au CSS !!)
 function Navbar() {
@@ -14,7 +15,7 @@ function Navbar() {
   const [nav, setNav] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
-
+  const [success, setSuccess] = useState(null);
   const [userLogged, setUserLogged] = useRecoilState(isUserLogged);
 
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
@@ -30,6 +31,7 @@ function Navbar() {
     if (userLogged) {
       localStorage.removeItem('token');
       setUserLogged(false);
+      setSuccess('Vous êtes bien déconnecté');
     } else {
       setShowLoginForm(!showLoginForm);
     }
@@ -189,6 +191,12 @@ function Navbar() {
         </div>
       </nav>
       <AuthForm showLoginForm={showLoginForm} toggleLoginForm={() => toggleLoginForm()} />
+      <ToastNotif
+        success={success}
+        toggleToast={() => {
+          setSuccess(null);
+        }}
+      />
     </>
   );
 }
