@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight, FaChevronDown } from 'react-icons/fa';
 import { NavLink, useLocation, Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { isUserLogged } from '../Recoil/Recoil';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
@@ -12,6 +14,9 @@ function Navbar() {
   const [nav, setNav] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
+
+  const [userLogged, setUserLogged] = useRecoilState(isUserLogged);
+
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleToggleNav = () => {
     setNav(!nav);
@@ -22,7 +27,12 @@ function Navbar() {
   };
 
   function toggleLoginForm() {
-    setShowLoginForm(!showLoginForm);
+    if (userLogged) {
+      localStorage.removeItem('token');
+      setUserLogged(false);
+    } else {
+      setShowLoginForm(!showLoginForm);
+    }
   }
 
   const location = useLocation();
@@ -71,7 +81,7 @@ function Navbar() {
           <div className="login-social-desktop">
             <div>
               <button onClick={toggleLoginForm} className="btn-login" type="button">
-                Connexion
+                {userLogged ? 'Déconnexion' : 'Connexion'}
               </button>
             </div>
             <div className="social-desktop">
@@ -161,7 +171,7 @@ function Navbar() {
           <div className="login-social-mobile">
             <div>
               <button onClick={toggleLoginForm} className="btn-login" type="button">
-                Connexion
+                {userLogged ? 'Déconnexion' : 'Connexion'}
               </button>
             </div>
             <div className="social-media">

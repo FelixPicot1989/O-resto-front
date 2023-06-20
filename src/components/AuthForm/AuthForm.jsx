@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import isValidDomain from 'is-valid-domain';
 import axios from 'axios';
+import { isUserLogged } from '../Recoil/Recoil';
 import ToastNotif from '../ToastNotif/ToastNotif';
 
 import './AuthForm.scss';
@@ -38,6 +40,8 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
     setHasUpperCase(false);
     setPasswordsMatch(false);
   };
+
+  const setUserLogged = useSetRecoilState(isUserLogged);
 
   const handlePasswordChange = ({ target: { value } }) => {
     setPassword(value);
@@ -115,6 +119,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
           toggleLoginForm();
           resetForm();
           localStorage.setItem('token', response.data.token);
+          setUserLogged(true);
         }
       }
     } catch (err) {

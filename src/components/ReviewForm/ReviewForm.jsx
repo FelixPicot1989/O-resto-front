@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Rating, Typography } from '@mui/material';
 import axios from 'axios';
 
+import { useRecoilValue } from 'recoil';
+import { isUserLogged } from '../Recoil/Recoil';
 import './ReviewForm.scss';
 import AuthForm from '../AuthForm/AuthForm';
 import ToastNotif from '../ToastNotif/ToastNotif';
@@ -15,31 +17,11 @@ function ReviewForm() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
-  //! code temporaire à gerer avec le localStorage
-  const [userLogged, setUserLogged] = useState(false);
-  const [token, setToken] = useState('');
+  //const [authToken, setAuthToken] = useState('');
 
   const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
 
-  // Permet de vérifier si la clé 'token' existe dans localStorage, si oui cela veut dire que l'utilisateur est connecté
-  const checkUserLoggedIn = () => {
-    if (localStorage.getItem('token')) {
-      setUserLogged(true);
-      setToken(localStorage.getItem('token'));
-    } else {
-      setUserLogged(false);
-    }
-  };
-
-  useEffect(() => {
-    checkUserLoggedIn();
-
-    window.addEventListener('storage', checkUserLoggedIn);
-
-    return () => {
-      window.removeEventListener('storage', checkUserLoggedIn);
-    };
-  }, []);
+  const userLogged = useRecoilValue(isUserLogged);
 
   function toggleLoginForm() {
     setShowLoginForm(!showLoginForm);
@@ -73,7 +55,7 @@ function ReviewForm() {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         }
       );
