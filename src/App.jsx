@@ -2,8 +2,9 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState, createContext } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { isUserLogged } from './components/Recoil/Recoil';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+import { isUserLogged } from './components/Recoil/Recoil';
 import ImageContextProvider from './context/ImageContextProvider';
 
 import HomePage from './HomePage/HomePage';
@@ -46,7 +47,15 @@ function App() {
     fetchInfos();
 
     if (localStorage.getItem('token')) {
-      setUserLogged(true);
+      const token = localStorage.getItem('token');
+      const decodedToken = jwt_decode(token);
+
+      if (decodedToken.exp * 1000 > Date.now()) {
+        setUserLogged(true);
+      } else {
+        setUserLogged(false);
+      }
+      Plat;
     }
   }, []);
 
