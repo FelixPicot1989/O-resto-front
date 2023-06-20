@@ -6,10 +6,11 @@ import ListProducts from '../components/ListProducts/ListProducts';
 import ListMenus from '../components/ListMenus/ListMenus';
 import ListDrinks from '../components/ListDrinks/ListDrinks';
 import './MenuCardPage.scss';
+import ListDishes from '../components/ListDishes/ListDishes';
 
 function MenuCardPage() {
   const [entrees, setEntrees] = useState(0);
-  const [plats, setPlats] = useState(0);
+  const [dishes, setDishes] = useState(0);
   const [desserts, setDesserts] = useState(0);
   const [products, setProducts] = useState([]);
   const [menus, setMenus] = useState([]);
@@ -18,8 +19,6 @@ function MenuCardPage() {
   const { category } = useParams();
 
   const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
-  const token =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTg5NDQsImV4cCI6MTY4Njg4Mzc0NCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.oRCbsBBG_9s1xlEbf_qlqaZao02AX-uVLsOa25iv8DQYZ_Jwdh7zJWB4cJ9Akker68i5jWmjAaUQIEWPWLuKQWpdIOl1z_gQO5XNi-Btx67yCTj1ikQtTW26CC_MjGZmtDkTkR-N9xMHWLxgsEE5Pq9ONhksGlqb3a-5x0P_p5VxSgQ0YigP14ewmhxBgC9Sfc1ZfZTdlrPDmqKJIv9NKEAlp_nMSrujrvFKOM3wTleVLf2XY8UESU_h7NTeS7OaNba6O2NvimwMr64-L4Rh7g64CR6j9KCRK5BRIpIrkZ6sNWiG6T2V56dDbWrbEzCPRCKxBDvDDNiiwG5mnyN7zA';
 
   useEffect(() => {
     const fetchCategoryId = async () => {
@@ -31,9 +30,9 @@ function MenuCardPage() {
             setEntrees(el.id);
           }
 
-          if (el.name === 'plats') {
-            setPlats(el.id);
-          }
+          // if (el.name === 'plats') {
+          //   setDishes(el.id);
+          // }
 
           if (el.name === 'desserts') {
             setDesserts(el.id);
@@ -49,7 +48,6 @@ function MenuCardPage() {
   const fetchCategory = async (param) => {
     try {
       const response = await axios.get(`${baseUrl}/api/categories/${param}`);
-      console.log('fetch category/id', response.data);
       const { data } = response;
       setProducts(data.eats);
     } catch (error) {
@@ -127,11 +125,24 @@ function MenuCardPage() {
     }
   };
 
+  const sortDishes = (data) => {};
+
+  const fetchEats = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/eats`);
+      console.log(response.data);
+      const sortedDishes = sortDishes(response.data);
+      setDishes(sortedDishes);
+      console.log(dishes);
+    } catch (error) {
+      console.log('Erreur API', error);
+    }
+  };
   useEffect(() => {
     if (category === 'entrées' && entrees !== 0) {
       fetchCategory(entrees);
-    } else if (category === 'plats' && plats !== 0) {
-      fetchCategory(plats);
+    } else if (category === 'plats' && dishes !== 0) {
+      fetchEats();
     } else if (category === 'desserts' && desserts !== 0) {
       fetchCategory(desserts);
     } else if (category === 'boissons') {
@@ -139,7 +150,7 @@ function MenuCardPage() {
     } else if (category === 'menus') {
       fetchMenus();
     }
-  }, [category, entrees, plats, desserts]);
+  }, [category, entrees, dishes, desserts]);
 
   return (
     <div className="MenuCardPage">
@@ -156,7 +167,10 @@ function MenuCardPage() {
             <NavLink to="/carte/boissons">Boissons</NavLink>
           </div>
         </div>
-        {category !== 'menus' && category !== 'boissons' && <ListProducts products={products} />}
+        {category !== 'menus' && category !== 'boissons' && category !== 'plats' && (
+          <ListProducts products={products} />
+        )}
+        {category === 'plats' && <ListDishes dishes={dishes} />}
         {category === 'menus' && <ListMenus menus={menus} />}
         {category === 'boissons' && <ListDrinks drinks={drinks} />}
       </section>
