@@ -11,6 +11,7 @@ import HomePage from './HomePage/HomePage';
 import ReviewPage from './ReviewPage/ReviewPage';
 import ContactPage from './ContactPage/ContactPage';
 import MenuCardPage from './MenuCardPage/MenuCardPage';
+import LegalPage from './LegalPage/LegalPage';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import StickyFooter from './components/StickyFooter/StickyFooter';
@@ -49,13 +50,13 @@ function App() {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
       const decodedToken = jwt_decode(token);
+      console.log(decodedToken);
 
       if (decodedToken.exp * 1000 > Date.now()) {
         setUserLogged(true);
       } else {
         setUserLogged(false);
       }
-      Plat;
     }
   }, []);
 
@@ -68,6 +69,8 @@ function App() {
           <Route path="/avis" element={<ReviewPage />} />
           <Route path="/reservations-contact" element={<ContactPage />} />
           <Route path="/carte/:category?" element={<MenuCardPage />} />
+          <Route path="/mentions-legales" element={<LegalPage type="mentions" />} />
+          <Route path="/confidentialite" element={<LegalPage type="politique" />} />
         </Routes>
       </ImageContextProvider>
       <Footer infos={infos} />
