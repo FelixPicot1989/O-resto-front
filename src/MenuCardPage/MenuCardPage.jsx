@@ -9,47 +9,30 @@ import './MenuCardPage.scss';
 import ListDishes from '../components/ListDishes/ListDishes';
 
 function MenuCardPage() {
-  const [entrees, setEntrees] = useState(0);
-  const [dishes, setDishes] = useState(0);
-  const [desserts, setDesserts] = useState(0);
-  const [products, setProducts] = useState([]);
+  const [entries, setEntrees] = useState([]);
+  const [dishes, setDishes] = useState([]);
+  const [desserts, setDesserts] = useState([]);
   const [menus, setMenus] = useState([]);
   const [drinks, setDrinks] = useState({});
-
   const { category } = useParams();
 
   const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
 
-  useEffect(() => {
-    const fetchCategoryId = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/api/categories`);
-        const { data } = response;
-        data.forEach((el) => {
-          if (el.name === 'entrées') {
-            setEntrees(el.id);
-          }
-
-          // if (el.name === 'plats') {
-          //   setDishes(el.id);
-          // }
-
-          if (el.name === 'desserts') {
-            setDesserts(el.id);
-          }
-        });
-      } catch (error) {
-        console.log('Erreur API', error);
-      }
-    };
-    fetchCategoryId();
-  }, []);
-
-  const fetchCategory = async (param) => {
+  const fetchEntries = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/api/categories/${param}`);
+      const response = await axios.get(`${baseUrl}/api/categories/1`);
       const { data } = response;
-      setProducts(data.eats);
+      setEntrees(data.eats);
+    } catch (error) {
+      console.log('Erreur API', error);
+    }
+  };
+
+  const fetchDesserts = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/categories/3`);
+      const { data } = response;
+      setDesserts(data.eats);
     } catch (error) {
       console.log('Erreur API', error);
     }
@@ -59,7 +42,6 @@ function MenuCardPage() {
     try {
       const response = await axios.get(`${baseUrl}/api/drinks`);
       const { data } = response;
-
       // Boucle pour créé un nouveau tableau qui trie les boissons en fonction de leur catégories
       // groupedDrinks est un objet vide et qui a chaque itération on lui rajoute un nouveau tableau s'il n'existe pas deja
       const drinksByCategory = data.reduce((groupedDrinks, currentDrink) => {
@@ -75,6 +57,7 @@ function MenuCardPage() {
         return updatedGroupedDrinks;
       }, {});
       // enfin on set drinks avec le nouvel objet
+      // setDrinks(drinksByCategory);
       setDrinks(drinksByCategory);
     } catch (error) {
       console.error('Erreur API', error);
@@ -92,15 +75,17 @@ function MenuCardPage() {
         const updatedGroupedEats = { ...groupedEats };
         // Boucle sur toutes les catégories pour chaque aliment
         eat.category.forEach((cat) => {
-          // Si la catégorie n'existe pas dans l'objet "updatedGroupedEats", on la crée avec un tableau vide
-          if (!updatedGroupedEats[cat.name]) {
-            updatedGroupedEats[cat.name] = [];
+          if (cat.name === 'entrées' || cat.name === 'plats' || cat.name === 'desserts') {
+            // Si la catégorie n'existe pas dans l'objet "updatedGroupedEats", on la crée avec un tableau vide avec soit la valeur "entrées" "plats" ou "desserts"
+            if (!updatedGroupedEats[cat.name]) {
+              updatedGroupedEats[cat.name] = [];
+            }
+            // On ajoute l'aliment sous forme d'objet à la catégorie correspondante
+            updatedGroupedEats[cat.name].push({
+              eatId: eat.id,
+              eatName: eat.name,
+            });
           }
-          // On ajoute l'aliment sous forme d'objet à la catégorie correspondante
-          updatedGroupedEats[cat.name].push({
-            eatId: eat.id,
-            eatName: eat.name,
-          });
         });
         // On renvoie l'objet updatedGroupedEats mis à jour et on recommence pour toutes les entrées de menu.eats
         return updatedGroupedEats;
@@ -124,33 +109,54 @@ function MenuCardPage() {
       console.log('Erreur API', error);
     }
   };
+  // cette fonction renvoie un tableau d'objets qui représentent les catégories (viandes, poissons, burgers ...) qui eu meme contienne elles meme un tableau d'objet contenant les plats affecter à cette categories
+  // data est un tableau d'objets représentant tous les aliments.
+  const sortDishes = (data) => {
+    // filter() sur data pour obtenir seulement les plats qui ont la catégorie "plats". Ces plats sont stockés dans une nouvelle variable appelée plats.
+    const plats = data.filter((dish) => dish.category.some((cat) => cat.name === 'plats'));
+    // reduce() sur plats pour obtenir tous les objets qui représentent les catégories autres que la categorie "plats".
+    const otherCategoriesWithDishes = plats.reduce((groupedDishes, currentDish) => {
+      // boucle sur chaque plat dans plats, puis sur chaque catégorie de ce plat.
+      currentDish.category.forEach((cat) => {
+        // ici on ignore la category "plats"
+        if (cat.name !== 'plats') {
+          // find() pour vérifier si la catégorie existe déjà dans groupedDishes
+          let existingCategory = groupedDishes.find((item) => item.id === cat.id);
+          // Si la catégorie n'existe pas déjà, un nouvel objet est créé avec l'id de la catégorie trouvée, le nom et un tableau vide appelé dishes pour contenir les plats de cette catégorie.
+          if (!existingCategory) {
+            existingCategory = { ...cat, dishes: [] };
+            // l'objet existingCategory est ajouté à groupedDishes
+            groupedDishes.push(existingCategory);
+          }
+          // On ajoute le plat courant (currentDish) à l'objet existingCategory dans son tableau qui contient les plats
+          existingCategory.dishes.push(currentDish);
+        }
+      });
+      return groupedDishes;
+    }, []);
+    // et on retourne otherCategoriesWithDishes une fois la boucle terminé
+    return otherCategoriesWithDishes;
+  };
 
-  const sortDishes = (data) => {};
-
-  const fetchEats = async () => {
+  const fetchDishes = async () => {
     try {
       const response = await axios.get(`${baseUrl}/api/eats`);
-      console.log(response.data);
       const sortedDishes = sortDishes(response.data);
+      // setDishes(sortedDishes);
       setDishes(sortedDishes);
-      console.log(dishes);
     } catch (error) {
       console.log('Erreur API', error);
     }
   };
+
+  // On set tous les states des le debut comme ca on a toute les infos a disposition et comme ca pas besoin de faire une requette à chaque changement "d'onglet" dans la carte
   useEffect(() => {
-    if (category === 'entrées' && entrees !== 0) {
-      fetchCategory(entrees);
-    } else if (category === 'plats' && dishes !== 0) {
-      fetchEats();
-    } else if (category === 'desserts' && desserts !== 0) {
-      fetchCategory(desserts);
-    } else if (category === 'boissons') {
-      fetchDrinks();
-    } else if (category === 'menus') {
-      fetchMenus();
-    }
-  }, [category, entrees, dishes, desserts]);
+    fetchEntries();
+    fetchDishes();
+    fetchDesserts();
+    fetchMenus();
+    fetchDrinks();
+  }, []);
 
   return (
     <div className="MenuCardPage">
@@ -162,16 +168,17 @@ function MenuCardPage() {
           </div>
           <div className="others-btn">
             <NavLink to="/carte/entrées">Entrées</NavLink>
-            <NavLink to="/carte/plats">Plats</NavLink>
+            <NavLink onClick={fetchDishes} to="/carte/plats">
+              Plats
+            </NavLink>
             <NavLink to="/carte/desserts">Desserts</NavLink>
             <NavLink to="/carte/boissons">Boissons</NavLink>
           </div>
         </div>
-        {category !== 'menus' && category !== 'boissons' && category !== 'plats' && (
-          <ListProducts products={products} />
-        )}
-        {category === 'plats' && <ListDishes dishes={dishes} />}
         {category === 'menus' && <ListMenus menus={menus} />}
+        {category === 'entrées' && <ListProducts products={entries} />}
+        {category === 'plats' && <ListDishes dishes={dishes} />}
+        {category === 'desserts' && <ListProducts products={desserts} />}
         {category === 'boissons' && <ListDrinks drinks={drinks} />}
       </section>
     </div>

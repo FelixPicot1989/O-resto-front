@@ -6,7 +6,6 @@
   align-items: center;
   .menu-list {
     width: 100%;
-    margin-top: 1.5rem;
     text-align: center;
   }
 
@@ -44,6 +43,7 @@
       .category-name {
         margin-top: 1rem;
         font-size: 1.1rem;
+        text-decoration: underline;
 
         &::first-letter {
           font-size: 1.2rem;
