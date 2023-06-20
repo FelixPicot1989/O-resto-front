@@ -2,6 +2,7 @@ import './ContactForm.scss';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import isValidDomain from 'is-valid-domain';
+import ToastNotif from '../ToastNotif/ToastNotif';
 
 function ContactForm() {
   const serviceId = import.meta.env.VITE_SERVICE_ID;
@@ -41,7 +42,7 @@ function ContactForm() {
       setError('Veuillez remplir tous les champs');
       setTimeout(() => {
         setError(false);
-      }, 3000);
+      }, 7000);
       setLoading(false);
       return;
     }
@@ -51,7 +52,7 @@ function ContactForm() {
       setError("L'email n'est pas valide");
       setTimeout(() => {
         setError(false);
-      }, 3000);
+      }, 7000);
       setLoading(false);
       return;
     }
@@ -64,17 +65,18 @@ function ContactForm() {
         () => {
           setSuccess('Message bien envoyé');
           resetForm();
+          setLoading(false);
         },
         () => {
           setError("Une erreur c'est produite");
+          setLoading(false);
         }
       );
     }
-    setLoading(false);
     setTimeout(() => {
       setSuccess(null);
       setError(null);
-    }, 3000);
+    }, 7000);
   };
 
   return (
@@ -115,9 +117,18 @@ function ContactForm() {
           </form>
         </div>
       </section>
-      {/* penser a gerer l'affichage du message bien envoyer et gerer les erreurs s'il y en a */}
-      {success && <div className="bg-green-800 p-4 font-bold text-white">{success}</div>}
-      {error && <div className="bg-red-800 p-4 font-bold text-white">{error}</div>}
+      <ToastNotif
+        success={success}
+        toggleToast={() => {
+          setSuccess(null);
+        }}
+      />
+      <ToastNotif
+        error={error}
+        toggleToast={() => {
+          setError(null);
+        }}
+      />
     </>
   );
 }

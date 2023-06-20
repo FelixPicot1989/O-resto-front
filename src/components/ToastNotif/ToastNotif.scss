@@ -1,0 +1,116 @@
+$red: rgb(255, 49, 49);
+$green: rgba(18, 164, 18, 0.886);
+
+.toast {
+  position: fixed;
+  width: 300px;
+  top: 50px;
+  right: 30px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px 25px 10px 15px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid;
+  overflow: hidden;
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+  z-index: 1000;
+
+  &.success {
+    border-color: $green;
+  }
+
+  &.error {
+    border-color: $red;
+  }
+
+  &.active {
+    transform: translateX(0%);
+  }
+
+  &-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .check {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      width: 30px;
+      color: #fff;
+      font-size: 20px;
+      border-radius: 50%;
+    }
+
+    .success {
+      background-color: $green;
+    }
+
+    .error {
+      background-color: $red;
+    }
+
+    .text {
+      padding: 0 20px;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #666666;
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+    transform: translateY(-50%);
+    transition: transform 0.1s linear;
+    &:active {
+      transform: translateY(-50%) scale(0.85);
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+  }
+
+  .progress:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .success::before {
+    background-color: $green;
+  }
+
+  .error::before {
+    background-color: $red;
+  }
+
+  .progress.active:before {
+    animation: progress 7s linear forwards;
+  }
+
+  @keyframes progress {
+    100% {
+      right: 100%;
+    }
+  }
+}

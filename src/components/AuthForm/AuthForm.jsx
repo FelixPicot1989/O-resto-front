@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import isValidDomain from 'is-valid-domain';
 import axios from 'axios';
+import { isUserLogged } from '../Recoil/Recoil';
+import ToastNotif from '../ToastNotif/ToastNotif';
 
 import './AuthForm.scss';
 
@@ -24,6 +27,8 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+
   const resetForm = () => {
     setFirstName('');
     setLastName('');
@@ -35,6 +40,8 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
     setHasUpperCase(false);
     setPasswordsMatch(false);
   };
+
+  const setUserLogged = useSetRecoilState(isUserLogged);
 
   const handlePasswordChange = ({ target: { value } }) => {
     setPassword(value);
@@ -85,30 +92,43 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
 
     try {
       let response;
+      // quand on s'incrit
       if (isSignUp) {
-        response = await axios.post('/api/signup', {
+        response = await axios.post(`${baseUrl}/api/users`, {
+          firstname: firstName,
+          lastname: lastName,
           email,
           password,
-          firstName,
-          lastName,
         });
-        console.log(response.data);
-        if (response.status === 200) {
-          setSuccess(`Vous êtes bien ${isSignUp ? 'inscrit' : 'connecté'}`);
+        if (response.status === 201) {
+          setSuccess('Vous êtes bien inscrit');
           toggleLoginForm();
           resetForm();
+          setIsSignUp(false);
         } else {
           setError("Une erreur s'est produite");
         }
       } else {
-        response = await axios.post('/api/login', {
+        // quand on se connecte
+        response = await axios.post(`${baseUrl}/api/login_check`, {
           email,
           password,
         });
+        if (response.status === 200) {
+          setSuccess('Vous êtes bien connecté');
+          toggleLoginForm();
+          resetForm();
+          localStorage.setItem('token', response.data.token);
+          setUserLogged(true);
+        }
       }
     } catch (err) {
-      setError("Une erreur s'est produite");
-      console.error(err);
+      if (err.response.status === 401) {
+        setError('Email ou mot de passe incorrect');
+      } else {
+        setError("Une erreur s'est produite");
+        console.error(err);
+      }
     }
 
     setLoading(false);
@@ -116,7 +136,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
     setTimeout(() => {
       setSuccess(null);
       setError(null);
-    }, 3000);
+    }, 7000);
   };
 
   return (
@@ -131,7 +151,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
               resetForm();
             }}
             className="close-btn fas fa-times"
-            title="close"
+            title="Fermer"
           />
           <h3 className="text">{isSignUp ? 'Inscription' : 'Connexion'}</h3>
           <form onSubmit={handleSubmit}>
@@ -183,12 +203,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
                 value={password}
                 onChange={handlePasswordChange}
               />
-              <span
-                className="show-password-first"
-                // onMouseEnter={() => setShowPasswordFirst(true)}
-                // onMouseLeave={() => setShowPasswordFirst(false)}
-                onClick={() => setShowPasswordFirst(!showPasswordFirst)}
-              >
+              <span className="show-password-first" onClick={() => setShowPasswordFirst(!showPasswordFirst)}>
                 {showPasswordFirst ? <i className="fas fa-eye" /> : <i className="fas fa-eye-slash" />}
               </span>
             </div>
@@ -205,13 +220,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
                     required
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
-                  <span
-                    className="show-password-second"
-                    //! à voir si on garde le onMouse
-                    // onMouseEnter={() => setShowPasswordSecond(true)}
-                    // onMouseLeave={() => setShowPasswordSecond(false)}
-                    onClick={() => setShowPasswordSecond(!showPasswordSecond)}
-                  >
+                  <span className="show-password-second" onClick={() => setShowPasswordSecond(!showPasswordSecond)}>
                     {showPasswordSecond ? <i className="fas fa-eye" /> : <i className="fas fa-eye-slash" />}
                   </span>
                 </div>
@@ -249,8 +258,18 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
           </span>
         </div>
       </div>
-      {success && <div>{success}</div>}
-      {error && <div>{error}</div>}
+      <ToastNotif
+        success={success}
+        toggleToast={() => {
+          setSuccess(null);
+        }}
+      />
+      <ToastNotif
+        error={error}
+        toggleToast={() => {
+          setError(null);
+        }}
+      />
     </>
   );
 }
