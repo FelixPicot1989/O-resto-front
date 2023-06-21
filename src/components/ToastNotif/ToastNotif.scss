@@ -1,6 +1,6 @@
 $red: rgb(255, 49, 49);
 $green: rgba(18, 164, 18, 0.886);
-
+@use '../../styles/vars.scss';
 .toast {
   position: fixed;
   width: 300px;
@@ -53,6 +53,7 @@ $green: rgba(18, 164, 18, 0.886);
     }
 
     .text {
+      font-family: vars.$texte-police;
       padding: 0 20px;
       width: 100%;
       font-size: 1rem;
