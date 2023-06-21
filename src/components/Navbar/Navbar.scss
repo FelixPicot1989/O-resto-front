@@ -169,8 +169,50 @@
       padding-right: 2.5%;
       color: vars.$white-color;
 
-      @media (min-width: 768px) and (max-width: 1020px) {
+      @media (min-width: 768px) and (max-width: 1023px) {
         flex-direction: column-reverse;
+      }
+
+      .profile-icon {
+        color: vars.$gold;
+        scale: 1.7;
+        margin: 0 auto;
+        @media (min-width: 1024px) {
+          margin-right: 15px;
+        }
+        cursor: pointer;
+        transition: transform 0.1s linear;
+
+        &:active {
+          transform: scale(0.85);
+        }
+      }
+
+      .dropdown-user-edit-list {
+        width: 150px;
+        position: absolute;
+        top: 70px;
+        right: 5px;
+        @media (min-width: 1024px) {
+          top: 55px;
+          right: 85px;
+        }
+        background-color: rgba(0, 0, 0, 0.9);
+        border-radius: 10px;
+        border: 1px solid white;
+        box-shadow: 0 40px 40px rgb(0 0 0 / 6%);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .dropdown-user-edit-item {
+        margin: 0.5rem 0;
+      }
+
+      .profile-link {
+        font-size: 1.3rem;
+        text-decoration: underline;
+        color: vars.$gold;
       }
 
       .btn-login {
@@ -309,6 +351,20 @@
       position: fixed;
       bottom: 0;
       padding-bottom: 2.5%;
+
+      .profile {
+        scale: 3;
+        margin-bottom: 1rem;
+      }
+
+      .dropdown-user-edit-item {
+        margin: 1rem 0;
+      }
+
+      .profile-link {
+        font-size: 1.3rem;
+        text-decoration: underline;
+      }
 
       .btn-login {
         font-size: 1.3rem;

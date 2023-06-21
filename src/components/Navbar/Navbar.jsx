@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight, FaChevronDown } from 'react-icons/fa';
+import {
+  FaBars,
+  FaTimes,
+  FaFacebook,
+  FaInstagram,
+  FaTripadvisor,
+  FaChevronRight,
+  FaChevronDown,
+  FaUserEdit,
+} from 'react-icons/fa';
 import { NavLink, useLocation, Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { isUserLogged } from '../Recoil/Recoil';
@@ -17,6 +26,7 @@ function Navbar() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [success, setSuccess] = useState(null);
   const [userLogged, setUserLogged] = useRecoilState(isUserLogged);
+  const [openUserDropdown, setopenUserDropdown] = useState(false);
 
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleToggleNav = () => {
@@ -87,11 +97,44 @@ function Navbar() {
             </NavLink>
           </ul>
           <div className="login-social-desktop">
-            <div>
+            {!userLogged && (
               <button onClick={toggleLoginForm} className="btn-login" type="button">
-                {userLogged ? 'Déconnexion' : 'Connexion'}
+                Connexion
               </button>
-            </div>
+            )}
+            {userLogged && (
+              // <span className="profile-username">
+              <FaUserEdit className="profile-icon" onClick={() => setopenUserDropdown(!openUserDropdown)} />
+              // </span>
+            )}
+            {openUserDropdown && (
+              <ul className="dropdown-user-edit-list">
+                <li className="dropdown-user-edit-item">
+                  <NavLink
+                    to="/profil"
+                    className="profile-link"
+                    onClick={() => {
+                      setopenUserDropdown(!openUserDropdown);
+                      handleToggleNav();
+                    }}
+                  >
+                    Voir mon profil
+                  </NavLink>
+                </li>
+                <li className="dropdown-user-edit-item">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setopenUserDropdown(!openUserDropdown);
+                      toggleLoginForm();
+                    }}
+                    className="btn-login"
+                  >
+                    Se déconnecter
+                  </button>
+                </li>
+              </ul>
+            )}
             <div className="social-desktop">
               <a href="#" target="_blank" rel="noopener noreferrer">
                 <FaFacebook />
@@ -188,9 +231,40 @@ function Navbar() {
           </ul>
           <div className="login-social-mobile">
             <div>
-              <button onClick={toggleLoginForm} className="btn-login" type="button">
-                {userLogged ? 'Déconnexion' : 'Connexion'}
-              </button>
+              {!userLogged && (
+                <button onClick={toggleLoginForm} className="btn-login" type="button">
+                  Connexion
+                </button>
+              )}
+              {userLogged && <FaUserEdit className="profile" onClick={() => setopenUserDropdown(!openUserDropdown)} />}
+              {openUserDropdown && (
+                <ul className="dropdown-user-edit-list">
+                  <li className="dropdown-user-edit-item">
+                    <NavLink
+                      to="/profil"
+                      className="profile-link"
+                      onClick={() => {
+                        setopenUserDropdown(!openUserDropdown);
+                        handleToggleNav();
+                      }}
+                    >
+                      Voir mon profil
+                    </NavLink>
+                  </li>
+                  <li className="dropdown-user-edit-item">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setopenUserDropdown(!openUserDropdown);
+                        toggleLoginForm();
+                      }}
+                      className="btn-login"
+                    >
+                      Se déconnecter
+                    </button>
+                  </li>
+                </ul>
+              )}
             </div>
             <div className="social-media">
               <a href="#" target="_blank" rel="noopener noreferrer">
