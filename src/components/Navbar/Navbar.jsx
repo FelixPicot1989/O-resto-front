@@ -146,11 +146,21 @@ function Navbar() {
                 </div>
                 {openDropDown && (
                   <ul className="dropdown-list">
-                    <Link to="/carte/menus">Menu</Link>
-                    <Link to="/carte/entrees">Entrées</Link>
-                    <Link to="/carte/plats">Plats</Link>
-                    <Link to="/carte/desserts">Desserts</Link>
-                    <Link to="/carte/boissons">Boissons</Link>
+                    <Link onClick={handleToggleNav} to="/carte/menus">
+                      Menu
+                    </Link>
+                    <Link onClick={handleToggleNav} to="/carte/entrees">
+                      Entrées
+                    </Link>
+                    <Link onClick={handleToggleNav} to="/carte/plats">
+                      Plats
+                    </Link>
+                    <Link onClick={handleToggleNav} to="/carte/desserts">
+                      Desserts
+                    </Link>
+                    <Link onClick={handleToggleNav} to="/carte/boissons">
+                      Boissons
+                    </Link>
                   </ul>
                 )}
               </div>
