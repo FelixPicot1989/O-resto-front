@@ -103,14 +103,12 @@ function Navbar() {
               </button>
             )}
             {userLogged && (
-              // <span className="profile-username">
               <FaUserEdit className="profile-icon" onClick={() => setopenUserDropdown(!openUserDropdown)} />
-              // </span>
             )}
             {openUserDropdown && (
               <ul className="dropdown-user-edit-list">
                 <li className="dropdown-user-edit-item">
-                  <NavLink
+                  <Link
                     to="/profil"
                     className="profile-link"
                     onClick={() => {
@@ -119,7 +117,7 @@ function Navbar() {
                     }}
                   >
                     Voir mon profil
-                  </NavLink>
+                  </Link>
                 </li>
                 <li className="dropdown-user-edit-item">
                   <button

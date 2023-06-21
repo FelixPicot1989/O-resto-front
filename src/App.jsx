@@ -15,6 +15,7 @@ import LegalPage from './LegalPage/LegalPage';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import StickyFooter from './components/StickyFooter/StickyFooter';
+import ProfilePage from './ProfilePage/ProfilePage';
 
 export const imagesBgContext = createContext();
 
@@ -50,8 +51,6 @@ function App() {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
       const decodedToken = jwt_decode(token);
-      console.log(decodedToken);
-
       if (decodedToken.exp * 1000 > Date.now()) {
         setUserLogged(true);
       } else {
@@ -71,6 +70,7 @@ function App() {
           <Route path="/carte/:category?" element={<MenuCardPage />} />
           <Route path="/mentions-legales" element={<LegalPage type="mentions" />} />
           <Route path="/confidentialite" element={<LegalPage type="politique" />} />
+          <Route path="/profil" element={<ProfilePage />} />
         </Routes>
       </ImageContextProvider>
       <Footer infos={infos} />
