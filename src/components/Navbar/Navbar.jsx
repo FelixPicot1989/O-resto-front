@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight, FaChevronDown } from 'react-icons/fa';
 import { NavLink, useLocation, Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { isUserLogged } from '../Recoil/Recoil';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
 import AuthForm from '../AuthForm/AuthForm';
+import ToastNotif from '../ToastNotif/ToastNotif';
 
 // Il reste à mettre des LinkTo dans la nav au lieu des <li> (Attention au CSS !!)
 function Navbar() {
@@ -12,6 +15,9 @@ function Navbar() {
   const [nav, setNav] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [success, setSuccess] = useState(null);
+  const [userLogged, setUserLogged] = useRecoilState(isUserLogged);
+
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleToggleNav = () => {
     setNav(!nav);
@@ -22,7 +28,13 @@ function Navbar() {
   };
 
   function toggleLoginForm() {
-    setShowLoginForm(!showLoginForm);
+    if (userLogged) {
+      localStorage.removeItem('token');
+      setUserLogged(false);
+      setSuccess('Vous êtes bien déconnecté');
+    } else {
+      setShowLoginForm(!showLoginForm);
+    }
   }
 
   const location = useLocation();
@@ -45,15 +57,18 @@ function Navbar() {
               Accueil
             </NavLink>
             <div className="dropdown">
-              <NavLink to="/carte/menus" className="Navbar-list-item">
+              <Link
+                to="/carte/menus"
+                className={`Navbar-list-item ${location.pathname.startsWith('/carte') ? 'active' : ''}`}
+              >
                 La carte
-              </NavLink>
+              </Link>
               <div onClick={() => setOpenDropDown(!openDropDown)} className="chevron">
                 {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
                 {openDropDown && (
                   <ul className="dropdown-list">
                     <Link to="/carte/menus">Menu</Link>
-                    <Link to="/carte/entrées">Entrées</Link>
+                    <Link to="/carte/entrees">Entrées</Link>
                     <Link to="/carte/plats">Plats</Link>
                     <Link to="/carte/desserts">Desserts</Link>
                     <Link to="/carte/boissons">Boissons</Link>
@@ -71,7 +86,7 @@ function Navbar() {
           <div className="login-social-desktop">
             <div>
               <button onClick={toggleLoginForm} className="btn-login" type="button">
-                Connexion
+                {userLogged ? 'Déconnexion' : 'Connexion'}
               </button>
             </div>
             <div className="social-desktop">
@@ -129,7 +144,7 @@ function Navbar() {
                 {openDropDown && (
                   <ul className="dropdown-list">
                     <Link to="/carte/menus">Menu</Link>
-                    <Link to="/carte/entrées">Entrées</Link>
+                    <Link to="/carte/entrees">Entrées</Link>
                     <Link to="/carte/plats">Plats</Link>
                     <Link to="/carte/desserts">Desserts</Link>
                     <Link to="/carte/boissons">Boissons</Link>
@@ -161,7 +176,7 @@ function Navbar() {
           <div className="login-social-mobile">
             <div>
               <button onClick={toggleLoginForm} className="btn-login" type="button">
-                Connexion
+                {userLogged ? 'Déconnexion' : 'Connexion'}
               </button>
             </div>
             <div className="social-media">
@@ -179,6 +194,12 @@ function Navbar() {
         </div>
       </nav>
       <AuthForm showLoginForm={showLoginForm} toggleLoginForm={() => toggleLoginForm()} />
+      <ToastNotif
+        success={success}
+        toggleToast={() => {
+          setSuccess(null);
+        }}
+      />
     </>
   );
 }

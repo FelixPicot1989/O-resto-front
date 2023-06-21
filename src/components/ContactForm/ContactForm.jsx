@@ -2,6 +2,7 @@ import './ContactForm.scss';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import isValidDomain from 'is-valid-domain';
+import ToastNotif from '../ToastNotif/ToastNotif';
 
 function ContactForm() {
   const serviceId = import.meta.env.VITE_SERVICE_ID;
@@ -14,6 +15,7 @@ function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const resetForm = () => {
     setEmail('');
@@ -41,7 +43,7 @@ function ContactForm() {
       setError('Veuillez remplir tous les champs');
       setTimeout(() => {
         setError(false);
-      }, 3000);
+      }, 7000);
       setLoading(false);
       return;
     }
@@ -51,7 +53,7 @@ function ContactForm() {
       setError("L'email n'est pas valide");
       setTimeout(() => {
         setError(false);
-      }, 3000);
+      }, 7000);
       setLoading(false);
       return;
     }
@@ -64,17 +66,19 @@ function ContactForm() {
         () => {
           setSuccess('Message bien envoyé');
           resetForm();
+          setLoading(false);
         },
         () => {
           setError("Une erreur c'est produite");
+          setLoading(false);
         }
       );
     }
-    setLoading(false);
+    setIsSubmitted(true);
     setTimeout(() => {
       setSuccess(null);
       setError(null);
-    }, 3000);
+    }, 7000);
   };
 
   return (
@@ -109,15 +113,24 @@ function ContactForm() {
               value={message}
               onChange={handleMessageChange}
             />
-            <button type="submit" className="Contact-submit">
+            <button type="submit" className="Contact-submit" disabled={isSubmitted}>
               {loading ? 'Envoie en cours...' : 'Envoyer'}
             </button>
           </form>
         </div>
       </section>
-      {/* penser a gerer l'affichage du message bien envoyer et gerer les erreurs s'il y en a */}
-      {success && <div className="bg-green-800 p-4 font-bold text-white">{success}</div>}
-      {error && <div className="bg-red-800 p-4 font-bold text-white">{error}</div>}
+      <ToastNotif
+        success={success}
+        toggleToast={() => {
+          setSuccess(null);
+        }}
+      />
+      <ToastNotif
+        error={error}
+        toggleToast={() => {
+          setError(null);
+        }}
+      />
     </>
   );
 }

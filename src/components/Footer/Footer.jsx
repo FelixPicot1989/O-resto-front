@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Footer.scss';
+import { Link } from 'react-router-dom';
 
 // Reste à dynamiser les informations des paragraphes et de rajouter des LinkTo grâce à react-router-dom
 function Footer({ infos }) {
@@ -25,8 +26,12 @@ function Footer({ infos }) {
       </div>
       <div className="legales">
         <ul>
-          <li>Politique de confidentialité</li>
-          <li>Mentions légales</li>
+          <li>
+            <Link to="/confidentialite">Politique de confidentialité</Link>
+          </li>
+          <li>
+            <Link to="mentions-legales">Mentions légales</Link>
+          </li>
         </ul>
       </div>
     </div>
