@@ -32,6 +32,9 @@ function Navbar() {
       localStorage.removeItem('token');
       setUserLogged(false);
       setSuccess('Vous êtes bien déconnecté');
+      setTimeout(() => {
+        setSuccess(null);
+      }, 7000);
     } else {
       setShowLoginForm(!showLoginForm);
     }
