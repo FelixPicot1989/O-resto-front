@@ -15,6 +15,7 @@ function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const resetForm = () => {
     setEmail('');
@@ -73,6 +74,7 @@ function ContactForm() {
         }
       );
     }
+    setIsSubmitted(true);
     setTimeout(() => {
       setSuccess(null);
       setError(null);
@@ -111,7 +113,7 @@ function ContactForm() {
               value={message}
               onChange={handleMessageChange}
             />
-            <button type="submit" className="Contact-submit">
+            <button type="submit" className="Contact-submit" disabled={isSubmitted}>
               {loading ? 'Envoie en cours...' : 'Envoyer'}
             </button>
           </form>

@@ -77,6 +77,12 @@
         background-color: vars.$black-color;
         color: vars.$gold;
       }
+
+      &:disabled:hover {
+        background-color: vars.$gold;
+        color: vars.$black-color;
+        cursor: not-allowed;
+      }
     }
   }
 }
