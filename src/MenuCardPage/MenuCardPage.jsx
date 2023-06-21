@@ -16,7 +16,7 @@ function MenuCardPage() {
   const [drinks, setDrinks] = useState({});
   const { category } = useParams();
 
-  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const fetchEntries = async () => {
     try {

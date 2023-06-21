@@ -27,7 +27,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const resetForm = () => {
     setFirstName('');

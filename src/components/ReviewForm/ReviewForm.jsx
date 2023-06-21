@@ -17,9 +17,8 @@ function ReviewForm() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
-  //const [authToken, setAuthToken] = useState('');
 
-  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const userLogged = useRecoilValue(isUserLogged);
 
@@ -33,7 +32,7 @@ function ReviewForm() {
 
     const trimmedReviewComment = reviewComment.trim();
 
-    if (!reviewComment) {
+    if (!trimmedReviewComment) {
       setError("Le commentaire de l'avis est vide");
       setLoading(false);
       return;

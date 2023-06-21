@@ -9,7 +9,7 @@ function CarouselReview() {
   const firstCardRef = useRef();
   const [reviews, setReviews] = useState([]);
 
-  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   useEffect(() => {
     const fetchReviews = async () => {
       try {

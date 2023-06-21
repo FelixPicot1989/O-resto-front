@@ -19,7 +19,7 @@ import StickyFooter from './components/StickyFooter/StickyFooter';
 export const imagesBgContext = createContext();
 
 function App() {
-  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const setUserLogged = useSetRecoilState(isUserLogged);
 
