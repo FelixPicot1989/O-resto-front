@@ -167,7 +167,7 @@ function MenuCardPage() {
             <NavLink to="/carte/menus">Menus</NavLink>
           </div>
           <div className="others-btn">
-            <NavLink to="/carte/entrées">Entrées</NavLink>
+            <NavLink to="/carte/entrees">Entrées</NavLink>
             <NavLink onClick={fetchDishes} to="/carte/plats">
               Plats
             </NavLink>
@@ -176,7 +176,7 @@ function MenuCardPage() {
           </div>
         </div>
         {category === 'menus' && <ListMenus menus={menus} />}
-        {category === 'entrées' && <ListProducts products={entries} />}
+        {category === 'entrees' && <ListProducts products={entries} />}
         {category === 'plats' && <ListDishes dishes={dishes} />}
         {category === 'desserts' && <ListProducts products={desserts} />}
         {category === 'boissons' && <ListDrinks drinks={drinks} />}

@@ -57,15 +57,18 @@ function Navbar() {
               Accueil
             </NavLink>
             <div className="dropdown">
-              <NavLink to="/carte/menus" className="Navbar-list-item">
+              <Link
+                to="/carte/menus"
+                className={`Navbar-list-item ${location.pathname.startsWith('/carte') ? 'active' : ''}`}
+              >
                 La carte
-              </NavLink>
+              </Link>
               <div onClick={() => setOpenDropDown(!openDropDown)} className="chevron">
                 {!openDropDown ? <FaChevronRight /> : <FaChevronDown />}
                 {openDropDown && (
                   <ul className="dropdown-list">
                     <Link to="/carte/menus">Menu</Link>
-                    <Link to="/carte/entrées">Entrées</Link>
+                    <Link to="/carte/entrees">Entrées</Link>
                     <Link to="/carte/plats">Plats</Link>
                     <Link to="/carte/desserts">Desserts</Link>
                     <Link to="/carte/boissons">Boissons</Link>
@@ -141,7 +144,7 @@ function Navbar() {
                 {openDropDown && (
                   <ul className="dropdown-list">
                     <Link to="/carte/menus">Menu</Link>
-                    <Link to="/carte/entrées">Entrées</Link>
+                    <Link to="/carte/entrees">Entrées</Link>
                     <Link to="/carte/plats">Plats</Link>
                     <Link to="/carte/desserts">Desserts</Link>
                     <Link to="/carte/boissons">Boissons</Link>
