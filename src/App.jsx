@@ -4,7 +4,7 @@ import { useEffect, useState, createContext } from 'react';
 import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { isUserLogged } from './components/Recoil/Recoil';
+import { isUserLogged, userInfo } from './components/Recoil/Recoil';
 import ImageContextProvider from './context/ImageContextProvider';
 
 import HomePage from './HomePage/HomePage';
@@ -23,6 +23,7 @@ function App() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const setUserLogged = useSetRecoilState(isUserLogged);
+  const setUserInfo = useSetRecoilState(userInfo);
 
   const [histoire, setHistoire] = useState('');
   const [imagesBgCarousel, setImagesBgCarousel] = useState([]);
@@ -34,6 +35,26 @@ function App() {
     openingEvening: '',
     info: '',
   });
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/users/me`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const { data } = response;
+      setUserInfo({
+        id: data.id,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        roles: data.roles,
+      });
+    } catch (error) {
+      console.log('Erreur API', error);
+    }
+  };
 
   useEffect(() => {
     const fetchInfos = async () => {
@@ -53,6 +74,7 @@ function App() {
       const decodedToken = jwt_decode(token);
       if (decodedToken.exp * 1000 > Date.now()) {
         setUserLogged(true);
+        fetchUserInfo();
       } else {
         setUserLogged(false);
       }

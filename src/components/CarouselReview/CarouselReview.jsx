@@ -8,7 +8,6 @@ function CarouselReview() {
   const carouselRef = useRef(null);
   const firstCardRef = useRef();
   const [reviews, setReviews] = useState([]);
-
   const baseUrl = import.meta.env.VITE_BASE_URL;
   useEffect(() => {
     const fetchReviews = async () => {
