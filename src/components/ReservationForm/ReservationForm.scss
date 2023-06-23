@@ -1,0 +1,94 @@
+// Importez les variables SCSS de React Calendar
+@use '../../styles/vars.scss';
+@import '../../../node_modules/react-calendar/dist/Calendar.css';
+
+// Personnalisez les styles du calendrier
+.react-calendar {
+  // Modifier les styles généraux du calendrier
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+
+  // Modifier le style du conteneur du calendrier
+  &__tile {
+    // Modifier les styles des tuiles du calendrier
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+
+    // Modifier le style des tuiles actives
+    &--active {
+      background-color: #ccc;
+      color: #fff;
+    }
+
+    // Modifier le style des tuiles désactivées
+    &--disabled {
+      background-color: #eee;
+      color: #999;
+      cursor: not-allowed;
+    }
+  }
+
+  // Modifier le style de l'en-tête du calendrier
+  &__navigation {
+    background-color: #f2f2f2;
+    padding: 10px;
+
+    // Modifier le style des flèches de navigation
+    &__arrow {
+      color: #333;
+      font-size: 20px;
+    }
+
+    // Modifier le style du mois et de l'année affichés
+    &__label {
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+
+  // Modifier le style des jours de la semaine
+  &__month-view {
+    &__weekdays {
+      background-color: #f2f2f2;
+      padding: 5px;
+      font-weight: bold;
+
+      // Modifier le style d'un jour de la semaine spécifique
+      &__weekday {
+        color: #333;
+        padding: 5px;
+      }
+    }
+  }
+
+  .loader {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid vars.$gold;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
