@@ -30,7 +30,6 @@ function Navbar() {
   const [openUserDropdown, setopenUserDropdown] = useState(false);
 
   const userInfos = useRecoilValue(userInfo);
-  console.log(userInfos);
 
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleToggleNav = () => {
@@ -97,7 +96,7 @@ function Navbar() {
               Réserver/Contact
             </NavLink>
             <NavLink className="Navbar-list-item" to="/avis">
-              Donner votre avis
+              Donnez votre avis
             </NavLink>
           </ul>
           <div className="login-social-desktop">
@@ -138,16 +137,17 @@ function Navbar() {
                   </Link>
                 </li>
                 <li className="dropdown-user-edit-item">
-                  <button
+                  <Link
+                    to="/"
                     type="button"
                     onClick={() => {
                       setopenUserDropdown(!openUserDropdown);
                       toggleLoginForm();
                     }}
-                    className="btn-login"
+                    className="btn-logout"
                   >
-                    Se déconnecter
-                  </button>
+                    Déconnexion
+                  </Link>
                 </li>
               </ul>
             )}
@@ -242,7 +242,7 @@ function Navbar() {
               to="/avis"
               className="Navbar-mobile-item"
             >
-              Donner votre avis
+              Donnez votre avis
             </NavLink>
           </ul>
           <div className="login-social-mobile">
@@ -284,16 +284,16 @@ function Navbar() {
                     </NavLink>
                   </li>
                   <li className="dropdown-user-edit-item">
-                    <button
+                    <Link
                       type="button"
                       onClick={() => {
                         setopenUserDropdown(!openUserDropdown);
                         toggleLoginForm();
                       }}
-                      className="btn-login"
+                      className="btn-logout"
                     >
-                      Se déconnecter
-                    </button>
+                      Déconnexion
+                    </Link>
                   </li>
                 </ul>
               )}

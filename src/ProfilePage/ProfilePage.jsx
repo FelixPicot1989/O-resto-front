@@ -3,21 +3,37 @@ import './ProfilePage.scss';
 import { useState, useEffect } from 'react';
 import isValidDomain from 'is-valid-domain';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import ToastNotif from '../components/ToastNotif/ToastNotif';
 
 import { userInfo } from '../components/Recoil/Recoil';
 
 function ProfilPage() {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const userInfos = useRecoilValue(userInfo);
+  const setUserInfo = useSetRecoilState(userInfo);
+
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const userInfos = useRecoilValue(userInfo);
+  const [hasUpperCase, setHasUpperCase] = useState(false);
+  const [hasNumber, setHasNumber] = useState(false);
+  const [hasSixChars, setHasSixChars] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
+  const [showPasswordFirst, setShowPasswordFirst] = useState(false);
+  const [showPasswordSecond, setShowPasswordSecond] = useState(false);
+
+  // Vérifie si "password" et "confirmPassword" ont tous les deux une valeur et si elles sont identiques.
+  // Ce résultat est ensuite converti en un booléen et stocké dans "passwordsMatch".
+  useEffect(() => {
+    setPasswordsMatch(Boolean(password && confirmPassword === password));
+  }, [confirmPassword, password]);
 
   useEffect(() => {
     if (userInfos) {
@@ -27,7 +43,15 @@ function ProfilPage() {
     }
   }, [userInfos]);
 
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const handlePasswordChange = ({ target: { value } }) => {
+    setPassword(value);
+    // Vérifier la présence de lettres majuscules
+    setHasUpperCase(value.toLowerCase() !== value);
+    // Vérifier la présence d'un chiffre
+    setHasNumber(/\d/.test(value));
+    // Vérifier la présence d'au moins 6 caractères
+    setHasSixChars(value.length >= 6);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +95,13 @@ function ProfilPage() {
       );
       if (response.status === 200) {
         setSuccess('Informations bien enregistrées');
+        setUserInfo({
+          id: userInfos.id,
+          firstname,
+          lastname,
+          email: userInfos.email,
+          roles: userInfos.roles,
+        });
       }
     } catch (err) {
       setError("Une erreur s'est produite");
@@ -91,6 +122,21 @@ function ProfilPage() {
         <h1>Informations personnelles</h1>
         <div className="infos-persos">
           <form onSubmit={handleSubmit}>
+            <div className="info">
+              <label htmlFor="email">Votre email : </label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                value={email}
+                // onChange pour l'email non utile
+                // onChange={(e) => {
+                //   setEmail(e.target.value);
+                // }}
+                // disabled car comme ca on empeche le user de modifier son identifiant ce qui eviter les problemes avec le token JWT
+                disabled
+              />
+            </div>
             <div className="info">
               <label htmlFor="nom">Changer votre nom : </label>
               <input
@@ -116,28 +162,52 @@ function ProfilPage() {
               />
             </div>
             <div className="info">
-              <label htmlFor="email">Changer votre email : </label>
+              <label htmlFor="password">Mot de passe :</label>
               <input
-                type="text"
-                name="email"
-                id="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </div>
-            <div className="info">
-              <label htmlFor="password">Changer votre mot de passe : </label>
-              <input
-                type="text"
+                type={`${showPasswordFirst ? 'text' : 'password'}`}
                 id="password"
                 name="password"
+                required
                 value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                onChange={handlePasswordChange}
               />
+              <span className="show-password-first" onClick={() => setShowPasswordFirst(!showPasswordFirst)}>
+                {showPasswordFirst ? <i className="fas fa-eye" /> : <i className="fas fa-eye-slash" />}
+              </span>
+            </div>
+            <div className="info">
+              <input
+                className=""
+                type={`${showPasswordSecond ? 'text' : 'password'}`}
+                id="confirmPassword"
+                name="user_confirm_password"
+                placeholder="Confirmez votre mot de passe"
+                value={confirmPassword}
+                required
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <span className="show-password-second" onClick={() => setShowPasswordSecond(!showPasswordSecond)}>
+                {showPasswordSecond ? <i className="fas fa-eye" /> : <i className="fas fa-eye-slash" />}
+              </span>
+              <p className="explication">
+                Si vous souhaitez changer votre mot de passe insérez un nouveau mot de passe.
+              </p>
+              <p className="explication">
+                Ou bien, si vous souhaitez garder le meme mot de passe insérez votre mot de passe actuel
+              </p>
+            </div>
+            <div className="check-password">
+              <span>Le mot de passe doit répondre aux exigences suivantes :</span>
+              <ul>
+                <li style={{ color: hasUpperCase ? '#31c431d1' : '#fd3939ce' }}>
+                  Contient au moins une lettre majuscule
+                </li>
+                <li style={{ color: hasNumber ? '#31c431d1' : '#fd3939ce' }}>Contient au moins un chiffre</li>
+                <li style={{ color: hasSixChars ? '#31c431d1' : '#fd3939ce' }}>Contient au moins 6 caractères</li>
+                <li style={{ color: passwordsMatch ? '#31c431d1' : '#fd3939ce' }}>
+                  Les deux mot de passe {passwordsMatch ? 'sont' : 'ne sont pas'} identiques
+                </li>
+              </ul>
             </div>
             {loading ? <div className="loader" /> : <button type="submit">Sauvegarder les changements</button>}
           </form>
