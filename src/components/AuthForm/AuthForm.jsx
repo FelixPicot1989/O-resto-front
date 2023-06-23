@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import isValidDomain from 'is-valid-domain';
 import axios from 'axios';
-import { isUserLogged } from '../Recoil/Recoil';
+import { isUserLogged, userInfo } from '../Recoil/Recoil';
 import ToastNotif from '../ToastNotif/ToastNotif';
 
 import './AuthForm.scss';
@@ -28,6 +28,8 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
   const [success, setSuccess] = useState(null);
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
+
+  const setUserInfo = useSetRecoilState(userInfo);
 
   const resetForm = () => {
     setFirstName('');
@@ -58,6 +60,26 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
   useEffect(() => {
     setPasswordsMatch(Boolean(password && confirmPassword === password));
   }, [confirmPassword, password]);
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/users/me`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const { data } = response;
+      setUserInfo({
+        id: data.id,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        roles: data.roles,
+      });
+    } catch (err) {
+      console.log('Erreur API', err);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -120,6 +142,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
           resetForm();
           localStorage.setItem('token', response.data.token);
           setUserLogged(true);
+          fetchUserInfo();
         }
       }
     } catch (err) {

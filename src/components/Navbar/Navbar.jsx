@@ -10,8 +10,8 @@ import {
   FaUserEdit,
 } from 'react-icons/fa';
 import { NavLink, useLocation, Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { isUserLogged } from '../Recoil/Recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isUserLogged, userInfo } from '../Recoil/Recoil';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
@@ -27,6 +27,8 @@ function Navbar() {
   const [success, setSuccess] = useState(null);
   const [userLogged, setUserLogged] = useRecoilState(isUserLogged);
   const [openUserDropdown, setopenUserDropdown] = useState(false);
+
+  const userInfos = useRecoilValue(userInfo);
 
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleToggleNav = () => {
@@ -103,14 +105,15 @@ function Navbar() {
               </button>
             )}
             {userLogged && (
-              // <span className="profile-username">
-              <FaUserEdit className="profile-icon" onClick={() => setopenUserDropdown(!openUserDropdown)} />
-              // </span>
+              <div className="connected-user">
+                <FaUserEdit className="profile-icon" onClick={() => setopenUserDropdown(!openUserDropdown)} />
+                {userInfos && <div>Bonjour {userInfos.firstname}</div>}
+              </div>
             )}
             {openUserDropdown && (
               <ul className="dropdown-user-edit-list">
                 <li className="dropdown-user-edit-item">
-                  <NavLink
+                  <Link
                     to="/profil"
                     className="profile-link"
                     onClick={() => {
@@ -119,7 +122,7 @@ function Navbar() {
                     }}
                   >
                     Voir mon profil
-                  </NavLink>
+                  </Link>
                 </li>
                 <li className="dropdown-user-edit-item">
                   <button
@@ -236,7 +239,12 @@ function Navbar() {
                   Connexion
                 </button>
               )}
-              {userLogged && <FaUserEdit className="profile" onClick={() => setopenUserDropdown(!openUserDropdown)} />}
+              {userLogged && (
+                <>
+                  <FaUserEdit className="profile-icon" onClick={() => setopenUserDropdown(!openUserDropdown)} />
+                  {userInfos && <div>Bonjour {userInfos.firstname}</div>}
+                </>
+              )}
               {openUserDropdown && (
                 <ul className="dropdown-user-edit-list">
                   <li className="dropdown-user-edit-item">

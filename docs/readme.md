@@ -98,13 +98,18 @@ react-icons : npm install react-icons --save
 react-responsive-carousel : npm i react-responsive-carousel
 react-router-dom : npm install react-router-dom
 muireact : npm install @mui/material @emotion/react @emotion/styled
+axios : npm install axios
 emailjs : npm i @emailjs/browser
 is-valid-domain : npm i is-valid-domain
+recoil: npm install recoil
+jwt-decode : npm install jwt-decode
 ```
 
 ## External tool for our projet
 
 Booking Tool : https://resos.com/ (Utilisation de la doc officielle pour intégrer le widget sur notre site)
+
+Google Maps : https://www.google.com/maps?ll=49.401969,3.003703&z=16&t=m&hl=fr&gl=FR&mapclient=embed&q=2+Rue+du+March%C3%A9+60350+Cuise-la-Motte (Utilisation d'un iframe pour l'intégrer sur notre site)
 
 ## Launch Vite server
 

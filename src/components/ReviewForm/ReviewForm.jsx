@@ -4,7 +4,7 @@ import { Rating, Typography } from '@mui/material';
 import axios from 'axios';
 
 import { useRecoilValue } from 'recoil';
-import { isUserLogged } from '../Recoil/Recoil';
+import { isUserLogged, userInfo } from '../Recoil/Recoil';
 import './ReviewForm.scss';
 import AuthForm from '../AuthForm/AuthForm';
 import ToastNotif from '../ToastNotif/ToastNotif';
@@ -21,6 +21,7 @@ function ReviewForm() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const userLogged = useRecoilValue(isUserLogged);
+  const userInfos = useRecoilValue(userInfo);
 
   function toggleLoginForm() {
     setShowLoginForm(!showLoginForm);
@@ -69,6 +70,7 @@ function ReviewForm() {
     } catch (err) {
       setError("Une erreur s'est produite");
       console.error(err);
+      console.log(err.response.data);
     }
     setLoading(false);
 
