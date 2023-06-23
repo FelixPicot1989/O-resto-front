@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import {
   FaBars,
@@ -29,6 +30,7 @@ function Navbar() {
   const [openUserDropdown, setopenUserDropdown] = useState(false);
 
   const userInfos = useRecoilValue(userInfo);
+  console.log(userInfos);
 
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleToggleNav = () => {
@@ -112,6 +114,17 @@ function Navbar() {
             )}
             {openUserDropdown && (
               <ul className="dropdown-user-edit-list">
+                {userInfos.roles.includes('ROLE_ADMIN') && (
+                  <li className="dropdown-user-edit-item">
+                    <a
+                      href="http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      BackOffice
+                    </a>
+                  </li>
+                )}
                 <li className="dropdown-user-edit-item">
                   <Link
                     to="/profil"
@@ -247,6 +260,17 @@ function Navbar() {
               )}
               {openUserDropdown && (
                 <ul className="dropdown-user-edit-list">
+                  {userInfos.roles.includes('ROLE_ADMIN') && (
+                    <li className="dropdown-user-edit-item">
+                      <a
+                        href="http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        BackOffice
+                      </a>
+                    </li>
+                  )}
                   <li className="dropdown-user-edit-item">
                     <NavLink
                       to="/profil"
