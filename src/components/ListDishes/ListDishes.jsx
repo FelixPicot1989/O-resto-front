@@ -10,12 +10,14 @@ function ListDishes({ dishes }) {
           <ul className="dishes-list">
             {category.dishes.map((dish) => (
               <li className="dishes-item" key={dish.id}>
-                <div>
-                  <p className="dishes-name">{dish.name}</p>
-                  <p className="dishes-description">{dish.description}</p>
+                <div className="dishes-header">
+                  <div>
+                    <p className="dishes-name">{dish.name}</p>
+                    <p className="dishes-description">{dish.description}</p>
+                  </div>
+                  <p className="dishes-price">{dish.price}&nbsp;€</p>
                 </div>
-                <p className="dishes-price">{dish.price}&nbsp;€</p>
-                {/* <img className="dishes-image" src={dish.image.url} alt={dish.name} /> */}
+                {dish.image?.url && <img className="dishes-image" src={dish.image.url} alt={dish.name} />}
               </li>
             ))}
           </ul>
@@ -36,10 +38,9 @@ ListDishes.propTypes = {
           name: PropTypes.string.isRequired,
           description: PropTypes.string,
           price: PropTypes.string.isRequired,
-          // image: PropTypes.shape({
-          //   id: PropTypes.number.isRequired,
-          //   url: PropTypes.string.isRequired,
-          // }),
+          image: PropTypes.shape({
+            url: PropTypes.string,
+          }),
         })
       ).isRequired,
     })
