@@ -218,7 +218,6 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
             <div className="data">
               <label htmlFor="password">Mot de passe</label>
               <input
-                className=""
                 type={`${showPasswordFirst ? 'text' : 'password'}`}
                 id="password"
                 name="password"
@@ -234,7 +233,6 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
               <>
                 <div className="data confirmPassword">
                   <input
-                    className=""
                     type={`${showPasswordSecond ? 'text' : 'password'}`}
                     id="confirmPassword"
                     name="user_confirm_password"
