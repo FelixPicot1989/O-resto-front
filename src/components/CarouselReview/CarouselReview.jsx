@@ -6,32 +6,32 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { reviews } from '../Recoil/Recoil';
 
 function CarouselReview() {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const wrapperRef = useRef(null);
   const carouselRef = useRef(null);
   const firstCardRef = useRef(null);
-  const baseUrl = import.meta.env.VITE_BASE_URL;
-
-  // stock la longueur précédente de reviewList
 
   // useRecoilValue pour obtenir les avis
   const reviewList = useRecoilValue(reviews);
   const setReviews = useSetRecoilState(reviews);
 
-  const [prevLength, setPrevLength] = useState(reviewList.length);
-  console.log(prevLength);
+  // stock la longueur précédente de reviewList
+  const [prevLength, setPrevLength] = useState(0);
+
   // On recupere tous les avis au chargement de le page
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(`${baseUrl}/api/reviews`);
         const { data } = response;
-        setReviews(data); // met à jour l'état global des avis
+        // met à jour l'état global des avis
+        setReviews(data);
       } catch (error) {
         console.log('Erreur API', error);
       }
     };
     fetchReviews();
-  }, [setReviews]);
+  });
 
   const formatDate = (dateToFormat) => {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -56,13 +56,17 @@ function CarouselReview() {
       carouselRef.current.scrollLeft = 0;
     }
   };
-  console.log(reviewList.length);
+
+  // fonction pour revenir au dernier avis posté
+  const scrollToFirst = () => {
+    carouselRef.current.scrollLeft = 0;
+  };
 
   useEffect(() => {
     // vérifier si un nouvel avis a été ajouté
-    if (reviewList.length > prevLength) {
-      // si oui, scroll le carrousel vers la gauche
-      handleLeftClick();
+    if (prevLength !== 0 && reviewList.length > prevLength) {
+      // si oui, scroll le carrousel jusqu'au premier avis
+      scrollToFirst();
     }
     // met à jour setPrevLength
     setPrevLength(reviewList.length);
@@ -78,10 +82,12 @@ function CarouselReview() {
             .sort((a, b) => b.id - a.id)
             .map((el, i) => {
               return (
+                // i est l'index de chaque entrée du tableau reviewList, vu qu'on est dans un map on fait une condition pour definir la ref firstCardRef (premiere card)
                 <li key={el.id} className="card" ref={i === 0 ? firstCardRef : null}>
                   <p className="comment">{el.comment}</p>
                   <span className="date">{formatDate(el.createdAt)}</span>
                   <Rating className="rate" name="read-only" value={el.rating} readOnly precision={0.5} />
+                  {/* Condition car on a des avis qui sont sans user... */}
                   <h3 className="user-name">{el.user && `${el.user.firstname} ${el.user.lastname}`}</h3>
                 </li>
               );

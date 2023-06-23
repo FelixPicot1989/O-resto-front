@@ -177,7 +177,6 @@ function ProfilPage() {
             </div>
             <div className="info">
               <input
-                className=""
                 type={`${showPasswordSecond ? 'text' : 'password'}`}
                 id="confirmPassword"
                 name="user_confirm_password"
