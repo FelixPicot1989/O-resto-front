@@ -31,6 +31,28 @@ function ProfilPage() {
   const [showPasswordFirst, setShowPasswordFirst] = useState(false);
   const [showPasswordSecond, setShowPasswordSecond] = useState(false);
 
+  const fetchUserInfo = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/users/me`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const { data } = response;
+      console.log(data.reservations);
+      setUserInfo({
+        id: data.id,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        roles: data.roles,
+        reservations: data.reservations,
+      });
+    } catch (error) {
+      console.log('Erreur API', error);
+    }
+  };
+
   // Vérifie si "password" et "confirmPassword" ont tous les deux une valeur et si elles sont identiques.
   // Ce résultat est ensuite converti en un booléen et stocké dans "passwordsMatch".
   useEffect(() => {
@@ -45,6 +67,10 @@ function ProfilPage() {
       console.log(userInfos.reservations);
     }
   }, [userInfos]);
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   const handlePasswordChange = ({ target: { value } }) => {
     setPassword(value);
