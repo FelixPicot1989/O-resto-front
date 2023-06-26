@@ -75,7 +75,7 @@ function MenuCardPage() {
         const updatedGroupedEats = { ...groupedEats };
         // Boucle sur toutes les catégories pour chaque aliment
         eat.category.forEach((cat) => {
-          if (cat.name === 'entrées' || cat.name === 'plats' || cat.name === 'desserts') {
+          if (cat.name === 'Entrées' || cat.name === 'Plats' || cat.name === 'Desserts') {
             // Si la catégorie n'existe pas dans l'objet "updatedGroupedEats", on la crée avec un tableau vide avec soit la valeur "entrées" "plats" ou "desserts"
             if (!updatedGroupedEats[cat.name]) {
               updatedGroupedEats[cat.name] = [];
@@ -113,13 +113,13 @@ function MenuCardPage() {
   // data est un tableau d'objets représentant tous les aliments.
   const sortDishes = (data) => {
     // filter() sur data pour obtenir seulement les plats qui ont la catégorie "plats". Ces plats sont stockés dans une nouvelle variable appelée plats.
-    const plats = data.filter((dish) => dish.category.some((cat) => cat.name === 'plats'));
+    const plats = data.filter((dish) => dish.category.some((cat) => cat.name === 'Plats'));
     // reduce() sur plats pour obtenir tous les objets qui représentent les catégories autres que la categorie "plats".
     const otherCategoriesWithDishes = plats.reduce((groupedDishes, currentDish) => {
       // boucle sur chaque plat dans plats, puis sur chaque catégorie de ce plat.
       currentDish.category.forEach((cat) => {
         // ici on ignore la category "plats"
-        if (cat.name !== 'plats') {
+        if (cat.name !== 'Plats') {
           // find() pour vérifier si la catégorie existe déjà dans groupedDishes
           let existingCategory = groupedDishes.find((item) => item.id === cat.id);
           // Si la catégorie n'existe pas déjà, un nouvel objet est créé avec l'id de la catégorie trouvée, le nom et un tableau vide appelé dishes pour contenir les plats de cette catégorie.
@@ -142,13 +142,11 @@ function MenuCardPage() {
     try {
       const response = await axios.get(`${baseUrl}/api/eats`);
       const sortedDishes = sortDishes(response.data);
-      // setDishes(sortedDishes);
       setDishes(sortedDishes);
     } catch (error) {
       console.log('Erreur API', error);
     }
   };
-
   // On set tous les states des le debut comme ca on a toute les infos a disposition et comme ca pas besoin de faire une requette à chaque changement "d'onglet" dans la carte
   useEffect(() => {
     fetchEntries();
@@ -176,9 +174,9 @@ function MenuCardPage() {
           </div>
         </div>
         {category === 'menus' && <ListMenus menus={menus} />}
-        {category === 'entrees' && <ListProducts products={entries} />}
-        {category === 'plats' && <ListDishes dishes={dishes} />}
-        {category === 'desserts' && <ListProducts products={desserts} />}
+        {category === 'entrees' && <ListProducts products={entries} baseUrl={baseUrl} />}
+        {category === 'plats' && <ListDishes dishes={dishes} baseUrl={baseUrl} />}
+        {category === 'desserts' && <ListProducts products={desserts} baseUrl={baseUrl} />}
         {category === 'boissons' && <ListDrinks drinks={drinks} />}
       </section>
     </div>

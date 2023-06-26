@@ -3,7 +3,8 @@
 .ListProducts {
   display: flex;
   justify-content: center;
-  .product-list {
+
+  ul {
     width: 100%;
   }
 
@@ -18,12 +19,39 @@
       border-bottom: 1px solid vars.$light-grey;
     }
 
-    &-left {
-      display: flex;
-      flex-direction: column;
+    .product-description {
+      font-size: 0.9rem;
+      color: vars.$grey-color;
+    }
+    .product-left {
+      width: 100%;
+    }
 
-      .products-name {
+    .product-header {
+      display: flex;
+      align-items: center;
+      @media (max-width: 425px) {
+        justify-content: space-between;
+      }
+
+      .product-name {
         margin: 10px 0;
+
+        @media (min-width: 426px) {
+          &::after {
+            content: '-';
+            margin: 0 1.5rem;
+          }
+        }
+      }
+    }
+
+    .product-image {
+      width: 110px;
+      margin-left: 1rem;
+
+      @media (max-width: 425px) {
+        display: none;
       }
     }
   }

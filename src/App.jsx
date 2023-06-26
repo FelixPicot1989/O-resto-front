@@ -44,7 +44,6 @@ function App() {
         },
       });
       const { data } = response;
-      console.log(data.reservations);
       setUserInfo({
         id: data.id,
         firstname: data.firstname,
