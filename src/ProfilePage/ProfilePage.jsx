@@ -12,7 +12,6 @@ import UserReservation from '../components/UserReservation/UserReservation';
 function ProfilPage() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const userInfos = useRecoilValue(userInfo);
-  console.log(userInfos);
   const setUserInfo = useSetRecoilState(userInfo);
 
   const [lastname, setLastname] = useState('');
@@ -20,7 +19,6 @@ function ProfilPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reservations, setReservations] = useState([]);
-  console.log(reservations);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -38,13 +36,13 @@ function ProfilPage() {
   useEffect(() => {
     setPasswordsMatch(Boolean(password && confirmPassword === password));
   }, [confirmPassword, password]);
-  console.log(userInfos.reservations);
   useEffect(() => {
     if (userInfos) {
       setFirstname(userInfos.firstname);
       setLastname(userInfos.lastname);
       setEmail(userInfos.email);
       setReservations(userInfos.reservations);
+      console.log(userInfos.reservations);
     }
   }, [userInfos]);
 
