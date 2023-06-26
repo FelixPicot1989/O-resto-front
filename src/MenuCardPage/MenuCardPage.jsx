@@ -174,9 +174,9 @@ function MenuCardPage() {
           </div>
         </div>
         {category === 'menus' && <ListMenus menus={menus} />}
-        {category === 'entrees' && <ListProducts products={entries} />}
-        {category === 'plats' && <ListDishes dishes={dishes} />}
-        {category === 'desserts' && <ListProducts products={desserts} />}
+        {category === 'entrees' && <ListProducts products={entries} baseUrl={baseUrl} />}
+        {category === 'plats' && <ListDishes dishes={dishes} baseUrl={baseUrl} />}
+        {category === 'desserts' && <ListProducts products={desserts} baseUrl={baseUrl} />}
         {category === 'boissons' && <ListDrinks drinks={drinks} />}
       </section>
     </div>
