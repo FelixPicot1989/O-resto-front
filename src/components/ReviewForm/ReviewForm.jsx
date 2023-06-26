@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import { Rating, Typography } from '@mui/material';
 import axios from 'axios';
 
-import { useRecoilValue } from 'recoil';
-import { isUserLogged } from '../Recoil/Recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { isUserLogged, reviews } from '../Recoil/Recoil';
 import './ReviewForm.scss';
 import AuthForm from '../AuthForm/AuthForm';
 import ToastNotif from '../ToastNotif/ToastNotif';
 
 function ReviewForm() {
+  // useSetRecoilState pour mettre à jour l'atome reviews pour rajouter le nouvel avis
+  const setReviews = useSetRecoilState(reviews);
   // Les variables pour stocker l'avis et la note
   const [reviewComment, setReviewComment] = useState('');
   const [ratingValue, setRatingValue] = useState(null);
@@ -17,9 +19,8 @@ function ReviewForm() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
-  //const [authToken, setAuthToken] = useState('');
 
-  const baseUrl = 'http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public';
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const userLogged = useRecoilValue(isUserLogged);
 
@@ -33,7 +34,7 @@ function ReviewForm() {
 
     const trimmedReviewComment = reviewComment.trim();
 
-    if (!reviewComment) {
+    if (!trimmedReviewComment) {
       setError("Le commentaire de l'avis est vide");
       setLoading(false);
       return;
@@ -61,9 +62,21 @@ function ReviewForm() {
       );
 
       if (response.status === 201) {
-        setSuccess('Votre avis a bien été envoyé. Merci pour votre retour.');
+        setSuccess('Votre avis a bien été envoyé. Merci de votre retour.');
         setReviewComment('');
         setRatingValue(null);
+        // une fois l'avis poster on lance une nouvelle requette pour récupérer tous les avis et mettre à jour l'etat globale des avis
+        const fetchReviews = async () => {
+          try {
+            const reviewsList = await axios.get(`${baseUrl}/api/reviews`);
+            const { data } = reviewsList;
+            // Met à jour l'état global des avis
+            setReviews(data);
+          } catch (err) {
+            console.log('Erreur API', err);
+          }
+        };
+        fetchReviews();
       } else {
         setError("Une erreur est survenue lors de l'envoi de l'avis.");
       }
@@ -76,7 +89,7 @@ function ReviewForm() {
     setTimeout(() => {
       setSuccess(null);
       setError(null);
-    }, 3000);
+    }, 7000);
   };
 
   return (

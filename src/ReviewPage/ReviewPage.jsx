@@ -4,8 +4,6 @@ import CarouselBgImages from '../components/CarouselBgImages/CarouselBgImages';
 import CarouselReview from '../components/CarouselReview/CarouselReview';
 import ReviewForm from '../components/ReviewForm/ReviewForm';
 
-// LoginMessage et le bouton pour envoyer à afficher en fonction de si la personne est connecté ou non
-// Il faudrait rajouter un loading ?
 function ReviewPage() {
   return (
     <div className="ReviewPage">

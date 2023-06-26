@@ -34,6 +34,18 @@
       }
     }
 
+    .adresse {
+      .maps {
+        text-align: center;
+        margin-top: 10px;
+        iframe {
+          width: 350px;
+          height: 350px;
+          border: 0;
+        }
+      }
+    }
+
     .horaires {
       p {
         margin: 0.1rem 0;
@@ -44,6 +56,10 @@
         margin-bottom: 0;
       }
     }
+  }
+
+  .maps-desktop {
+    display: none;
   }
 
   .legales {
@@ -64,8 +80,8 @@
   }
 }
 
-// Desktop (768px et plus)
-@media (min-width: 768px) {
+// Desktop (850px et plus)
+@media (min-width: 850px) {
   .Footer {
     .infos-pratiques {
       display: flex;
@@ -80,6 +96,23 @@
         h3 {
           margin-bottom: 0.5rem;
         }
+      }
+
+      .adresse {
+        .maps {
+          display: none;
+        }
+      }
+    }
+
+    .maps-desktop {
+      display: block;
+      text-align: center;
+      padding-right: 150px;
+      iframe {
+        width: 350px;
+        height: 350px;
+        border: 0;
       }
     }
 

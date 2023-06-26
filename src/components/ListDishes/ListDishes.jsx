@@ -1,21 +1,23 @@
 import PropTypes from 'prop-types';
 import './ListDishes.scss';
 
-function ListDishes({ dishes }) {
+function ListDishes({ dishes, baseUrl }) {
   return (
     <div className="ListDishes">
       {dishes.map((category) => (
         <div className="category" key={category.id}>
           <h2 className="category-name">{category.name}</h2>
-          <ul className="dishes-list">
-            {category.dishes.map((dish) => (
-              <li className="dishes-item" key={dish.id}>
-                <div>
-                  <p className="dishes-name">{dish.name}</p>
-                  <p className="dishes-description">{dish.description}</p>
+          <ul>
+            {category.dishes.map(({ id, name, price, description, image }) => (
+              <li className="dishe-item" key={id}>
+                <div className="dishe-left">
+                  <div className="dishe-header">
+                    <p className="dishe-name">{name}</p>
+                    <p className="dishe-price">{price}&nbsp;€</p>
+                  </div>
+                  <p className="dishe-description">{description}</p>
                 </div>
-                <p className="dishes-price">{dish.price}&nbsp;€</p>
-                {/* <img className="dishes-image" src={dish.image.url} alt={dish.name} /> */}
+                <img className="dishe-image" src={`${baseUrl}/uploads/${image.image}`} alt={name} />
               </li>
             ))}
           </ul>
@@ -36,14 +38,14 @@ ListDishes.propTypes = {
           name: PropTypes.string.isRequired,
           description: PropTypes.string,
           price: PropTypes.string.isRequired,
-          // image: PropTypes.shape({
-          //   id: PropTypes.number.isRequired,
-          //   url: PropTypes.string.isRequired,
-          // }),
+          image: PropTypes.shape({
+            image: PropTypes.string.isRequired,
+          }),
         })
       ).isRequired,
     })
   ).isRequired,
+  baseUrl: PropTypes.string.isRequired,
 };
 
 export default ListDishes;

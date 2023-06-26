@@ -1,13 +1,14 @@
 import React from 'react';
 import CarouselBgImages from '../components/CarouselBgImages/CarouselBgImages';
-import BookingTool from '../components/BookingTool/BookingTool';
+// import BookingTool from '../components/BookingTool/BookingTool';
 import ContactForm from '../components/ContactForm/ContactForm';
+import ReservationForm from '../components/ReservationForm/ReservationForm';
 
 function ContactPage() {
   return (
     <div className="ContactPage">
       <CarouselBgImages title="Réserver/ Contact" />
-      <BookingTool />
+      <ReservationForm />
       <ContactForm />
     </div>
   );

@@ -24,26 +24,47 @@
     }
   }
 
-  .dishes {
-    &-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  .dishe-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    padding-bottom: 10px;
+
+    .dishe-left {
       width: 100%;
-      margin: 0.4rem 0;
+      .dishe-description {
+        font-size: 0.9rem;
+        color: vars.$grey-color;
+      }
+
+      .dishe-header {
+        display: flex;
+        align-items: center;
+        @media (max-width: 425px) {
+          justify-content: space-between;
+        }
+
+        .dishe-name {
+          margin: 10px 0;
+
+          @media (min-width: 426px) {
+            &::after {
+              content: '-';
+              margin: 0 1.5rem;
+            }
+          }
+        }
+      }
     }
 
-    &-name {
-      font-size: 1.1rem;
-    }
+    .dishe-image {
+      width: 110px;
+      margin-left: 1rem;
 
-    &-description {
-      font-size: 0.9rem;
-      color: vars.$grey-color;
-    }
-
-    &-price {
-      margin-left: 0.5rem;
+      @media (max-width: 425px) {
+        display: none;
+      }
     }
   }
 }

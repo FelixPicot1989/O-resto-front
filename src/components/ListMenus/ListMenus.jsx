@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './ListMenus.scss';
 
 function ListMenus({ menus }) {
-  // console.log('menus :', menus);
   return (
     <div className="ListMenus">
       <ul className="menu-list">

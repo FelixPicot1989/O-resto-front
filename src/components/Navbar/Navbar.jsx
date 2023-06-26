@@ -1,8 +1,18 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-import { FaBars, FaTimes, FaFacebook, FaInstagram, FaTripadvisor, FaChevronRight, FaChevronDown } from 'react-icons/fa';
+import {
+  FaBars,
+  FaTimes,
+  FaFacebook,
+  FaInstagram,
+  FaTripadvisor,
+  FaChevronRight,
+  FaChevronDown,
+  FaUserEdit,
+} from 'react-icons/fa';
 import { NavLink, useLocation, Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { isUserLogged } from '../Recoil/Recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isUserLogged, userInfo } from '../Recoil/Recoil';
 
 import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
@@ -17,6 +27,9 @@ function Navbar() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [success, setSuccess] = useState(null);
   const [userLogged, setUserLogged] = useRecoilState(isUserLogged);
+  const [openUserDropdown, setopenUserDropdown] = useState(false);
+
+  const userInfos = useRecoilValue(userInfo);
 
   // Avec les fonctions qui gère le clique en inversant les valeurs (false <=> true)
   const handleToggleNav = () => {
@@ -32,6 +45,9 @@ function Navbar() {
       localStorage.removeItem('token');
       setUserLogged(false);
       setSuccess('Vous êtes bien déconnecté');
+      setTimeout(() => {
+        setSuccess(null);
+      }, 7000);
     } else {
       setShowLoginForm(!showLoginForm);
     }
@@ -80,15 +96,62 @@ function Navbar() {
               Réserver/Contact
             </NavLink>
             <NavLink className="Navbar-list-item" to="/avis">
-              Donner votre avis
+              Donnez votre avis
             </NavLink>
           </ul>
           <div className="login-social-desktop">
-            <div>
+            {!userLogged && (
               <button onClick={toggleLoginForm} className="btn-login" type="button">
-                {userLogged ? 'Déconnexion' : 'Connexion'}
+                Connexion
               </button>
-            </div>
+            )}
+            {userLogged && (
+              <div className="connected-user">
+                <FaUserEdit className="profile-icon" onClick={() => setopenUserDropdown(!openUserDropdown)} />
+                {userInfos && <div>Bonjour {userInfos.firstname}</div>}
+              </div>
+            )}
+            {openUserDropdown && (
+              <ul className="dropdown-user-edit-list">
+                {userInfos.roles.includes('ROLE_ADMIN') && (
+                  <li className="dropdown-user-edit-item">
+                    <a
+                      href="http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      BackOffice
+                    </a>
+                  </li>
+                )}
+                <li className="dropdown-user-edit-item">
+                  <Link
+                    to="/profil"
+                    className="profile-link"
+                    onClick={() => {
+                      handleScrollToTop();
+                      setopenUserDropdown(!openUserDropdown);
+                      handleToggleNav();
+                    }}
+                  >
+                    Voir mon profil
+                  </Link>
+                </li>
+                <li className="dropdown-user-edit-item">
+                  <Link
+                    to="/"
+                    type="button"
+                    onClick={() => {
+                      setopenUserDropdown(!openUserDropdown);
+                      toggleLoginForm();
+                    }}
+                    className="btn-logout"
+                  >
+                    Déconnexion
+                  </Link>
+                </li>
+              </ul>
+            )}
             <div className="social-desktop">
               <a href="#" target="_blank" rel="noopener noreferrer">
                 <FaFacebook />
@@ -143,11 +206,21 @@ function Navbar() {
                 </div>
                 {openDropDown && (
                   <ul className="dropdown-list">
-                    <Link to="/carte/menus">Menu</Link>
-                    <Link to="/carte/entrees">Entrées</Link>
-                    <Link to="/carte/plats">Plats</Link>
-                    <Link to="/carte/desserts">Desserts</Link>
-                    <Link to="/carte/boissons">Boissons</Link>
+                    <Link onClick={handleToggleNav} to="/carte/menus">
+                      Menu
+                    </Link>
+                    <Link onClick={handleToggleNav} to="/carte/entrees">
+                      Entrées
+                    </Link>
+                    <Link onClick={handleToggleNav} to="/carte/plats">
+                      Plats
+                    </Link>
+                    <Link onClick={handleToggleNav} to="/carte/desserts">
+                      Desserts
+                    </Link>
+                    <Link onClick={handleToggleNav} to="/carte/boissons">
+                      Boissons
+                    </Link>
                   </ul>
                 )}
               </div>
@@ -170,14 +243,61 @@ function Navbar() {
               to="/avis"
               className="Navbar-mobile-item"
             >
-              Donner votre avis
+              Donnez votre avis
             </NavLink>
           </ul>
           <div className="login-social-mobile">
             <div>
-              <button onClick={toggleLoginForm} className="btn-login" type="button">
-                {userLogged ? 'Déconnexion' : 'Connexion'}
-              </button>
+              {!userLogged && (
+                <button onClick={toggleLoginForm} className="btn-login" type="button">
+                  Connexion
+                </button>
+              )}
+              {userLogged && (
+                <>
+                  <FaUserEdit className="profile-icon" onClick={() => setopenUserDropdown(!openUserDropdown)} />
+                  {userInfos && <div>Bonjour {userInfos.firstname}</div>}
+                </>
+              )}
+              {openUserDropdown && (
+                <ul className="dropdown-user-edit-list">
+                  {userInfos.roles.includes('ROLE_ADMIN') && (
+                    <li className="dropdown-user-edit-item">
+                      <a
+                        href="http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        BackOffice
+                      </a>
+                    </li>
+                  )}
+                  <li className="dropdown-user-edit-item">
+                    <NavLink
+                      to="/profil"
+                      className="profile-link"
+                      onClick={() => {
+                        setopenUserDropdown(!openUserDropdown);
+                        handleToggleNav();
+                      }}
+                    >
+                      Voir mon profil
+                    </NavLink>
+                  </li>
+                  <li className="dropdown-user-edit-item">
+                    <Link
+                      type="button"
+                      onClick={() => {
+                        setopenUserDropdown(!openUserDropdown);
+                        toggleLoginForm();
+                      }}
+                      className="btn-logout"
+                    >
+                      Déconnexion
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </div>
             <div className="social-media">
               <a href="#" target="_blank" rel="noopener noreferrer">
