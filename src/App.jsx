@@ -44,12 +44,14 @@ function App() {
         },
       });
       const { data } = response;
+      console.log(data.reservations);
       setUserInfo({
         id: data.id,
         firstname: data.firstname,
         lastname: data.lastname,
         email: data.email,
         roles: data.roles,
+        reservations: data.reservations,
       });
     } catch (error) {
       console.log('Erreur API', error);

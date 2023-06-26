@@ -7,16 +7,20 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import ToastNotif from '../components/ToastNotif/ToastNotif';
 
 import { userInfo } from '../components/Recoil/Recoil';
+import UserReservation from '../components/UserReservation/UserReservation';
 
 function ProfilPage() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const userInfos = useRecoilValue(userInfo);
+  console.log(userInfos);
   const setUserInfo = useSetRecoilState(userInfo);
 
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [reservations, setReservations] = useState([]);
+  console.log(reservations);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -34,12 +38,13 @@ function ProfilPage() {
   useEffect(() => {
     setPasswordsMatch(Boolean(password && confirmPassword === password));
   }, [confirmPassword, password]);
-
+  console.log(userInfos.reservations);
   useEffect(() => {
     if (userInfos) {
       setFirstname(userInfos.firstname);
       setLastname(userInfos.lastname);
       setEmail(userInfos.email);
+      setReservations(userInfos.reservations);
     }
   }, [userInfos]);
 
@@ -119,6 +124,7 @@ function ProfilPage() {
   return (
     <>
       <div className="Profil">
+        <UserReservation reservations={reservations} />
         <h1>Informations personnelles</h1>
         <div className="infos-persos">
           <form onSubmit={handleSubmit}>
