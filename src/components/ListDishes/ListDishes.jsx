@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import './ListDishes.scss';
 
 function ListDishes({ dishes }) {
+  console.log(dishes);
   return (
     <div className="ListDishes">
       {dishes.map((category) => (

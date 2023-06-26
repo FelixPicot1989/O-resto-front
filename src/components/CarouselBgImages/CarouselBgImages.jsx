@@ -10,7 +10,7 @@ import { ImageContext } from '../../context/ImageContextProvider';
 // Dynamique mais les liens des images sont pas bon pour le moment
 function CarouselBgImages({ title }) {
   const { imagesBgCarousel } = useContext(ImageContext);
-  console.log(imagesBgCarousel);
+  // console.log(imagesBgCarousel);
   return (
     <div className="CarouselBgImages">
       {/* Le titre au milieu de la page que l'on remplacera avec une props quand on pourra avoir les données en dynamiques */}
@@ -20,9 +20,10 @@ function CarouselBgImages({ title }) {
         {/* Vérification pour ne pas maper sur un tableau vide avant que les data provenant de l'API n'arrivent */}
         {imagesBgCarousel &&
           imagesBgCarousel.length !== 0 &&
-          imagesBgCarousel.map((el) => (
-            <div key={el.id} className="carou-img" style={{ backgroundImage: `url(${el.image})` }} />
-          ))}
+          imagesBgCarousel.map((el) => {
+            console.log(el.image);
+            return <div key={el.id} className="carou-img" style={{ backgroundImage: `url(${el.image})` }} />;
+          })}
       </Carousel>
     </div>
   );
