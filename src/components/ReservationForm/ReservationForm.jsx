@@ -1,12 +1,15 @@
 import './ReservationForm.scss';
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import ToastNotif from '../ToastNotif/ToastNotif';
+import { isUserLogged } from '../../components/Recoil/Recoil';
 
 function ReservationForm() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [loading, setLoading] = useState(false);
+  const userLogged = useRecoilValue(isUserLogged);
 
   const [date, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState('');
@@ -143,15 +146,19 @@ function ReservationForm() {
               ))}
             </select>
           </div>
-          <div className="btn">
-            {loading ? (
-              <div className="loader" />
-            ) : (
-              <button type="submit" className="submit">
-                Confirmer ma réservation
-              </button>
-            )}
-          </div>
+          {userLogged ? (
+            <div className="btn">
+              {loading ? (
+                <div className="loader" />
+              ) : (
+                <button type="submit" className="submit">
+                  Confirmer ma réservation
+                </button>
+              )}
+            </div>
+          ) : (
+            <p className="login-message">Pour réserver, merci de vous connecter</p>
+          )}
         </form>
       </div>
       <ToastNotif

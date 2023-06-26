@@ -28,11 +28,11 @@ function UserReservation({ reservations }) {
             upcomingReservations.map((el) => (
               <div className="reservations" key={el.id}>
                 <p>Date: {new Date(el.date).toLocaleDateString('fr-FR')}</p>
-                <p>Nombre de couverts: {el.numberOfCovers}</p>
                 <p className="times">
                   Créneau horaire:&nbsp;
                   {new Date(el.timeSlots).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                 </p>
+                <p>Nombre de couverts: {el.numberOfCovers}</p>
               </div>
             ))
           )}
@@ -43,11 +43,11 @@ function UserReservation({ reservations }) {
             pastReservations.map((el) => (
               <div className="reservations" key={el.id}>
                 <p>Date: {new Date(el.date).toLocaleDateString('fr-FR')}</p>
-                <p>Nombre de couverts: {el.numberOfCovers}</p>
                 <p>
                   Créneau horaire:&nbsp;
                   {new Date(el.timeSlots).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                 </p>
+                <p>Nombre de couverts: {el.numberOfCovers}</p>
               </div>
             ))
           )}

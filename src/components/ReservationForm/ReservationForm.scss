@@ -13,6 +13,7 @@
 
   h2 {
     margin-bottom: 3rem;
+    margin-top: 1rem;
     color: vars.$gold;
     font-family: vars.$titre-police;
     font-size: vars.$titre-size;
@@ -126,6 +127,11 @@
           }
         }
       }
+    }
+
+    .login-message {
+      font-family: vars.$texte-police;
+      margin-top: 1rem;
     }
 
     .submit {

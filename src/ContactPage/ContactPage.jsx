@@ -13,8 +13,7 @@ function ContactPage() {
     <div className="ContactPage">
       <CarouselBgImages title="Réserver/ Contact" />
       {/* <BookingTool /> */}
-      {userLogged ? <ReservationForm /> : 'Merci de vous connecter pour pouvoir réserver'}
-      {/* <ReservationForm /> */}
+      <ReservationForm />
       <ContactForm />
     </div>
   );
