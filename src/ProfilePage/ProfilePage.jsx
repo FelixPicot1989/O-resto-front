@@ -39,7 +39,6 @@ function ProfilPage() {
         },
       });
       const { data } = response;
-      console.log(data.reservations);
       setUserInfo({
         id: data.id,
         firstname: data.firstname,
@@ -48,8 +47,8 @@ function ProfilPage() {
         roles: data.roles,
         reservations: data.reservations,
       });
-    } catch (error) {
-      console.log('Erreur API', error);
+    } catch (err) {
+      console.log('Erreur API', err);
     }
   };
 

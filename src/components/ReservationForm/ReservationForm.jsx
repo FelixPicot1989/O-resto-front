@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import ToastNotif from '../ToastNotif/ToastNotif';
-import { isUserLogged } from '../../components/Recoil/Recoil';
+import { isUserLogged } from '../Recoil/Recoil';
 
 function ReservationForm() {
   const baseUrl = import.meta.env.VITE_BASE_URL;

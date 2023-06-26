@@ -1,14 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './LegalPage.scss';
 
 function LegalPage({ type }) {
   if (type === 'mentions') {
     return (
       <div className="legal">
-        {' '}
         <h1>Mentions légales</h1>
         <h2>Raison sociale :</h2>
-        <p>O'resto</p>
+        <p>O&apos;resto</p>
         <h2>Forme juridique :</h2>
         <p>Société à responsabilité limitée (SARL)</p>
         <h2>Adresse :</h2>
@@ -19,12 +19,13 @@ function LegalPage({ type }) {
         <p>info@oresto.com</p>
       </div>
     );
-  } else if (type === 'politique') {
+  }
+  if (type === 'politique') {
     return (
       <div className="legal">
-        <h1>Politique de confidentialité d'O'resto</h1>
+        <h1>Politique de confidentialité d&apos;O&apos;resto</h1>
 
-        <h2>Collecte d'informations :</h2>
+        <h2>Collecte d&apos;informations :</h2>
         <p>
           Lorsque vous visitez notre site Web, nous pouvons collecter certaines informations personnelles telles que
           votre nom, prénom et votre adresse e-mail. Ces informations sont collectées de manière volontaire lorsque vous
@@ -42,36 +43,37 @@ function LegalPage({ type }) {
 
         <h2>Partage des informations :</h2>
         <p>
-          Nous ne vendons, n'échangeons ni ne louons vos informations personnelles à des tiers, sauf si nous obtenons
-          votre consentement préalable ou si la loi l'exige. Toutefois, nous pouvons partager vos informations avec des
-          prestataires de services tiers qui nous aident à exploiter notre site Web et à fournir nos services, tels que
-          des services de réservation en ligne ou de livraison de repas. Ces tiers sont tenus de respecter la
-          confidentialité de vos informations.
+          Nous ne vendons, n&apos;échangeons ni ne louons vos informations personnelles à des tiers, sauf si nous
+          obtenons votre consentement préalable ou si la loi l&apos;exige. Toutefois, nous pouvons partager vos
+          informations avec des prestataires de services tiers qui nous aident à exploiter notre site Web et à fournir
+          nos services, tels que des services de réservation en ligne ou de livraison de repas. Ces tiers sont tenus de
+          respecter la confidentialité de vos informations.
         </p>
 
         <h2>Cookies et technologies similaires :</h2>
         <p>
-          Nous utilisons des cookies et d'autres technologies similaires pour améliorer votre expérience sur notre site
-          Web. Les cookies sont de petits fichiers texte qui sont stockés sur votre appareil lorsque vous visitez notre
-          site. Ils nous permettent de reconnaître votre navigateur et de vous offrir une expérience personnalisée,
-          ainsi que de collecter des informations sur la façon dont vous utilisez notre site. Vous pouvez configurer
-          votre navigateur pour refuser les cookies, mais cela pourrait limiter certaines fonctionnalités de notre site.
+          Nous utilisons des cookies et d&apos;autres technologies similaires pour améliorer votre expérience sur notre
+          site Web. Les cookies sont de petits fichiers texte qui sont stockés sur votre appareil lorsque vous visitez
+          notre site. Ils nous permettent de reconnaître votre navigateur et de vous offrir une expérience
+          personnalisée, ainsi que de collecter des informations sur la façon dont vous utilisez notre site. Vous pouvez
+          configurer votre navigateur pour refuser les cookies, mais cela pourrait limiter certaines fonctionnalités de
+          notre site.
         </p>
 
         <h2>Sécurité des données :</h2>
         <p>
           Nous prenons des mesures de sécurité appropriées pour protéger vos informations personnelles contre tout accès
-          non autorisé, utilisation abusive ou divulgation. Cependant, veuillez noter qu'aucune méthode de transmission
-          de données sur Internet ou de stockage électronique n'est totalement sécurisée. Nous ne pouvons donc garantir
-          la sécurité absolue de vos informations.
+          non autorisé, utilisation abusive ou divulgation. Cependant, veuillez noter qu&apos;aucune méthode de
+          transmission de données sur Internet ou de stockage électronique n&apos;est totalement sécurisée. Nous ne
+          pouvons donc garantir la sécurité absolue de vos informations.
         </p>
 
         <h2>Vos droits :</h2>
         <p>
-          Vous avez le droit d'accéder aux informations personnelles que nous détenons à votre sujet, de les corriger,
-          de les supprimer ou de limiter leur utilisation. Vous pouvez également vous désabonner de nos communications
-          marketing à tout moment. Pour exercer ces droits, veuillez nous contacter via les coordonnées fournies
-          ci-dessous.
+          Vous avez le droit d&apos;accéder aux informations personnelles que nous détenons à votre sujet, de les
+          corriger, de les supprimer ou de limiter leur utilisation. Vous pouvez également vous désabonner de nos
+          communications marketing à tout moment. Pour exercer ces droits, veuillez nous contacter via les coordonnées
+          fournies ci-dessous.
         </p>
 
         <h2>Modifications de la politique de confidentialité :</h2>
@@ -85,5 +87,9 @@ function LegalPage({ type }) {
     );
   }
 }
+
+LegalPage.propTypes = {
+  type: PropTypes.string.isRequired,
+};
 
 export default LegalPage;
