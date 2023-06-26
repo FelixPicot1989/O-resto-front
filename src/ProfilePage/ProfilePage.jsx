@@ -7,6 +7,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import ToastNotif from '../components/ToastNotif/ToastNotif';
 
 import { userInfo } from '../components/Recoil/Recoil';
+import UserReservation from '../components/UserReservation/UserReservation';
 
 function ProfilPage() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -17,6 +18,7 @@ function ProfilPage() {
   const [firstname, setFirstname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [reservations, setReservations] = useState([]);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -29,19 +31,46 @@ function ProfilPage() {
   const [showPasswordFirst, setShowPasswordFirst] = useState(false);
   const [showPasswordSecond, setShowPasswordSecond] = useState(false);
 
+  const fetchUserInfo = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/users/me`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const { data } = response;
+      console.log(data.reservations);
+      setUserInfo({
+        id: data.id,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        roles: data.roles,
+        reservations: data.reservations,
+      });
+    } catch (error) {
+      console.log('Erreur API', error);
+    }
+  };
+
   // Vérifie si "password" et "confirmPassword" ont tous les deux une valeur et si elles sont identiques.
   // Ce résultat est ensuite converti en un booléen et stocké dans "passwordsMatch".
   useEffect(() => {
     setPasswordsMatch(Boolean(password && confirmPassword === password));
   }, [confirmPassword, password]);
-
   useEffect(() => {
     if (userInfos) {
       setFirstname(userInfos.firstname);
       setLastname(userInfos.lastname);
       setEmail(userInfos.email);
+      setReservations(userInfos.reservations);
+      console.log(userInfos.reservations);
     }
   }, [userInfos]);
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   const handlePasswordChange = ({ target: { value } }) => {
     setPassword(value);
@@ -119,6 +148,7 @@ function ProfilPage() {
   return (
     <>
       <div className="Profil">
+        <UserReservation reservations={reservations} />
         <h1>Informations personnelles</h1>
         <div className="infos-persos">
           <form onSubmit={handleSubmit}>

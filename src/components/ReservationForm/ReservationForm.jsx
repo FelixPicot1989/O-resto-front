@@ -1,15 +1,12 @@
 import './ReservationForm.scss';
-import React, { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { userInfo } from '../Recoil/Recoil';
 import Calendar from 'react-calendar';
 import ToastNotif from '../ToastNotif/ToastNotif';
 
 function ReservationForm() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [loading, setLoading] = useState(false);
-  const userInfos = useRecoilValue(userInfo);
 
   const [date, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState('');
