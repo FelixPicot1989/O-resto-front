@@ -31,7 +31,7 @@ function CarouselReview() {
       }
     };
     fetchReviews();
-  });
+  }, []);
 
   const formatDate = (dateToFormat) => {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };

@@ -129,6 +129,7 @@ function Navbar() {
                     to="/profil"
                     className="profile-link"
                     onClick={() => {
+                      handleScrollToTop();
                       setopenUserDropdown(!openUserDropdown);
                       handleToggleNav();
                     }}
