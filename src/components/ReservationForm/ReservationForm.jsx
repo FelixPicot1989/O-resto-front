@@ -51,7 +51,7 @@ function ReservationForm() {
   };
 
   const handleNumberOfCovers = (stringToInt) => {
-    const numberOfCoversToInt = parseInt(stringToInt);
+    const numberOfCoversToInt = parseInt(stringToInt, 10);
     setNumberOfCovers(numberOfCoversToInt);
   };
 
@@ -118,33 +118,42 @@ function ReservationForm() {
   return (
     <>
       <div className="ReservationForm">
+        <h2>Réservation en ligne :</h2>
         <form onSubmit={handleReservation}>
           <Calendar onChange={handleDateChange} value={date} />
-          <select
-            onChange={(e) => {
-              setSelectedTime(e.target.value);
-            }}
-            value={selectedTime}
-          >
-            <option>Sélectionnez une heure</option>
-            {horaires.map((el) => (
-              <option key={el}>{el}</option>
-            ))}
-          </select>
+          <div className="select-div">
+            <select
+              onChange={(e) => {
+                setSelectedTime(e.target.value);
+              }}
+              value={selectedTime}
+            >
+              <option>Sélectionnez une heure</option>
+              {horaires.map((el) => (
+                <option key={el}>{el}</option>
+              ))}
+            </select>
 
-          <select
-            onChange={(e) => {
-              handleNumberOfCovers(e.target.value);
-            }}
-            value={numberOfCovers}
-          >
-            <option>Sélectionnez le nombre de personnes</option>
-            {personnes.map((el) => (
-              <option key={el}>{el}</option>
-            ))}
-          </select>
+            <select
+              onChange={(e) => {
+                handleNumberOfCovers(e.target.value);
+              }}
+              value={numberOfCovers}
+            >
+              <option>Sélectionnez le nombre de personnes</option>
+              {personnes.map((el) => (
+                <option key={el}>{el}</option>
+              ))}
+            </select>
+          </div>
           <div className="btn">
-            {loading ? <div className="loader" /> : <button type="submit">Confirmer ma réservation</button>}
+            {loading ? (
+              <div className="loader" />
+            ) : (
+              <button type="submit" className="submit">
+                Confirmer ma réservation
+              </button>
+            )}
           </div>
         </form>
       </div>
