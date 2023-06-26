@@ -1,8 +1,8 @@
-import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState, createContext } from 'react';
 import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
+// eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
 import { isUserLogged, userInfo } from './components/Recoil/Recoil';
 import ImageContextProvider from './context/ImageContextProvider';
