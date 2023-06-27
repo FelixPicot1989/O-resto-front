@@ -1,13 +1,15 @@
 import React from 'react';
-import './ReviewPage.scss';
+
 import CarouselBgImages from '../components/CarouselBgImages/CarouselBgImages';
 import CarouselReview from '../components/CarouselReview/CarouselReview';
 import ReviewForm from '../components/ReviewForm/ReviewForm';
 
+import './ReviewPage.scss';
+
 function ReviewPage() {
   return (
     <div className="ReviewPage">
-      {/* Props : title (titre de la page) + images (tableau d'image recupéré) */}
+      {/* Props : title of the page */}
       <CarouselBgImages title="Avis" />
       <CarouselReview />
       <ReviewForm />

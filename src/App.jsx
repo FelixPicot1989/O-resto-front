@@ -4,9 +4,9 @@ import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
+
 import { isUserLogged, userInfo } from './components/Recoil/Recoil';
 import ImageContextProvider from './context/ImageContextProvider';
-
 import HomePage from './HomePage/HomePage';
 import ReviewPage from './ReviewPage/ReviewPage';
 import ContactPage from './ContactPage/ContactPage';

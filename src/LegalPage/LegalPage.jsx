@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './LegalPage.scss';
 
+// Component with raw text, depending of the props it return either one or the other
 function LegalPage({ type }) {
   if (type === 'mentions') {
     return (

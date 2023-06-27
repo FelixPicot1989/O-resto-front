@@ -6,13 +6,14 @@ function ListMenus({ menus }) {
   return (
     <div className="ListMenus">
       <ul className="menu-list">
+        {/* .map() in the menus props to show the menus */}
         {menus.map(({ menuName, menuId, menuPrice, eatsByCategory }) => (
           <li className="menu-item" key={menuId}>
             <div className="menu-header">
               <h3 className="menu-title">{menuName}</h3>
               <span className="menu-price">{menuPrice}&nbsp;€</span>
             </div>
-            {/* Object.entries renvoie un tableau de tableaux avec la clé et la valeur de l'objet eatsByCategory */}
+            {/* Object.entries returns an array of arrays with the key and value of the eatsByCategory object, then .map() to get the category and the foods */}
             {Object.entries(eatsByCategory).map(([category, eats]) => (
               <div className="category-list" key={category}>
                 <h4 className="category-name">{category}</h4>

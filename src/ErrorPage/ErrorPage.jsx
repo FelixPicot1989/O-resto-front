@@ -1,8 +1,11 @@
 import React from 'react';
-import './ErrorPage.scss';
 import { NavLink } from 'react-router-dom';
+
 import imgError from '../assets/img_error.png';
 
+import './ErrorPage.scss';
+
+// 404 page
 function ErrorPage() {
   return (
     <div className="ErrorPage">

@@ -1,25 +1,26 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-
-import './CarouselBgImages.scss';
-
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+
 import { ImageContext } from '../../context/ImageContextProvider';
 
-// Dynamique mais les liens des images sont pas bon pour le moment
+import './CarouselBgImages.scss';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+// The carousel of images you see on the website
 function CarouselBgImages({ title }) {
   const { imagesBgCarousel } = useContext(ImageContext);
+
+  // URL of the API imported from the file .env
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
-  // console.log(imagesBgCarousel);
   return (
     <div className="CarouselBgImages">
-      {/* Le titre au milieu de la page que l'on remplacera avec une props quand on pourra avoir les données en dynamiques */}
+      {/* Title come from a props */}
       <h1 className="page-title">{title}</h1>
-      {/* Le composant du carousel de la librairie react-responsive-carousel, on mapera pour créer les div */}
+      {/* Carousel component from react-responsive-carousel */}
       <Carousel autoPlay infiniteLoop showThumbs={false} showIndicators={false} showArrows={false} showStatus={false}>
-        {/* Vérification pour ne pas maper sur un tableau vide avant que les data provenant de l'API n'arrivent */}
+        {/* Check to not .map() on an empty array before the data from the API arrives and if array not empry then we map to get the URL of the images */}
         {imagesBgCarousel &&
           imagesBgCarousel.length !== 0 &&
           imagesBgCarousel.map((el) => (

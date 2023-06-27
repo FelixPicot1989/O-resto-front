@@ -1,6 +1,8 @@
 import React from 'react';
 import './BookingTool.scss';
 
+// Unused now
+// Was a widget to make a reservation before we make our own reservation tool
 function BookingTool() {
   return (
     <div className="BookingTool">

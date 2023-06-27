@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
-import './CarouselReview.scss';
 import { Rating } from '@mui/material';
 import axios from 'axios';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+
 import { reviews } from '../Recoil/Recoil';
+
+import './CarouselReview.scss';
 
 function CarouselReview() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
