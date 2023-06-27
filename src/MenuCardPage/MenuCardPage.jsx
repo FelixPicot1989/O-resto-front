@@ -95,7 +95,12 @@ function MenuCardPage() {
         menuName: menu.name,
         menuId: menu.id,
         menuPrice: menu.price,
-        eatsByCategory,
+        eatsByCategory: {
+          // On lui donne le format que l'on veut récupérer, pour permettre un affichage dans l'ordre entrées plats desserts
+          Entrées: eatsByCategory.Entrées || [],
+          Plats: eatsByCategory.Plats || [],
+          Desserts: eatsByCategory.Desserts || [],
+        },
       };
     });
   };

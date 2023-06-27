@@ -16,6 +16,7 @@ import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import StickyFooter from './components/StickyFooter/StickyFooter';
 import ProfilePage from './ProfilePage/ProfilePage';
+import ErrorPage from './ErrorPage/ErrorPage';
 
 export const imagesBgContext = createContext();
 
@@ -94,6 +95,7 @@ function App() {
           <Route path="/mentions-legales" element={<LegalPage type="mentions" />} />
           <Route path="/confidentialite" element={<LegalPage type="politique" />} />
           <Route path="/profil" element={<ProfilePage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </ImageContextProvider>
       <Footer infos={infos} />
