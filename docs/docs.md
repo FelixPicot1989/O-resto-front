@@ -135,32 +135,3 @@ When feature is finished :
 ```bash
 git flow feature finish nameOfFeature
 ```
-
-## How to install project on your local
-
-Make sure you have at least node version 14 and run this to install dependencies :
-
-```bash
-npm install
-```
-
-To launch dev, run this :
-
-```bash
-npm run dev
-```
-
-To build the app, run this :
-
-```bash
-npm run build
-```
-
-and then a new folder "dist" are created, to see the build run this :
-
-```bash
-npm run preview
-```
-
-or upload the project to your server.
-Don't forget to make DocumentRoot point to the folder "dist"
