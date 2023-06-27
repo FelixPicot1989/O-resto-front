@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
+
 import './ListDishes.scss';
 
 function ListDishes({ dishes, baseUrl }) {
   return (
     <div className="ListDishes">
+      {/* .map() in the dishes props to show the category */}
       {dishes.map((category) => (
         <div className="category" key={category.id}>
           <h2 className="category-name">{category.name}</h2>
           <ul>
+            {/* .map() in dishes of each category */}
             {category.dishes.map(({ id, name, price, description, image }) => (
               <li className="dishe-item" key={id}>
                 <div className="dishe-left">

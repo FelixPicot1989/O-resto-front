@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Footer.scss';
 import { Link } from 'react-router-dom';
 
-// Reste à dynamiser les informations des paragraphes et de rajouter des LinkTo grâce à react-router-dom
+import './Footer.scss';
+
+// Infos props come from an API call made in App.jsx
 function Footer({ infos }) {
-  // console.log(infos);
   return (
     <div className="Footer">
       <div className="infos-pratiques">

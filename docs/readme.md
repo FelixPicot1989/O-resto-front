@@ -103,13 +103,13 @@ emailjs : npm i @emailjs/browser
 is-valid-domain : npm i is-valid-domain
 recoil: npm install recoil
 jwt-decode : npm install jwt-decode
+proptypes : npm install proptypes
+react-calendar : npm install react-calendar
 ```
 
-## External tool for our projet
+## External tool for our project
 
-Booking Tool : https://resos.com/ (Utilisation de la doc officielle pour intégrer le widget sur notre site)
-
-Google Maps : https://www.google.com/maps?ll=49.401969,3.003703&z=16&t=m&hl=fr&gl=FR&mapclient=embed&q=2+Rue+du+March%C3%A9+60350+Cuise-la-Motte (Utilisation d'un iframe pour l'intégrer sur notre site)
+Google Maps : <https://www.google.com/maps?ll=49.401969,3.003703&z=16&t=m&hl=fr&gl=FR&mapclient=embed&q=2+Rue+du+March%C3%A9+60350+Cuise-la-Motte> (Utilisation d'un iframe pour l'intégrer sur notre site)
 
 ## Launch Vite server
 
@@ -119,7 +119,7 @@ npm run dev
 
 ---
 
-# Git
+## Git
 
 We decided to use Git Flow to manage the project
 
@@ -135,3 +135,32 @@ When feature is finished :
 ```bash
 git flow feature finish nameOfFeature
 ```
+
+## How to install project on your local
+
+Make sure you have at least node version 14 and run this to install dependencies :
+
+```bash
+npm install
+```
+
+To launch dev, run this :
+
+```bash
+npm run dev
+```
+
+To build the app, run this :
+
+```bash
+npm run build
+```
+
+and then a new folder "dist" are created, to see the build run this :
+
+```bash
+npm run preview
+```
+
+or upload the project to your server.
+Don't forget to make DocumentRoot point to the folder "dist"

@@ -1,21 +1,30 @@
-import './ContactForm.scss';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import isValidDomain from 'is-valid-domain';
+
 import ToastNotif from '../ToastNotif/ToastNotif';
 
+import './ContactForm.scss';
+
 function ContactForm() {
+  // Variable imported from .env file and usefull for the library emailJS
   const serviceId = import.meta.env.VITE_SERVICE_ID;
   const templateId = import.meta.env.VITE_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_YOUR_PUBLIC_KEY;
+
   const form = useRef();
+
+  // States to manage the fields
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
+
+  // States to manage the differents views
   const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const resetForm = () => {
     setEmail('');
@@ -39,6 +48,7 @@ function ContactForm() {
     evt.preventDefault();
     setLoading(true);
 
+    // Check if email, name and message fields are not empty
     if (!email.trim() || !name.trim() || !message.trim()) {
       setError('Veuillez remplir tous les champs');
       setTimeout(() => {
@@ -48,6 +58,7 @@ function ContactForm() {
       return;
     }
 
+    // Validate the email address format
     const emailParts = email.split('@');
     if (emailParts.length !== 2) {
       setError("L'email n'est pas valide");
@@ -58,6 +69,7 @@ function ContactForm() {
       return;
     }
 
+    // Check the domain of the email with isValidDomain library
     const domain = emailParts[1];
     if (!isValidDomain(domain)) {
       setError("Le domaine de l'email n'est pas valide");

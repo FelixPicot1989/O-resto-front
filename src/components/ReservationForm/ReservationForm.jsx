@@ -1,19 +1,27 @@
-import './ReservationForm.scss';
 import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import Calendar from 'react-calendar';
+
 import ToastNotif from '../ToastNotif/ToastNotif';
 import { isUserLogged } from '../Recoil/Recoil';
 
-function ReservationForm() {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
-  const [loading, setLoading] = useState(false);
-  const userLogged = useRecoilValue(isUserLogged);
+import './ReservationForm.scss';
 
+// Calendar and select to make a reservation
+function ReservationForm() {
+  // URL of the API imported from the file .env
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
+  // States to manage the fields
   const [date, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState('');
   const [numberOfCovers, setNumberOfCovers] = useState(1);
+
+  // States to manage the differents views (if the user is not logged then he can't submit his reservation...)
+  const [loading, setLoading] = useState(false);
+  const userLogged = useRecoilValue(isUserLogged);
+
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
@@ -38,23 +46,26 @@ function ReservationForm() {
     personnes.push(i);
   }
 
+  // The back-end need the date in AA-MM-DD format, this function is here to do that
   const handleDateChange = (selectedDate) => {
     const year = selectedDate.getFullYear().toString().padStart(2, '0');
     const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
     const day = selectedDate.getDate().toString().padStart(2, '0');
 
-    // Formater la date au format "AA-MM-DD"
+    // Format the date to AA-MM-DD
     const formattedDate = `${year}-${month}-${day}`;
 
-    // Mettre à jour l'état avec la date formatée
+    // Update the state with the new formated date
     setDate(formattedDate);
   };
 
+  // Transform a string into a number
   const handleNumberOfCovers = (stringToInt) => {
     const numberOfCoversToInt = parseInt(stringToInt, 10);
     setNumberOfCovers(numberOfCoversToInt);
   };
 
+  // API call to send the reservation
   const sendReservation = async () => {
     setLoading(true);
     try {
@@ -73,9 +84,9 @@ function ReservationForm() {
         }
       );
 
+      // Manage sucess or error
       if (response.status === 201) {
         setSuccess('Réservation confirmée');
-        console.log(response);
       } else {
         setError('Une erreur est survenue lors de la réservation.');
       }
@@ -85,16 +96,18 @@ function ReservationForm() {
     }
 
     setLoading(false);
-    // On set à null success et error à la fin du submit
+    // Setting to null at the end of the submit
     setTimeout(() => {
       setSuccess(null);
       setError(null);
     }, 7000);
   };
 
+  // Trigger when the user submit the reservation
   const handleReservation = (e) => {
     e.preventDefault();
 
+    // Check if he selected a date, a time and a number of people between 1 and 10
     if (typeof date !== 'string' || selectedTime === '' || numberOfCovers > 10 || numberOfCovers < 1) {
       if (typeof date !== 'string') {
         setError('Pas de date choisie');
@@ -107,6 +120,7 @@ function ReservationForm() {
       if (numberOfCovers > 10 || numberOfCovers < 1) {
         setError('Problème de couverts');
       }
+      // if all is okay, then we make the API call
     } else {
       sendReservation();
     }

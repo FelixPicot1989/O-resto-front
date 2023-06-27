@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './HomePage.scss';
+
 import CarouselBgImages from '../components/CarouselBgImages/CarouselBgImages';
 import CarouselReview from '../components/CarouselReview/CarouselReview';
+
+import './HomePage.scss';
 
 function HomePage({ history }) {
   return (
     <div className="HomePage">
+      {/* Props : title of the page */}
       <CarouselBgImages title="O'resto" />
       <div className="Oresto-story">
         <h2>Histoire du restaurant</h2>

@@ -1,6 +1,6 @@
 import React from 'react';
+
 import CarouselBgImages from '../components/CarouselBgImages/CarouselBgImages';
-// import BookingTool from '../components/BookingTool/BookingTool';
 import ContactForm from '../components/ContactForm/ContactForm';
 import ReservationForm from '../components/ReservationForm/ReservationForm';
 

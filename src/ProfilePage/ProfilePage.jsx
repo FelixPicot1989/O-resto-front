@@ -3,34 +3,41 @@ import './ProfilePage.scss';
 import { useState, useEffect } from 'react';
 import isValidDomain from 'is-valid-domain';
 import axios from 'axios';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import ToastNotif from '../components/ToastNotif/ToastNotif';
+import { useRecoilState } from 'recoil';
 
+import ToastNotif from '../components/ToastNotif/ToastNotif';
 import { userInfo } from '../components/Recoil/Recoil';
 import UserReservation from '../components/UserReservation/UserReservation';
 
 function ProfilPage() {
+  // URL of the API imported from the file .env
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const userInfos = useRecoilValue(userInfo);
-  const setUserInfo = useSetRecoilState(userInfo);
 
+  const [userInfos, setUserInfo] = useRecoilState(userInfo);
+
+  // States to manage the fields
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reservations, setReservations] = useState([]);
+
+  // States to manage the differents views (do the password need to be seen clearly...)
+  const [showPasswordFirst, setShowPasswordFirst] = useState(false);
+  const [showPasswordSecond, setShowPasswordSecond] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // States to verify if the password respect all the conditions
   const [hasUpperCase, setHasUpperCase] = useState(false);
   const [hasNumber, setHasNumber] = useState(false);
   const [hasSixChars, setHasSixChars] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(false);
-  const [showPasswordFirst, setShowPasswordFirst] = useState(false);
-  const [showPasswordSecond, setShowPasswordSecond] = useState(false);
 
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
+
+  // With the token of the user (stocked in localStorage when he's connected) we get his informations and stocked them with setUserInfo
   const fetchUserInfo = async () => {
     try {
       const response = await axios.get(`${baseUrl}/api/users/me`, {
@@ -52,11 +59,17 @@ function ProfilPage() {
     }
   };
 
-  // Vérifie si "password" et "confirmPassword" ont tous les deux une valeur et si elles sont identiques.
-  // Ce résultat est ensuite converti en un booléen et stocké dans "passwordsMatch".
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+  // Checks whether "password" and "confirmPassword" both have a value and whether they are identical.
+  // This result is then converted to a Boolean and stored in "passwordsMatch".
   useEffect(() => {
     setPasswordsMatch(Boolean(password && confirmPassword === password));
   }, [confirmPassword, password]);
+
+  // If userInfos change, re-render
   useEffect(() => {
     if (userInfos) {
       setFirstname(userInfos.firstname);
@@ -67,17 +80,13 @@ function ProfilPage() {
     }
   }, [userInfos]);
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
   const handlePasswordChange = ({ target: { value } }) => {
     setPassword(value);
-    // Vérifier la présence de lettres majuscules
+    // Check for capital letters
     setHasUpperCase(value.toLowerCase() !== value);
-    // Vérifier la présence d'un chiffre
+    // Check if there's a number
     setHasNumber(/\d/.test(value));
-    // Vérifier la présence d'au moins 6 caractères
+    // Check if there's at least 6 characters
     setHasSixChars(value.length >= 6);
   };
 
@@ -85,20 +94,20 @@ function ProfilPage() {
     e.preventDefault();
     setLoading(true);
 
-    // On verifie si tous les champs ne sont pas vide
+    // Check that all fields are not empty
     if (!email.trim() || !password.trim() || !firstname.trim() || !lastname.trim()) {
       setError('Veuillez remplir tous les champs');
       setLoading(false);
       return;
     }
-    // On verifie si c'est bien un email
+    // Check if it's an email
     const emailParts = email.split('@');
     if (emailParts.length !== 2) {
       setError("L'email n'est pas valide");
       setLoading(false);
       return;
     }
-    // On verifie le domaine
+    // Check the domain
     const domain = emailParts[1];
     if (!isValidDomain(domain)) {
       setError("Le domaine de l'email n'est pas valide");
@@ -106,6 +115,7 @@ function ProfilPage() {
       return;
     }
 
+    // If everything is okay then we make a put request to modify the user with the new informations
     try {
       const response = await axios.put(
         `${baseUrl}/api/users/${userInfos.id}`,
@@ -137,7 +147,7 @@ function ProfilPage() {
     }
 
     setLoading(false);
-    // On set à null success et error à la fin du submit
+    // Setting to null at the end of the submit
     setTimeout(() => {
       setSuccess(null);
       setError(null);
@@ -158,11 +168,10 @@ function ProfilPage() {
                 name="email"
                 id="email"
                 value={email}
-                // onChange pour l'email non utile
                 // onChange={(e) => {
                 //   setEmail(e.target.value);
                 // }}
-                // disabled car comme ca on empeche le user de modifier son identifiant ce qui eviter les problemes avec le token JWT
+                // disabled because it prevents the user from modifying his identifier, thus avoiding problems with the JWT token.
                 disabled
               />
             </div>

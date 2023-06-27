@@ -5,30 +5,40 @@ import { useSetRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import isValidDomain from 'is-valid-domain';
 import axios from 'axios';
+
 import { isUserLogged, userInfo } from '../Recoil/Recoil';
 import ToastNotif from '../ToastNotif/ToastNotif';
 
 import './AuthForm.scss';
 
+// Components to show the authentification form
 function AuthForm({ showLoginForm, toggleLoginForm }) {
+  // States to manage the fields
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+
+  // States to manage the differents views (do the password need to be seen clearly...)
   const [showPasswordFirst, setShowPasswordFirst] = useState(false);
   const [showPasswordSecond, setShowPasswordSecond] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+
+  // States to verify if the password respect all the conditions
   const [hasUpperCase, setHasUpperCase] = useState(false);
   const [hasNumber, setHasNumber] = useState(false);
   const [hasSixChars, setHasSixChars] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(false);
+
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  // URL of the API imported from the file .env
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
+  // Variable that will set the informations of the user
   const setUserInfo = useSetRecoilState(userInfo);
 
   const resetForm = () => {
@@ -43,24 +53,26 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
     setPasswordsMatch(false);
   };
 
+  // Variable defining whether the user is logged in or not
   const setUserLogged = useSetRecoilState(isUserLogged);
 
   const handlePasswordChange = ({ target: { value } }) => {
     setPassword(value);
-    // Vérifier la présence de lettres majuscules
+    // Check for capital letters
     setHasUpperCase(value.toLowerCase() !== value);
-    // Vérifier la présence d'un chiffre
+    // Check if there's a number
     setHasNumber(/\d/.test(value));
-    // Vérifier la présence d'au moins 6 caractères
+    // Check if there's at least 6 characters
     setHasSixChars(value.length >= 6);
   };
 
-  // Vérifie si "password" et "confirmPassword" ont tous les deux une valeur et si elles sont identiques.
-  // Ce résultat est ensuite converti en un booléen et stocké dans "passwordsMatch".
+  // Checks whether "password" and "confirmPassword" both have a value and whether they are identical.
+  // This result is then converted to a Boolean and stored in "passwordsMatch".
   useEffect(() => {
     setPasswordsMatch(Boolean(password && confirmPassword === password));
   }, [confirmPassword, password]);
 
+  // With the token of the user (stocked in localStorage when he's connected) we get his informations and stocked them with setUserInfo
   const fetchUserInfo = async () => {
     try {
       const response = await axios.get(`${baseUrl}/api/users/me`, {
@@ -85,27 +97,27 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
     e.preventDefault();
     setLoading(true);
 
-    // On verifie si tous les champs ne sont pas vide
+    // Check that all fields are not empty
     if (!email.trim() || !password.trim() || (isSignUp && (!firstName.trim() || !lastName.trim()))) {
       setError('Veuillez remplir tous les champs');
       setLoading(false);
       return;
     }
-    // On verifie si c'est bien un email
+    // Check if it's an email
     const emailParts = email.split('@');
     if (emailParts.length !== 2) {
       setError("L'email n'est pas valide");
       setLoading(false);
       return;
     }
-    // On verifie le domaine
+    // Check the domain
     const domain = emailParts[1];
     if (!isValidDomain(domain)) {
       setError("Le domaine de l'email n'est pas valide");
       setLoading(false);
       return;
     }
-    // On verifie si le mdp respect les attentes
+    // We check if the mdp meets expectations
     if (isSignUp && (!hasNumber || !hasSixChars || !passwordsMatch)) {
       setError('Le mot de passe ne répond pas aux exigences');
       setLoading(false);
@@ -114,7 +126,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
 
     try {
       let response;
-      // quand on s'incrit
+      // When you register
       if (isSignUp) {
         response = await axios.post(`${baseUrl}/api/users`, {
           firstname: firstName,
@@ -131,7 +143,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
           setError("Une erreur s'est produite");
         }
       } else {
-        // quand on se connecte
+        // When you log up
         response = await axios.post(`${baseUrl}/api/login_check`, {
           email,
           password,
@@ -155,7 +167,7 @@ function AuthForm({ showLoginForm, toggleLoginForm }) {
     }
 
     setLoading(false);
-    // On set à null success et error à la fin du submit
+    // Setting to null at the end of the submit
     setTimeout(() => {
       setSuccess(null);
       setError(null);
