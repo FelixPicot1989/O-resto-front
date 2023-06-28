@@ -30,6 +30,9 @@ import logoOresto from '../../assets/logo-oresto.png';
 import './Navbar.scss';
 
 function Navbar() {
+  // URL of the API imported from the file .env
+  const urlBackOffice = import.meta.env.VITE_BASE_URL_BACKOFFICE;
+
   // Use the useState hook to declare and initialize the navigation state (for the burger menu), the "Map" drop-down menu and the user drop-down menu that appears when the user is logged in.
   const [nav, setNav] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
@@ -151,11 +154,7 @@ function Navbar() {
                 {/* If he is an admin, he has access to an additional link that redirects him to the backoffice */}
                 {userInfos.roles.includes('ROLE_ADMIN') && (
                   <li className="dropdown-user-edit-item">
-                    <a
-                      href="http://felixpicot1989-server.eddi.cloud/projet-o-resto-back/public/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={urlBackOffice} target="_blank" rel="noopener noreferrer">
                       BackOffice
                     </a>
                   </li>
