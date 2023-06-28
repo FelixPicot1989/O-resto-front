@@ -7,7 +7,7 @@ import App from './App';
 import './styles/index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/oresto">
     <RecoilRoot>
       <React.StrictMode>
         <App />
