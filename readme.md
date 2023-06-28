@@ -1,66 +1,110 @@
 # How to install project on your local
 
-Clone this repo :
+1. Create a new folder `oresto`
 
+```back
+mkdir /var/www/html/oresto
+cd /var/www/html/oresto
 ```
+
+2. Clone there repos :
+
+```bash
 git clone git@github.com:O-clock-Radium/projet-o-resto-front.git
+git clone git@github.com:O-clock-Radium/projet-o-resto-back.git
 ```
 
-Go on the folder `projet-o-resto-front`
-
-Make sure you have at least node version 14 and run this to install dependencies :
+3. Create Apache Configuration File
+   Navigate to the /etc/apache2/sites-available directory:
 
 ```bash
-npm install
+cd /etc/apache2/sites-available
 ```
 
-To build the app, run this :
+4. Create a new file called oresto.conf:
 
 ```bash
-npm run build
+sudo vi oresto.conf
 ```
 
-and then a new folder "dist" are created, to see the build run this :
+Add the following content to the file:
+
+**Important: Make sure to replace {{YOUR-SERVER-NAME}} with your actual server name.**
+
+```apache
+<VirtualHost *:80>
+    ServerName {{YOUR-SERVER-NAME}}-server.eddi.cloud
+    DocumentRoot /var/www/html/oresto
+
+    Alias /oresto /var/www/html/oresto/projet-o-resto-front/dist/
+    <Directory /var/www/html/oresto/projet-o-resto-front/dist>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+
+        RewriteEngine On
+        RewriteBase /oresto
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^ . [L]
+    </Directory>
+
+    Alias /oresto-back /var/www/html/oresto/projet-o-resto-back/public
+    <Directory /var/www/html/oresto/projet-o-resto-back/public>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+5. Enable the Apache Rewrite Module
+   Run the following command to enable the rewrite module:
 
 ```bash
-npm run preview
+sudo a2enmod rewrite
 ```
 
-and clik on the link who display in your terminal. That's all.
-
-**Or** you can upload the project to your server.
-Don't forget to make DocumentRoot point to the folder "dist"
-
-To change your Document Root on your sever run this:
-
-```bash
-sudo vi /etc/apache2/sites-available/000-default.conf
-```
-
-**or**
-
-```bash
-sudo nano /etc/apache2/sites-available/000-default.conf
-```
-
-in this file change the line where DocumentRoot are write.
-Probably your DocumentRoot are like that : `/var/www/html`
-Change that with de root of your repo, some thing like that:
-
-```bash
-{{ROOT-OF-YOUR-REPO}}/dist
-```
-
-Don't forget the `/dist`
-
-And then save !
-
-Restart apache2, run this :
+6. Restart Apache
+   Run the following command to restart Apache:
 
 ```bash
 sudo service apache2 restart
 ```
 
-Go to your url
+7. Install and Build the Front-End Project
+   Go to the front-end project directory and run the following commands:
 
-And it work !
+```bash
+npm install
+npm run build
+```
+
+8. Access the Projects
+   The front-end of your site is now accessible at the following URL:
+
+```bash
+http://{{YOUR-SERVER-NAME}}-server.eddi.cloud/oresto
+```
+
+And the back-end is accessible at:
+
+```bash
+http://{{YOUR-SERVER-NAME}}-server.eddi.cloud/oresto-back
+```
+
+9. Update the .env File
+   In the .env file, update the VITE_BASE_URL_BACKOFFICE variable with the following value:
+
+```bash
+http://{{YOUR-SERVER-NAME}}-server.eddi.cloud/oresto-back
+```
+
+Similarly, update the VITE_BASE_URL variable with the following value:
+
+```bash
+http://{{YOUR-SERVER-NAME}}-server.eddi.cloud/oresto
+```
