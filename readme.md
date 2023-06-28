@@ -34,13 +34,13 @@ Don't forget to make DocumentRoot point to the folder "dist"
 To change your Document Root on your sever run this:
 
 ```bash
-sudo vi /etc/apache2/site-available/000-default.conf
+sudo vi /etc/apache2/sites-available/000-default.conf
 ```
 
 **or**
 
 ```bash
-sudo nano /etc/apache2/site-available/000-default.conf
+sudo nano /etc/apache2/sites-available/000-default.conf
 ```
 
 in this file change the line where DocumentRoot are write.
