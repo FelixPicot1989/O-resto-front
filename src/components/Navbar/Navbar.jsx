@@ -152,7 +152,7 @@ function Navbar() {
             {openUserDropdown && (
               <ul className="dropdown-user-edit-list">
                 {/* If he is an admin, he has access to an additional link that redirects him to the backoffice */}
-                {userInfos.roles.includes('ROLE_ADMIN') && (
+                {(userInfos.roles.includes('ROLE_DEMO') || userInfos.roles.includes('ROLE_ADMIN')) && (
                   <li className="dropdown-user-edit-item">
                     <a href={urlBackOffice} target="_blank" rel="noopener noreferrer">
                       BackOffice
