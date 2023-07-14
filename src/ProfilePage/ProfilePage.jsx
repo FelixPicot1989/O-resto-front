@@ -208,6 +208,7 @@ function ProfilPage() {
                 required
                 value={password}
                 onChange={handlePasswordChange}
+                disabled={email === 'demo@demo.com'}
               />
               <span className="show-password-first" onClick={() => setShowPasswordFirst(!showPasswordFirst)}>
                 {showPasswordFirst ? <i className="fas fa-eye" /> : <i className="fas fa-eye-slash" />}
@@ -222,6 +223,7 @@ function ProfilPage() {
                 value={confirmPassword}
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                disabled={email === 'demo@demo.com'}
               />
               <span className="show-password-second" onClick={() => setShowPasswordSecond(!showPasswordSecond)}>
                 {showPasswordSecond ? <i className="fas fa-eye" /> : <i className="fas fa-eye-slash" />}
